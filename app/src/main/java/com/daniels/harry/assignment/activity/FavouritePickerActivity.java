@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,16 +14,61 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.daniels.harry.assignment.R;
+import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class FavouritePickerActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private ActivityFavouritePickerBinding mbinding;
+    private static final String[] TEAMS = new String[]{
+            "liverpool",
+            "chelsea",
+            "arsenal",
+            "city",
+            "swansea",
+            "the scum",
+            "newcastle",
+            "everton",
+            "yids",
+    };
+
+    private static final Comparator<FavouriteTeamViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamViewModel>() {
+        @Override
+        public int compare(FavouriteTeamViewModel a, FavouriteTeamViewModel b) {
+            return a.getDistance() - b.getDistance();
+        }
+    };
+
+    private FavouriteTeamListViewAdapter mListViewAdapter;
+    private List<FavouriteTeamViewModel> mModels;
+    private ActivityFavouritePickerBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favourite_picker);
+
+        mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, new FavouriteTeamListViewAdapter.Listener() {
+            @Override
+            public void onClick(FavouriteTeamViewModel vm) {
+                Snackbar.make(mBinding.getRoot(), "piss", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        mBinding.listFavouritePicker.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
+
+        mModels = new ArrayList<>();
+        for (int i = 0, count = TEAMS.length; i < count; i++) {
+            mModels.add(new FavouriteTeamViewModel(TEAMS[i], (i+4*3)));
+        }
+        mListViewAdapter.edit()
+                .replaceAll(mModels)
+                .commit();
     }
 
     @Override

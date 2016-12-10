@@ -1,6 +1,7 @@
 package com.daniels.harry.assignment.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -39,6 +40,8 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.btn_launch_fav_team) {
+            Intent i = new Intent(this, FavouritePickerActivity.class);
+            startActivity(i);
             return true;
         }
 

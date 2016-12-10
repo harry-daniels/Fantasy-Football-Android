@@ -4,11 +4,11 @@
     <data>
         <variable
             name="listener"
-            type="com.github.wrdlbrnft.searchablerecyclerviewdemo.ui.adapter.ExampleAdapter.Listener" />
+            type="com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter.Listener" />
 
         <variable
-            name="favourite"
-            type="com.daniels.harry.assignment.model.FavouriteTeamModel" />
+            name="model"
+            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel" />
     </data>
 
     <FrameLayout
@@ -16,13 +16,13 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:onClick="@{view -> listener.onExampleModelClicked(favourite)}">
+        android:onClick="@{view -> listener.onClick(model)}">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@{favourite.text}" />
+            android:text="@{model.name}" />
 
     </FrameLayout>
 

@@ -1,20 +1,24 @@
 package com.daniels.harry.assignment.viewholder;
 
-import android.view.View;
-
-import com.daniels.harry.assignment.model.FavouriteTeamModel;
+import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
+import com.daniels.harry.assignment.databinding.ListitemFavouriteBinding;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
-public class FavouritePickerListViewHolder extends SortedListAdapter.ViewHolder<FavouriteTeamModel> {
+public class FavouritePickerListViewHolder extends SortedListAdapter.ViewHolder<FavouriteTeamViewModel> {
 
-    private final ListitemFavouriteBinding  mBinding;
+    private final ListitemFavouriteBinding mBinding;
 
-    public FavouritePickerListViewHolder(View itemView) {
-        super(itemView);
+    public FavouritePickerListViewHolder(ListitemFavouriteBinding binding, FavouriteTeamListViewAdapter.Listener listener) {
+        super(binding.getRoot());
+
+        binding.setListener(listener);
+        mBinding = binding;
     }
 
     @Override
-    protected void performBind(FavouriteTeamModel favouriteTeamModel) {
-
+    protected void performBind(FavouriteTeamViewModel item) {
+        mBinding.setModel(item);
     }
+
 }
