@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fantasyGreen" type="color">#4C9966</item>
+    <item name="fantasyGreenDark" type="color">#0F5B29</item>
+    <item name="fantasyGreenDarkest" type="color">#00240C</item>
+</resources>
