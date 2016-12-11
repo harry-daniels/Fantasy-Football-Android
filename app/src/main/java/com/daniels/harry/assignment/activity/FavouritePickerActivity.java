@@ -10,10 +10,26 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bluelinelabs.logansquare.LoganSquare;
+import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -40,8 +56,8 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
         }
     };
 
+    private List<FavouriteTeamViewModel> mViewModels = new ArrayList<>();
     private FavouriteTeamListViewAdapter mListViewAdapter;
-    private List<FavouriteTeamViewModel> mModels;
     private ActivityFavouritePickerBinding mBinding;
 
     @Override
@@ -59,15 +75,7 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
         mBinding.listFavouritePicker.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
 
-        Random r = new Random();
-
-        mModels = new ArrayList<>();
-        for (int i = 0, count = TEAMS.length; i < count; i++) {
-            mModels.add(new FavouriteTeamViewModel(TEAMS[i], r.nextInt(1024 - 65) + 65));
-        }
-        mListViewAdapter.edit()
-                .replaceAll(mModels)
-                .commit();
+        handleHttpRequest();
     }
 
     @Override
@@ -83,7 +91,7 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
 
     @Override
     public boolean onQueryTextChange(String query) {
-        final List<FavouriteTeamViewModel> filteredModelList = filter(mModels, query);
+        final List<FavouriteTeamViewModel> filteredModelList = filter(mViewModels, query);
         mListViewAdapter.edit()
                 .replaceAll(filteredModelList)
                 .commit();
@@ -109,5 +117,39 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
         }
 
         return filteredModelList;
+    }
+
+    private void handleHttpRequest(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://fifabuddy.net/api/team";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject o = response.getJSONObject(i);
+                                FavouriteTeamViewModel vm = LoganSquare.parse(o.toString(), FavouriteTeamViewModel.class);
+                                mViewModels.add(vm);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        mListViewAdapter.edit()
+                                .replaceAll(mViewModels)
+                                .commit();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        queue.add(request);
     }
 }
