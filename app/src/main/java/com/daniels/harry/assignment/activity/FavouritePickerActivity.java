@@ -17,6 +17,7 @@ import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class FavouritePickerActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -58,9 +59,11 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
         mBinding.listFavouritePicker.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
 
+        Random r = new Random();
+
         mModels = new ArrayList<>();
         for (int i = 0, count = TEAMS.length; i < count; i++) {
-            mModels.add(new FavouriteTeamViewModel(TEAMS[i], (i+4*3)));
+            mModels.add(new FavouriteTeamViewModel(TEAMS[i], r.nextInt(1024 - 65) + 65));
         }
         mListViewAdapter.edit()
                 .replaceAll(mModels)

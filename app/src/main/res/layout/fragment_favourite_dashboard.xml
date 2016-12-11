@@ -41,14 +41,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Liverpool FC"
-                        android:textSize="24dp" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/lbl_favourite_team_ground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Anfield"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                     android:layout_weight=".20"
                     android:gravity="center"
                     android:text="1st"
-                    android:textSize="28dp" />
+                    android:textSize="28sp" />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="NEXT FIXTURE"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_marginBottom="8dp"/>
 
                 <LinearLayout
@@ -127,21 +127,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="West Ham United"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/lbl_favourite_next_ground"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Olympic Stadium"
-                            android:textSize="16dp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/lbl_favourite_next_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Sat 23rd Nov  -  15:00"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -169,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="PHILLIPE COUTINHO"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:gravity="center"
                         android:layout_gravity="top"
                         android:layout_marginBottom="12dp"/>
@@ -178,7 +178,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6"
-                        android:textSize="28dp"
+                        android:textSize="28sp"
                         android:gravity="center"
                         android:layout_marginBottom="12dp"/>
 
@@ -186,7 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TOP SCORER"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"
                         android:layout_gravity="bottom"/>
 
@@ -210,7 +210,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ROBERTO FIRMINO"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:gravity="center"
                         android:layout_gravity="top"
                         android:layout_marginBottom="12dp"/>
@@ -219,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="14"
-                        android:textSize="28dp"
+                        android:textSize="28sp"
                         android:gravity="center"
                         android:layout_marginBottom="12dp"/>
 
@@ -227,7 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="MOST ASSISTS"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"
                         android:layout_gravity="bottom"/>
 
