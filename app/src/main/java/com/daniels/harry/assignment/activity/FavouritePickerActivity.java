@@ -2,22 +2,18 @@ package com.daniels.harry.assignment.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -84,12 +80,31 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
 
     @Override
     public boolean onQueryTextChange(String query) {
-        // Here is where we are going to implement the filter logic
-        return false;
+        final List<FavouriteTeamViewModel> filteredModelList = filter(mModels, query);
+        mListViewAdapter.edit()
+                .replaceAll(filteredModelList)
+                .commit();
+        mBinding.listFavouritePicker.scrollToPosition(0);
+        return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
+    }
+
+    private static List<FavouriteTeamViewModel> filter (List<FavouriteTeamViewModel> models, String query)
+    {
+        final String lowerCaseQuery = query.toLowerCase();
+
+        final List<FavouriteTeamViewModel> filteredModelList = new ArrayList<>();
+        for (FavouriteTeamViewModel model : models) {
+            final String name = model.getName().toLowerCase();
+            if (name.contains(lowerCaseQuery)) {
+                filteredModelList.add(model);
+            }
+        }
+
+        return filteredModelList;
     }
 }

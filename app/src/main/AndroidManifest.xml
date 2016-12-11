@@ -18,9 +18,8 @@
         </activity>
         <activity
             android:name=".activity.FavouritePickerActivity"
-            android:label="@string/title_activity_favourite_picker"
-            android:parentActivityName=".activity.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/select_favourite"
+            android:parentActivityName=".activity.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.daniels.harry.assignment.activity.DashboardActivity" />

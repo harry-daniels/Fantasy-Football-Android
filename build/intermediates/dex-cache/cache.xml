@@ -12,6 +12,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffc024de39e013b2f093c338fc03f39a5f046a25">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.1.1_12a8f864b4708a3efc33c4a0c889504521c30655\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
@@ -21,12 +39,30 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.wrdlbrnft\sorted-list-adapter\0.2.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.0_26ddff4b529f2d58d88566113a125138dd2b7175\classes.dex" />
+        revision="23.0.3"
+        sha1="1e4e400603780c5d414531d26bce6eacca94c86e">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.1_8f1901b9882882a311fbae1fcaac41921b5779a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.1.1_54774b33cc1ce56630ee8d3d3b76cf957a8443f0\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -39,39 +75,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.0_29d5a71009ea62edb3dc70f5cb40b7354a42b1eb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.0_8c13c84656c074ab005444fc7486f8b702d3ae95\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="ffc024de39e013b2f093c338fc03f39a5f046a25">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.0_3fff222d464934a3751953392c6691d1a5aaf8d7\classes.dex" />
+        revision="23.0.3"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_38b1077b2bca361a94c2de87ff8ebfe6f52555da\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -84,12 +93,57 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-22.2.0_ec29b4276fd3e38d15c0d45481e890519993bbc7\classes.dex" />
+        revision="23.0.3"
+        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="57f2b31d26f311ecd6d172785c012ad8ea630ecf">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b769c4de9f367c96ead099dc7a98ee3aa67bd605\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_bec320d1da1308f4c75baa2459da63ffc6190ffd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.2.2\baseLibrary-2.2.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8e3519b9d5287840df40776a8268ae336ca9f063">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\baseLibrary-2.2.2_549c1050baf55698fccfb58cff10564e3d758b2f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_fdac5b13fef7711bee4ea22e7651c75b32e4d904\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -102,21 +156,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.0\jars\classes.jar"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-22.2.0_19c0cada7e2d12f19f7ad66c667c5904c43982b5\classes.dex" />
+        revision="23.0.3"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_626ae9ad3494c3bcbbc4e56ff64f4115621be1db\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-22.2.0_40421c0859e4cc8ee6fe6412b224474e3be41ce2\classes.dex" />
+        sha1="ffc024de39e013b2f093c338fc03f39a5f046a25">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
     </item>
 
 </items>
