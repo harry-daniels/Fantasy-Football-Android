@@ -1,241 +1,244 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="6dp"
-    tools:context="com.daniels.harry.assignment.fragment.TeamDashboardFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:padding="6dp">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:layout_weight=".40" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".30"
-                    android:src="@drawable/lfc" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".50"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/lbl_favourite_team_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Liverpool FC"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/lbl_favourite_team_ground"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Anfield"
-                        android:textSize="20sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="bottom"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/lbl_favourite_team_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Liverpool  -  " />
-
-                        <TextView
-                            android:id="@+id/lbl_favourite_team_distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="154.3 mi" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/lbl_favourite_position"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".20"
-                    android:gravity="center"
-                    android:text="1st"
-                    android:textSize="28sp" />
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:layout_weight=".30" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NEXT FIXTURE"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="8dp"/>
+                android:layout_height="0dp"
+                android:layout_margin="6dp"
+                android:layout_weight=".40">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".30"
-                        android:src="@drawable/lfc" />
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".50"
+                        android:layout_weight=".30"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight=".70"
+                            app:crestUrl="@{viewmodel.crestUrl}" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight=".30"
+                            android:gravity="center_horizontal"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:text="@{viewmodel.position}"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:layout_weight=".70"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/lbl_favourite_next_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="West Ham United"
-                            android:textSize="20sp" />
+                            android:text="@{viewmodel.name}"
+                            android:textSize="28sp" />
 
                         <TextView
-                            android:id="@+id/lbl_favourite_next_ground"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Olympic Stadium"
-                            android:textSize="16sp" />
+                            android:text="@{viewmodel.ground}"
+                            android:textSize="24sp" />
 
                         <TextView
-                            android:id="@+id/lbl_favourite_next_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Sat 23rd Nov  -  15:00"
-                            android:textSize="12sp"
-                            android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="16dp"
+                            android:textSize="20sp"
+                            android:text='@{viewmodel.distance + " miles"}' />
+
                     </LinearLayout>
                 </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="6dp"
+                android:layout_weight=".30">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/next_fixture"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".30"
+                            app:crestUrl="@{viewmodel.nextFixture.crestUrl}" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".50"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20sp"
+                                android:text="@{viewmodel.nextFixture.oppositionName}"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@{viewmodel.nextFixture.location}"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textSize="12sp"
+                                android:text="@{viewmodel.nextFixture.date}"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".30"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
+                    android:layout_weight=".50">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center"
+                            android:text="PHILLIPE COUTINHO"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center"
+                            android:text="6"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:text="TOP SCORER"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
+                    android:layout_weight=".50"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center"
+                            android:text="ROBERTO FIRMINO"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center"
+                            android:text="14"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:text="MOST ASSISTS"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".30"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="6dp"
-                android:layout_weight=".50">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="PHILLIPE COUTINHO"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:layout_gravity="top"
-                        android:layout_marginBottom="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="6"
-                        android:textSize="28sp"
-                        android:gravity="center"
-                        android:layout_marginBottom="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TOP SCORER"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:layout_gravity="bottom"/>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="6dp"
-                android:layout_weight=".50"
-                android:padding="12dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ROBERTO FIRMINO"
-                        android:textSize="14sp"
-                        android:gravity="center"
-                        android:layout_gravity="top"
-                        android:layout_marginBottom="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="14"
-                        android:textSize="28sp"
-                        android:gravity="center"
-                        android:layout_marginBottom="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="MOST ASSISTS"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:layout_gravity="bottom"/>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

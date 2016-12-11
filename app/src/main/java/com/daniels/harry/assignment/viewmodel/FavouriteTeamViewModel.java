@@ -9,10 +9,43 @@ import com.daniels.harry.assignment.R;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 @JsonObject
 public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public FavouriteTeamViewModel() {
+    }
+
+    public void calculateFixtureDetails()
+    {
+        if (prevFixture != null)
+        {
+            if (Objects.equals(prevFixture.getHomeTeamName(), name))
+            {
+                prevFixture.setOppositionName(prevFixture.getAwayTeamName());
+                prevFixture.setLocation("Home");
+            }
+            else
+            {
+                prevFixture.setOppositionName(prevFixture.getHomeTeamName());
+                prevFixture.setLocation("Away");
+            }
+        }
+
+        if (nextFixture != null)
+        {
+            if (Objects.equals(nextFixture.getHomeTeamName(), name))
+            {
+                nextFixture.setOppositionName(nextFixture.getAwayTeamName());
+                nextFixture.setLocation("Home");
+            }
+            else
+            {
+                nextFixture.setOppositionName(nextFixture.getHomeTeamName());
+                nextFixture.setLocation("Away");
+            }
+        }
     }
 
     @BindingAdapter({"bind:crestUrl"})
@@ -39,6 +72,9 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
     private String crestUrl;
 
     private int distance;
+    private String position;
+    private FixtureViewModel prevFixture;
+    private FixtureViewModel nextFixture;
 
     public String getName() {
         return name;
@@ -86,5 +122,29 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public FixtureViewModel getPrevFixture() {
+        return prevFixture;
+    }
+
+    public void setPrevFixture(FixtureViewModel prevFixture) {
+        this.prevFixture = prevFixture;
+    }
+
+    public FixtureViewModel getNextFixture() {
+        return nextFixture;
+    }
+
+    public void setNextFixture(FixtureViewModel nextFixture) {
+        this.nextFixture = nextFixture;
     }
 }

@@ -15,11 +15,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
@@ -33,21 +30,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class FavouritePickerActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-
-    private static final String[] TEAMS = new String[]{
-            "liverpool",
-            "chelsea",
-            "arsenal",
-            "city",
-            "swansea",
-            "the scum",
-            "newcastle",
-            "everton",
-            "yids",
-    };
 
     private static final Comparator<FavouriteTeamViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamViewModel>() {
         @Override
@@ -119,8 +103,10 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
         return filteredModelList;
     }
 
+    //TODO: Maybe abstract method to separate class?
     private void handleHttpRequest(){
         RequestQueue queue = Volley.newRequestQueue(this);
+        //TODO: Move URL strings to string resources
         String url ="http://fifabuddy.net/api/team";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -133,6 +119,8 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
                                 JSONObject o = response.getJSONObject(i);
                                 FavouriteTeamViewModel vm = LoganSquare.parse(o.toString(), FavouriteTeamViewModel.class);
                                 mViewModels.add(vm);
+
+                                //TODO: Handle catch
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -147,6 +135,7 @@ public class FavouritePickerActivity extends AppCompatActivity implements Search
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //TODO: Add error handling
             }
         });
 

@@ -12,15 +12,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ffc024de39e013b2f093c338fc03f39a5f046a25">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -57,24 +48,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.5.1\e2a00ad1d7e540ec395e9296a34da484c8888d4d\jackson-core-2.5.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="e2a00ad1d7e540ec395e9296a34da484c8888d4d">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.5.1_ef6881914e37b4b2474c237356078c3283eb5fbb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -105,24 +78,6 @@
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
         revision="23.0.3"
         sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f\classes.dex" />
@@ -135,15 +90,6 @@
         revision="23.0.3"
         sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_2b1a900cb332a555f24c40631f38b28b7583826c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="028ddd7a9a054d618721e6b52674489e0ab53ac5">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b769c4de9f367c96ead099dc7a98ee3aa67bd605\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -174,15 +120,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.wrdlbrnft\sorted-list-adapter\0.2.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="1e4e400603780c5d414531d26bce6eacca94c86e">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.bluelinelabs\logansquare\1.3.6\2e059622d3d37758b0f8022fd678de02b025cbe8\logansquare-1.3.6.jar"
         jumboMode="true"
         optimize="true"
@@ -207,6 +144,69 @@
         revision="22.0.1"
         sha1="ffc024de39e013b2f093c338fc03f39a5f046a25">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6469b70df9c0d0059573e47ba3c16ec0fc5719de">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8f8c83004d1f69878c943377953e02c01bbedb69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.5.1\e2a00ad1d7e540ec395e9296a34da484c8888d4d\jackson-core-2.5.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e2a00ad1d7e540ec395e9296a34da484c8888d4d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.5.1_ef6881914e37b4b2474c237356078c3283eb5fbb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ffaa3f5fa31b6a5c92df380e2ffffd000e8e40a3">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b769c4de9f367c96ead099dc7a98ee3aa67bd605\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.wrdlbrnft\sorted-list-adapter\0.2.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="1e4e400603780c5d414531d26bce6eacca94c86e">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f\classes.dex" />
     </item>
 
 </items>

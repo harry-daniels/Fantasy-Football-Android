@@ -11,8 +11,6 @@ import com.daniels.harry.assignment.R;
 
 public class LeagueDashboardFragment extends Fragment {
 
-    private static final String KEY_TAB_INDEX = "tab_index";
-
     public LeagueDashboardFragment() {
 
     }
