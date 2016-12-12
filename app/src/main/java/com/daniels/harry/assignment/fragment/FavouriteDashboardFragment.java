@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
@@ -38,12 +39,22 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private static final String REQUEST_POSITION = "req_pos";
     private static final String REQUEST_NEXT_FIXTURE = "req_nf";
     private static final String REQUEST_PREV_FIXTURE = "req_pf";
+    private static final String REQUEST_NEXT_CREST = "req_nc";
+    private static final String REQUEST_PREV_CREST = "req_pc";
+
+    private String mTeamApiEndpoint = "http://fifabuddy.net/api/team/64";
+    private String mNextFixtureApiEndpoint = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=n10";
+    private String mPrevFixtureApiEndpoint = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=p10";
+    private String mNextCrestApiEndpoint = "http://fifabuddy.net/api/Crest?name=";
+    private String mPrevCrestApiEndpoint = "http://fifabuddy.net/api/Crest?name=";
+    private String mPositionApiEndpoint = "http://api.football-data.org/v1/competitions/426/leagueTable";
 
     private RequestQueue mRequestQueue;
     private FragmentFavouriteDashboardBinding mBinding;
     private FavouriteTeamViewModel mFavouriteTeamVm;
 
-    private JsonObjectRequest mPositionRequest, mPrevFixtureRequest, mNextFixtureRequest;
+    private JsonObjectRequest mTeamRequest, mPositionRequest, mPrevFixtureRequest, mNextFixtureRequest;
+    private StringRequest mPrevCrestRequest, mNextCrestRequest;
 
     public FavouriteDashboardFragment() {
 
@@ -63,7 +74,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
-        handleHttpRequest();
+        handleHttpRequests();
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_dashboard, container, false);
         View view = mBinding.getRoot();
@@ -76,17 +87,81 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         super.onDetach();
     }
 
-    private void handleHttpRequest(){
-        //TODO: Link with SQLdb
+    private void handleHttpRequests(){
+
+        createTeamRequest();
+        createPositionRequest();
+        createFixtureRequests();
+
+        mRequestQueue.addRequestFinishedListener(this);
+        mRequestQueue.add(mTeamRequest);
+    }
+
+    public void createPositionRequest()
+    {
         final String teamName = "Liverpool FC";
 
-        //TODO: Move URL strings to string resources
-        String teamUrl = "http://fifabuddy.net/api/team/64";
-        String nextFixtureUrl = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=n10";
-        String prevFixtureUrl = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=p10";
-        String positionUrl = "http://api.football-data.org/v1/competitions/426/leagueTable";
+        mPositionRequest = new JsonObjectRequest(Request.Method.GET, mPositionApiEndpoint, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray standings = response.getJSONArray("standing");
+                            for (int i = 0; i < standings.length(); i++) {
+                                JSONObject standing = standings.getJSONObject(i);
+                                if (Objects.equals(standing.getString("teamName"), teamName))
+                                {
+                                    mFavouriteTeamVm.setPosition(standing.getString("position"));
+                                    mFavouriteTeamVm.setPoints(standing.getString("points"));
+                                    mFavouriteTeamVm.setWins(standing.getString("wins"));
+                                    mFavouriteTeamVm.setDraws(standing.getString("draws"));
+                                    mFavouriteTeamVm.setLosses(standing.getString("losses"));
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //TODO: Add error handling
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return getHttpHeaders();
+            }
+        };
+        mPositionRequest.setTag(REQUEST_POSITION);
 
-        mPrevFixtureRequest = new JsonObjectRequest(Request.Method.GET, prevFixtureUrl, null,
+    }
+
+    public void createTeamRequest()
+    {
+        mTeamRequest = new JsonObjectRequest(Request.Method.GET, mTeamApiEndpoint, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            mFavouriteTeamVm = LoganSquare.parse(response.toString(), FavouriteTeamViewModel.class);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //TODO: Add error handling
+            }
+        });
+        mTeamRequest.setTag(REQUEST_TEAM);
+    }
+
+    public void createFixtureRequests()
+    {
+        mPrevFixtureRequest = new JsonObjectRequest(Request.Method.GET, mPrevFixtureApiEndpoint, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -94,9 +169,11 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                             JSONArray fixtures = response.getJSONArray("fixtures");
                             JSONObject fixture = fixtures.getJSONObject(fixtures.length() - 1);
                             FixtureViewModel vm = LoganSquare.parse(fixture.toString(), FixtureViewModel.class);
+                            JSONObject result = fixture.getJSONObject("result");
+                            vm.setHomeScore(result.getInt("goalsHomeTeam"));
+                            vm.setAwayScore(result.getInt("goalsAwayTeam"));
                             mFavouriteTeamVm.setPrevFixture(vm);
                             mFavouriteTeamVm.calculateDetails();
-                            mBinding.setViewmodel(mFavouriteTeamVm);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -117,7 +194,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         };
         mPrevFixtureRequest.setTag(REQUEST_PREV_FIXTURE);
 
-        mNextFixtureRequest = new JsonObjectRequest(Request.Method.GET, nextFixtureUrl, null,
+        mNextFixtureRequest = new JsonObjectRequest(Request.Method.GET, mNextFixtureApiEndpoint, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -151,47 +228,15 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
         };
         mNextFixtureRequest.setTag(REQUEST_NEXT_FIXTURE);
+    }
 
-        mPositionRequest = new JsonObjectRequest(Request.Method.GET, positionUrl, null,
-                new Response.Listener<JSONObject>() {
+    public void createCrestRequests()
+    {
+        mNextCrestRequest = new StringRequest(Request.Method.GET, mNextCrestApiEndpoint,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray standings = response.getJSONArray("standing");
-                            for (int i = 0; i < standings.length(); i++) {
-                                JSONObject standing = standings.getJSONObject(i);
-                                if (Objects.equals(standing.getString("teamName"), teamName))
-                                {
-                                    mFavouriteTeamVm.setPosition(standing.getString("position"));
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //TODO: Add error handling
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return getHttpHeaders();
-            }
-        };
-        mPositionRequest.setTag(REQUEST_POSITION);
-
-        JsonObjectRequest teamRequest = new JsonObjectRequest(Request.Method.GET, teamUrl, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            mFavouriteTeamVm = LoganSquare.parse(response.toString(), FavouriteTeamViewModel.class);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    public void onResponse(String response) {
+                        mFavouriteTeamVm.getNextFixture().setCrestUrl(response.substring(1, response.length() -1));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -199,10 +244,22 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 //TODO: Add error handling
             }
         });
-        teamRequest.setTag(REQUEST_TEAM);
+        mNextCrestRequest.setTag(REQUEST_NEXT_CREST);
 
-        mRequestQueue.addRequestFinishedListener(this);
-        mRequestQueue.add(teamRequest);
+        mPrevCrestRequest = new StringRequest(Request.Method.GET, mPrevCrestApiEndpoint,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        mFavouriteTeamVm.getPrevFixture().setCrestUrl(response.substring(1, response.length() -1));
+                        mBinding.setViewmodel(mFavouriteTeamVm);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //TODO: Add error handling
+            }
+        });
+        mPrevCrestRequest.setTag(REQUEST_PREV_CREST);
     }
 
     @Override
@@ -218,9 +275,19 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             case REQUEST_NEXT_FIXTURE :
                 mRequestQueue.add(mPrevFixtureRequest);
                 break;
+            case REQUEST_PREV_FIXTURE :
+                mNextCrestApiEndpoint += mFavouriteTeamVm.getNextFixture().getOppositionName().replace(" ", "%20");
+                mPrevCrestApiEndpoint += mFavouriteTeamVm.getPrevFixture().getOppositionName().replace(" ", "%20");
+                createCrestRequests();
+                mRequestQueue.add(mNextCrestRequest);
+                break;
+            case REQUEST_NEXT_CREST :
+                mRequestQueue.add(mPrevCrestRequest);
+                break;
         }
     }
 
+    //TODO: Move Api Key
     public Map<String, String> getHttpHeaders()
     {
         Map<String, String>  params = new HashMap<>();

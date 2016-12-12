@@ -26,11 +26,13 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
             {
                 prevFixture.setOppositionName(prevFixture.getAwayTeamName());
                 prevFixture.setLocation("Home");
+                prevFixture.setAway(false);
             }
             else
             {
                 prevFixture.setOppositionName(prevFixture.getHomeTeamName());
                 prevFixture.setLocation("Away");
+                prevFixture.setAway(true);
             }
         }
 
@@ -40,11 +42,13 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
             {
                 nextFixture.setOppositionName(nextFixture.getAwayTeamName());
                 nextFixture.setLocation("Home");
+                nextFixture.setAway(false);
             }
             else
             {
                 nextFixture.setOppositionName(nextFixture.getHomeTeamName());
                 nextFixture.setLocation("Away");
+                nextFixture.setAway(true);
             }
         }
     }
@@ -74,6 +78,10 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     private int distance;
     private String position;
+    private String points;
+    private String wins;
+    private String draws;
+    private String losses;
     private FixtureViewModel prevFixture;
     private FixtureViewModel nextFixture;
 
@@ -165,5 +173,37 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public void setNextFixture(FixtureViewModel nextFixture) {
         this.nextFixture = nextFixture;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getWins() {
+        return wins;
+    }
+
+    public void setWins(String wins) {
+        this.wins = wins;
+    }
+
+    public String getDraws() {
+        return draws;
+    }
+
+    public void setDraws(String draws) {
+        this.draws = draws;
+    }
+
+    public String getLosses() {
+        return losses;
+    }
+
+    public void setLosses(String losses) {
+        this.losses = losses;
     }
 }

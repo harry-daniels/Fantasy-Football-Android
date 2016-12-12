@@ -11,4 +11,7 @@
     <string name="title_activity_favourite_picker">FavouritePickerActivity</string>
     <string name="select_favourite">Select favourite</string>
     <string name="next_fixture">NEXT FIXTURE</string>
+    <string name="previous">PREVIOUS</string>
+    <string name="upcoming">UPCOMING</string>
+    <string name="points">POINTS</string>
 </resources>

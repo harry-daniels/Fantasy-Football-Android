@@ -40,10 +40,12 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
     private String crestUrl;
     private String oppositionName;
-    private String homeScore;
-    private String awayScore;
+    private int homeScore;
+    private int awayScore;
     private String outcome;
     private String location;
+    private String score;
+    private boolean isAway;
 
     public String getHomeTeamName() {
         return homeTeamName;
@@ -110,23 +112,45 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
         this.oppositionName = oppositionName;
     }
 
-    public String getHomeScore() {
+    public int getHomeScore() {
         return homeScore;
     }
 
-    public void setHomeScore(String homeScore) {
+    public void setHomeScore(int homeScore) {
         this.homeScore = homeScore;
     }
 
-    public String getAwayScore() {
+    public int getAwayScore() {
         return awayScore;
     }
 
-    public void setAwayScore(String awayScore) {
+    public void setAwayScore(int awayScore) {
         this.awayScore = awayScore;
     }
 
     public String getOutcome() {
+
+        if (isAway && homeScore > awayScore)
+        {
+            setOutcome("LOSS");
+        }
+        if (isAway && homeScore < awayScore)
+        {
+            setOutcome("WIN");
+        }
+        if (!isAway && homeScore > awayScore)
+        {
+            setOutcome("WIN");
+        }
+        if (!isAway && homeScore < awayScore)
+        {
+            setOutcome("LOSS");
+        }
+        if (homeScore == awayScore)
+        {
+            setOutcome("DRAW");
+        }
+
         return outcome;
     }
 
@@ -140,5 +164,30 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getScore() {
+
+        if(awayScore >= homeScore)
+        {
+            setScore(awayScore + " - " + homeScore);
+        }
+        else
+        {
+            setScore(homeScore + " - " + awayScore);
+        }
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public boolean isAway() {
+        return isAway;
+    }
+
+    public void setAway(boolean away) {
+        isAway = away;
     }
 }
