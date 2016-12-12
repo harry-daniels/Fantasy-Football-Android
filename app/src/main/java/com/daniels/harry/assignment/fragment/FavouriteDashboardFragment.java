@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,6 +27,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -92,7 +95,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                             JSONObject fixture = fixtures.getJSONObject(fixtures.length() - 1);
                             FixtureViewModel vm = LoganSquare.parse(fixture.toString(), FixtureViewModel.class);
                             mFavouriteTeamVm.setPrevFixture(vm);
-                            mFavouriteTeamVm.calculateFixtureDetails();
+                            mFavouriteTeamVm.calculateDetails();
                             mBinding.setViewmodel(mFavouriteTeamVm);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,7 +108,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             public void onErrorResponse(VolleyError error) {
                 //TODO: Add error handling
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return getHttpHeaders();
+            }
+        };
         mPrevFixtureRequest.setTag(REQUEST_PREV_FIXTURE);
 
         mNextFixtureRequest = new JsonObjectRequest(Request.Method.GET, nextFixtureUrl, null,
@@ -134,7 +143,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             public void onErrorResponse(VolleyError error) {
                 //TODO: Add error handling
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return getHttpHeaders();
+            }
+        };
         mNextFixtureRequest.setTag(REQUEST_NEXT_FIXTURE);
 
         mPositionRequest = new JsonObjectRequest(Request.Method.GET, positionUrl, null,
@@ -145,7 +160,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                             JSONArray standings = response.getJSONArray("standing");
                             for (int i = 0; i < standings.length(); i++) {
                                 JSONObject standing = standings.getJSONObject(i);
-                                if (standing.getString("teamName") == teamName)
+                                if (Objects.equals(standing.getString("teamName"), teamName))
                                 {
                                     mFavouriteTeamVm.setPosition(standing.getString("position"));
                                 }
@@ -159,7 +174,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             public void onErrorResponse(VolleyError error) {
                 //TODO: Add error handling
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return getHttpHeaders();
+            }
+        };
         mPositionRequest.setTag(REQUEST_POSITION);
 
         JsonObjectRequest teamRequest = new JsonObjectRequest(Request.Method.GET, teamUrl, null,
@@ -198,5 +219,12 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mRequestQueue.add(mPrevFixtureRequest);
                 break;
         }
+    }
+
+    public Map<String, String> getHttpHeaders()
+    {
+        Map<String, String>  params = new HashMap<>();
+        params.put("X-Auth-Token", "debf9352e2b745759c3eb424fc776d6d");
+        return params;
     }
 }

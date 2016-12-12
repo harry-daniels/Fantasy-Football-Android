@@ -66,7 +66,16 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
     }
 
     public void setDate(String date) {
-        this.date = date;
+
+        String returnDate = "";
+        String[] dateArray = date.split("T");
+
+        returnDate += dateArray[0].substring(8, 10) + "-"
+                + dateArray[0].substring(5, 7) + "-"
+                + dateArray[0].substring(0,4) + " "
+                + dateArray[1].substring(0, 8);
+
+        this.date = returnDate;
     }
 
     public String getOdds() {

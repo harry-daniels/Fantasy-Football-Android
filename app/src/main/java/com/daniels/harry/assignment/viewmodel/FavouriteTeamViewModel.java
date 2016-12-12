@@ -9,6 +9,7 @@ import com.daniels.harry.assignment.R;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
 import java.util.Objects;
 
 @JsonObject
@@ -17,7 +18,7 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
     public FavouriteTeamViewModel() {
     }
 
-    public void calculateFixtureDetails()
+    public void calculateDetails()
     {
         if (prevFixture != null)
         {
@@ -129,7 +130,25 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
     }
 
     public void setPosition(String position) {
-        this.position = position;
+        String returnPosition;
+
+        switch (position)
+        {
+            case "1" :
+                returnPosition = "1st";
+                break;
+            case "2" :
+                returnPosition = "2nd";
+                break;
+            case "3" :
+                returnPosition = "3rd";
+                break;
+            default :
+                returnPosition = position + "th";
+                break;
+        }
+
+        this.position = returnPosition;
     }
 
     public FixtureViewModel getPrevFixture() {
