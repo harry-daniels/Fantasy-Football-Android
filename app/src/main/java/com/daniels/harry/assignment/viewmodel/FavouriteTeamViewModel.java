@@ -1,6 +1,7 @@
 package com.daniels.harry.assignment.viewmodel;
 
 import android.databinding.BindingAdapter;
+import android.location.Location;
 import android.widget.ImageView;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public FavouriteTeamViewModel() {
+
     }
 
     public void calculateDetails()
@@ -76,12 +78,17 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
     @JsonField(name = "CrestURL")
     private String crestUrl;
 
-    private int distance;
+    private float distance;
+
+    private double userLatitude;
+    private double userLongitude;
+
     private String position;
     private String points;
     private String wins;
     private String draws;
     private String losses;
+
     private FixtureViewModel prevFixture;
     private FixtureViewModel nextFixture;
 
@@ -125,11 +132,14 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
         this.crestUrl = crestUrl;
     }
 
-    public int getDistance() {
+    public float getDistance() {
+        float[] distances = new float[1];
+        Location.distanceBetween(getLatitude(), getLongitude(), getUserLatitude(), getUserLongitude(), distances);
+        setDistance(distances[0]);
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 
@@ -205,5 +215,21 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public void setLosses(String losses) {
         this.losses = losses;
+    }
+
+    public double getUserLatitude() {
+        return userLatitude;
+    }
+
+    public void setUserLatitude(double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
+
+    public double getUserLongitude() {
+        return userLongitude;
+    }
+
+    public void setUserLongitude(double userLongitude) {
+        this.userLongitude = userLongitude;
     }
 }

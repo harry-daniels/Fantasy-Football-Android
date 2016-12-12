@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
     public FixtureViewModel() {
+
     }
 
     @BindingAdapter({"bind:crestUrl"})
@@ -38,13 +39,15 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
     @JsonField(name = "draw")
     private String drawOdds;
 
-    private String crestUrl;
-    private String oppositionName;
     private int homeScore;
     private int awayScore;
+
+    private String crestUrl;
+    private String oppositionName;
     private String outcome;
     private String location;
     private String score;
+
     private boolean isAway;
 
     public String getHomeTeamName() {
