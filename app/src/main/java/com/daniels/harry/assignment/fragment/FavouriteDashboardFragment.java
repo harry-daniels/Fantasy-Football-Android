@@ -19,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
+import com.daniels.harry.assignment.model.FavouriteTeam;
+import com.daniels.harry.assignment.model.User;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
@@ -42,16 +44,17 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private static final String REQUEST_NEXT_CREST = "req_nc";
     private static final String REQUEST_PREV_CREST = "req_pc";
 
-    private String mTeamApiEndpoint = "http://fifabuddy.net/api/team/64";
-    private String mNextFixtureApiEndpoint = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=n10";
-    private String mPrevFixtureApiEndpoint = "http://api.football-data.org/v1/teams/64/fixtures?timeFrame=p10";
-    private String mNextCrestApiEndpoint = "http://fifabuddy.net/api/Crest?name=";
-    private String mPrevCrestApiEndpoint = "http://fifabuddy.net/api/Crest?name=";
+    private String mTeamApiEndpoint = "http://fifabuddy.net/api/team/";
+    private String mNextFixtureApiEndpoint = "http://api.football-data.org/v1/teams/###/fixtures?timeFrame=n10";
+    private String mPrevFixtureApiEndpoint = "http://api.football-data.org/v1/teams/###/fixtures?timeFrame=p10";
+    private String mNextCrestApiEndpoint = "http://fifabuddy.net/api/Crest/";
+    private String mPrevCrestApiEndpoint = "http://fifabuddy.net/api/Crest/";
     private String mPositionApiEndpoint = "http://api.football-data.org/v1/competitions/426/leagueTable";
 
     private RequestQueue mRequestQueue;
     private FragmentFavouriteDashboardBinding mBinding;
     private FavouriteTeamViewModel mFavouriteTeamVm;
+    private User mCurrentUser;
 
     private JsonObjectRequest mTeamRequest, mPositionRequest, mPrevFixtureRequest, mNextFixtureRequest;
     private StringRequest mPrevCrestRequest, mNextCrestRequest;
@@ -72,6 +75,12 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mCurrentUser = User.first(User.class);
+
+        mTeamApiEndpoint += mCurrentUser.favouriteTeam.apiId;
+        mNextFixtureApiEndpoint = mNextFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
+        mPrevFixtureApiEndpoint = mPrevFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
 
         mRequestQueue = Volley.newRequestQueue(getActivity());
         handleHttpRequests();
@@ -99,7 +108,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     public void createPositionRequest()
     {
-        final String teamName = "Liverpool FC";
+        final String teamName = mCurrentUser.favouriteTeam.name;
 
         mPositionRequest = new JsonObjectRequest(Request.Method.GET, mPositionApiEndpoint, null,
                 new Response.Listener<JSONObject>() {

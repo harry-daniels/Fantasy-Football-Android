@@ -1,6 +1,7 @@
 package com.daniels.harry.assignment.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
@@ -27,7 +29,10 @@ import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
+import com.daniels.harry.assignment.model.FavouriteTeam;
+import com.daniels.harry.assignment.model.User;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -40,6 +45,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -51,18 +57,19 @@ public class FavouritePickerActivity
     private static final Comparator<FavouriteTeamViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamViewModel>() {
         @Override
         public int compare(FavouriteTeamViewModel a, FavouriteTeamViewModel b) {
-            return Math.round(a.getDistance()) - Math.round(b.getDistance());
+            return a.getDistance().compareTo(b.getDistance());
         }
     };
 
     private static final int REQUESTCODE_LOCATION_PERMISSION = 53;
 
     private List<FavouriteTeamViewModel> mViewModels = new ArrayList<>();
+    private FavouriteTeamViewModel mSelectedViewModel;
     private FavouriteTeamListViewAdapter mListViewAdapter;
     private ActivityFavouritePickerBinding mBinding;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private Location mLocation;
+    private Location mLastLocation;
 
     private boolean mLocationReceived;
 
@@ -82,7 +89,24 @@ public class FavouritePickerActivity
         mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, new FavouriteTeamListViewAdapter.Listener() {
             @Override
             public void onClick(FavouriteTeamViewModel vm) {
-                Snackbar.make(mBinding.getRoot(), "piss", Snackbar.LENGTH_SHORT).show();
+
+                mSelectedViewModel = vm;
+
+                new AlertDialog.Builder(FavouritePickerActivity.this)
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getName())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                User user = User.first(User.class);
+                                FavouriteTeam team = user.favouriteTeam;
+                                team.name = mSelectedViewModel.getName();
+                                team.apiId = mSelectedViewModel.getId();
+                                team.save();
+                                user.save();
+                                finish();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
 
@@ -107,11 +131,13 @@ public class FavouritePickerActivity
     @Override
     protected void onStop()
     {
-        super.onStop();
+        mLocationReceived = false;
 
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        super.onStop();
     }
 
     @Override
@@ -157,16 +183,11 @@ public class FavouritePickerActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        if (!mLocationReceived) {
-
+        if (!mLocationReceived)
+        {
             mLocationReceived = true;
-
-            for (FavouriteTeamViewModel vm : mViewModels) {
-                vm.setUserLatitude(location.getLatitude());
-                vm.setLongitude(location.getLongitude());
-            }
-
-
+            updateViewModels(location);
+            resetListAdapter(mViewModels);
         }
     }
 
@@ -194,7 +215,6 @@ public class FavouritePickerActivity
                 } else {
                     //TODO: Handle permission denied
                 }
-                return;
             }
         }
     }
@@ -206,12 +226,10 @@ public class FavouritePickerActivity
                 PackageManager.PERMISSION_GRANTED) {
 
             mLocationRequest = LocationRequest.create();
-            mLocationRequest.setInterval(1000);
+            mLocationRequest.setInterval(100);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
-            return;
         }
         else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUESTCODE_LOCATION_PERMISSION);
@@ -243,9 +261,8 @@ public class FavouritePickerActivity
                             }
                         }
 
-                        mListViewAdapter.edit()
-                                .replaceAll(mViewModels)
-                                .commit();
+                        resetListAdapter(mViewModels);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -258,9 +275,17 @@ public class FavouritePickerActivity
     }
 
     private void resetListAdapter(List<FavouriteTeamViewModel> items){
-        mListViewAdapter.edit()
-                .replaceAll(items)
-                .commit();
+        mListViewAdapter.edit().removeAll().commit();
+        mListViewAdapter.edit().add(items).commit();
         mBinding.listFavouritePicker.scrollToPosition(0);
+    }
+
+    private void updateViewModels(Location location)
+    {
+        for (FavouriteTeamViewModel vm : mViewModels) {
+            vm.setUserLatitude(location.getLatitude());
+            vm.setUserLongitude(location.getLongitude());
+            vm.calculateDistance();
+        }
     }
 }

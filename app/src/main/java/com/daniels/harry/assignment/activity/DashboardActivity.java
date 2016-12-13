@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.DashboardViewPagerAdapter;
+import com.daniels.harry.assignment.model.FavouriteTeam;
+import com.daniels.harry.assignment.model.User;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -18,6 +20,14 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        FavouriteTeam favTeam = new FavouriteTeam();
+        favTeam.name = "Liverpool FC";
+        favTeam.apiId = "64";
+        favTeam.save();
+        User newUser = new User();
+        newUser.favouriteTeam = favTeam;
+        newUser.save();
 
         getSupportActionBar().setElevation(0);
 

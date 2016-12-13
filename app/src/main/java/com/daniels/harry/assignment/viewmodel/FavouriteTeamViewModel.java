@@ -11,6 +11,7 @@ import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 @JsonObject
@@ -22,6 +23,8 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public void calculateDetails()
     {
+        calculateDistance();
+
         if (prevFixture != null)
         {
             if (Objects.equals(prevFixture.getHomeTeamName(), name))
@@ -55,6 +58,16 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
         }
     }
 
+    public void calculateDistance()
+    {
+        float[] distance = new float[1];
+        Location.distanceBetween(getLatitude(), getLongitude(), getUserLatitude(), getUserLongitude(), distance);
+        String formatted = String.format(Locale.ENGLISH.UK, "%.2f", (distance[0] * 0.000621371f));
+        Float parsedDistance = Float.valueOf(formatted);
+        //TODO: Add to constants
+        setDistance(parsedDistance);
+    }
+
     @BindingAdapter({"bind:crestUrl"})
     public static void loadCrest(ImageView view, String crestUrl) {
         Picasso.with(view.getContext())
@@ -62,6 +75,9 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
                 .placeholder(R.drawable.icon_team)
                 .into(view);
     }
+
+    @JsonField(name = "Id")
+     private String id;
 
     @JsonField(name = "Name")
     private String name;
@@ -78,7 +94,7 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
     @JsonField(name = "CrestURL")
     private String crestUrl;
 
-    private float distance;
+    private Float distance;
 
     private double userLatitude;
     private double userLongitude;
@@ -132,14 +148,14 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
         this.crestUrl = crestUrl;
     }
 
-    public float getDistance() {
-        float[] distances = new float[1];
-        Location.distanceBetween(getLatitude(), getLongitude(), getUserLatitude(), getUserLongitude(), distances);
-        setDistance(distances[0]);
+    public Float getDistance() {
+        if(distance == null)
+            setDistance(0.0F);
+
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(Float distance) {
         this.distance = distance;
     }
 
@@ -231,5 +247,13 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
 
     public void setUserLongitude(double userLongitude) {
         this.userLongitude = userLongitude;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
