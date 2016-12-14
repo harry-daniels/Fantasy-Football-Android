@@ -22,6 +22,7 @@ import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.User;
+import com.daniels.harry.assignment.singleton.HttpRequestQueue;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
@@ -56,17 +57,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private String mPrevCrestUrl;
     private String mTeamApiUrl;
 
-    private RequestQueue mRequestQueue;
+    private HttpRequestQueue mRequestQueue;
     private FragmentFavouriteDashboardBinding mBinding;
     private FavouriteTeamViewModel mFavouriteTeamVm;
     private User mCurrentUser;
 
     private JsonObjectRequest mTeamRequest, mPositionRequest, mPrevFixtureRequest, mNextFixtureRequest;
     private StringRequest mPrevCrestRequest, mNextCrestRequest;
-
-    public FavouriteDashboardFragment() {
-
-    }
 
     public static FavouriteDashboardFragment newInstance() {
         FavouriteDashboardFragment fragment = new FavouriteDashboardFragment();
@@ -81,7 +78,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mRequestQueue = Volley.newRequestQueue(getActivity());
+        mRequestQueue = HttpRequestQueue.getInstance(getActivity());
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_dashboard, container, false);
 
@@ -103,7 +100,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         mNextFixtureApiEndpoint = mNextFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
         mPrevFixtureApiEndpoint = mPrevFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
 
-        mRequestQueue.addRequestFinishedListener(this);
+        mRequestQueue.addRequestFinishedListener(this, getActivity());
 
         handleHttpRequests();
     }
@@ -112,7 +109,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     public void onPause()
     {
         super.onPause();
-        mRequestQueue.removeRequestFinishedListener(this);
+        mRequestQueue.removeRequestFinishedListener(this, getActivity());
     }
 
     private void handleHttpRequests(){
@@ -121,7 +118,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         createPositionRequest();
         createFixtureRequests();
 
-        mRequestQueue.add(mTeamRequest);
+        mRequestQueue.addRequest(mTeamRequest, getActivity());
     }
 
     public void createPositionRequest()
@@ -295,22 +292,22 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         switch (request.getTag().toString())
         {
             case REQUEST_TEAM :
-                mRequestQueue.add(mPositionRequest);
+                mRequestQueue.addRequest(mPositionRequest, getActivity());
                 break;
             case REQUEST_POSITION :
-                mRequestQueue.add(mNextFixtureRequest);
+                mRequestQueue.addRequest(mNextFixtureRequest, getActivity());
                 break;
             case REQUEST_NEXT_FIXTURE :
-                mRequestQueue.add(mPrevFixtureRequest);
+                mRequestQueue.addRequest(mPrevFixtureRequest, getActivity());
                 break;
             case REQUEST_PREV_FIXTURE :
                 mNextCrestUrl = mNextCrestApiEndpoint + mFavouriteTeamVm.getNextFixture().getOppositionName().replace(" ", "%20");
                 mPrevCrestUrl = mPrevCrestApiEndpoint + mFavouriteTeamVm.getPrevFixture().getOppositionName().replace(" ", "%20");
                 createCrestRequests();
-                mRequestQueue.add(mNextCrestRequest);
+                mRequestQueue.addRequest(mNextCrestRequest, getActivity());
                 break;
             case REQUEST_NEXT_CREST :
-                mRequestQueue.add(mPrevCrestRequest);
+                mRequestQueue.addRequest(mPrevCrestRequest, getActivity());
                 break;
         }
     }

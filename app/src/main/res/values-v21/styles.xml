@@ -5,8 +5,10 @@
         <item name="colorPrimary">@color/fantasyGreen</item>
         <item name="colorPrimaryDark">@color/fantasyGreenDark</item>
         <item name="colorAccent">@android:color/white</item>
+    </style>
 
-
+    <style name="AppTheme.SignIn" parent="AppTheme.NoActionBar">
+        <item name="android:statusBarColor">@color/fantasyGreen</item>
     </style>
 
     <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">

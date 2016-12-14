@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "783871471478",
+    "project_id": "fantasy-pl"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783871471478:android:fc4c15a1abdf3451",
+        "android_client_info": {
+          "package_name": "com.daniels.harry.assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783871471478-12qg7jvmhnqc73n3b3fgedt791rv37ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl8kWKJ_DNj50Q1-_BBhj-xsjNSNQshsQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
