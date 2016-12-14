@@ -23,7 +23,7 @@ public class HttpRequestQueue {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue(Context c) {
+    private RequestQueue getRequestQueue(Context c) {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(c.getApplicationContext());
         }

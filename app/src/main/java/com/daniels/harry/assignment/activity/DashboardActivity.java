@@ -21,14 +21,6 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        FavouriteTeam favTeam = new FavouriteTeam();
-        favTeam.name = "Liverpool FC";
-        favTeam.apiId = "64";
-        favTeam.save();
-        User newUser = new User();
-        newUser.favouriteTeam = favTeam;
-        newUser.save();
-
         getSupportActionBar().setElevation(0);
 
         DashboardViewPagerAdapter  viewPagerAdapter = new DashboardViewPagerAdapter(getSupportFragmentManager());

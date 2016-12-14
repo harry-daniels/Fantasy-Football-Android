@@ -31,6 +31,7 @@ import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.User;
+import com.daniels.harry.assignment.singleton.HttpRequestQueue;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.android.gms.common.ConnectionResult;
@@ -98,10 +99,12 @@ public class FavouritePickerActivity
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 User user = User.first(User.class);
-                                FavouriteTeam team = user.favouriteTeam;
+                                FavouriteTeam team = new FavouriteTeam();
                                 team.name = mSelectedViewModel.getName();
                                 team.apiId = mSelectedViewModel.getId();
                                 team.save();
+                                user.favouriteTeam = team;
+                                user.save();
                                 finish();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
@@ -236,7 +239,7 @@ public class FavouritePickerActivity
 
     //TODO: Maybe abstract method to separate class?
     private void handleHttpRequest(){
-        RequestQueue queue = Volley.newRequestQueue(this);
+        HttpRequestQueue queue = HttpRequestQueue.getInstance(this);
         //TODO: Move URL strings to string resources
         String url ="http://fifabuddy.net/api/team";
 
@@ -269,7 +272,7 @@ public class FavouritePickerActivity
             }
         });
 
-        queue.add(request);
+        queue.addRequest(request, this);
     }
 
     private void resetListAdapter(List<FavouriteTeamViewModel> items){
