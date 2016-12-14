@@ -10,7 +10,7 @@ import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.squareup.picasso.Picasso;
 
 @JsonObject
-public class FixtureViewModel implements SortedListAdapter.ViewModel {
+public class FixtureViewModel {
 
     @JsonField(name = "homeTeamName")
     private String homeTeamName;

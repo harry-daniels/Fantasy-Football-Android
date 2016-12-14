@@ -49,4 +49,9 @@ public class CurrentUser {
     {
         return mUser.favouriteTeam;
     }
+
+    public void setFavouriteTeam(FavouriteTeam team){
+        mUser.favouriteTeam = team;
+        save();
+    }
 }

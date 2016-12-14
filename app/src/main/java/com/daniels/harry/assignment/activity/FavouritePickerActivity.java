@@ -31,6 +31,7 @@ import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.User;
+import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.singleton.HttpRequestQueue;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
@@ -98,13 +99,12 @@ public class FavouritePickerActivity
                         .setMessage("Are you sure you wish to change your favourite team to " + vm.getName() + "?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                User user = User.first(User.class);
+                                CurrentUser user = CurrentUser.getInstance();
                                 FavouriteTeam team = new FavouriteTeam();
                                 team.name = mSelectedViewModel.getName();
                                 team.apiId = mSelectedViewModel.getId();
                                 team.save();
-                                user.favouriteTeam = team;
-                                user.save();
+                                user.setFavouriteTeam(team);
                                 finish();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
