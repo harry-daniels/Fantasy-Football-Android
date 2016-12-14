@@ -2,15 +2,6 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c2ac04c5b232f6f0658ee4f1c13be09cd76406e2">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-wallet-7.8.0_18ff7a957c73bc167d604ccfe4639b9441ab0223.jar" />
-    </item>
-    <item
         is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
         jumboMode="false"
@@ -20,13 +11,13 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_bec320d1da1308f4c75baa2459da63ffc6190ffd\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-23.1.1_8f1901b9882882a311fbae1fcaac41921b5779a2.jar" />
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.1.1_12a8f864b4708a3efc33c4a0c889504521c30655\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -39,39 +30,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-7.8.0_89a09002b80faa515aea4020a57944b3f635f5f7\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.1.1_54774b33cc1ce56630ee8d3d3b76cf957a8443f0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-maps-7.8.0_89a09002b80faa515aea4020a57944b3f635f5f7.jar" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.8.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
         sha1="c2ac04c5b232f6f0658ee4f1c13be09cd76406e2">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-7.8.0_18ff7a957c73bc167d604ccfe4639b9441ab0223\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_38b1077b2bca361a94c2de87ff8ebfe6f52555da\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -83,49 +56,22 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.5.1_ef6881914e37b4b2474c237356078c3283eb5fbb\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="4a135d56554069e5d0ff80e3220e887e57146ee5">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-location-7.8.0_d6e033569d0b3cbca6190608f9a1c746e6bcd0f3.jar" />
+        sha1="d11330ea68c0d964d30d5caed1f27e6b1488b189">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-7.8.0_d4fe256b9784fcdf377279f6e97c403b508891e6\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.2.2\baseLibrary-2.2.2.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="e23ea11124bb700eeddd4ab7aa848c615f493850">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appindexing-7.8.0_4a4ec4791dc15bf687d33de5b21751ead9dd94b1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.5.1\e2a00ad1d7e540ec395e9296a34da484c8888d4d\jackson-core-2.5.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="e2a00ad1d7e540ec395e9296a34da484c8888d4d">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\jackson-core-2.5.1_ef6881914e37b4b2474c237356078c3283eb5fbb.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\picasso-2.5.2_2b1a900cb332a555f24c40631f38b28b7583826c.jar" />
+        sha1="8e3519b9d5287840df40776a8268ae336ca9f063">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\baseLibrary-2.2.2_549c1050baf55698fccfb58cff10564e3d758b2f\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -146,51 +92,6 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-7.8.0_d6e033569d0b3cbca6190608f9a1c746e6bcd0f3\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1_fdac5b13fef7711bee4ea22e7651c75b32e4d904.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.1.1_bec320d1da1308f4c75baa2459da63ffc6190ffd.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.1_8f1901b9882882a311fbae1fcaac41921b5779a2\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1_626ae9ad3494c3bcbbc4e56ff64f4115621be1db.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2e24e5f1b11170163028277de63f709e42525db4">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-games-7.8.0_2b600ffc2cce0d472bd8c90cca78b4a8163b2ac5.jar" />
-    </item>
-    <item
         is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
         jumboMode="false"
@@ -201,48 +102,30 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="e23ea11124bb700eeddd4ab7aa848c615f493850">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-7.8.0_4a4ec4791dc15bf687d33de5b21751ead9dd94b1\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.satyan\sugar\1.4\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ac045b53684345f4ec8468477e8fc5034d0d2bfd">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.github.satyan-sugar-1.4_b6e51db23a356c834c08594f1d4117d78f25154f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="166e458ee3b5fb5fcff0f936df3f3a788e6c54f3">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-safetynet-7.8.0_55cc211010b6de2f151009fa3ecbe4a3286a6b2c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="98137c4d12c50923f5809852b1ef4d1c4e162081">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appinvite-7.8.0_4107fbd5713577881e8f9e472dd98e110b751167.jar" />
+        sha1="77a9dcb5f8b1dba36aacaa9c150eb0942dbea158">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-7.8.0_f477c584a0172032d4c76cbe9bc60cadea44aaf7\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.5.1\e2a00ad1d7e540ec395e9296a34da484c8888d4d\jackson-core-2.5.1.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-7.8.0_e34c898ba433768a83a95ce1ecaccf413ee456ae\classes.dex" />
+        sha1="e2a00ad1d7e540ec395e9296a34da484c8888d4d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\jackson-core-2.5.1_ef6881914e37b4b2474c237356078c3283eb5fbb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -263,40 +146,13 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_2b1a900cb332a555f24c40631f38b28b7583826c\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="6e85edfc9b5346d216e50ccef1f8e825504144a3">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-panorama-7.8.0_e4a396efc17c74f0c8c02a45e9cf5c12b79904b2.jar" />
-    </item>
-    <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="edea92852b40eee716e910af8dad9eeaa58fb0e1">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appstate-7.8.0_4344ead1eb6aa977096ec0d74efc5fb74d0ac899\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-analytics-7.8.0_e34c898ba433768a83a95ce1ecaccf413ee456ae.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4.jar" />
+        sha1="42a1ee578b62fd1bd28b3307a679dc9ba0791587">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-7.8.0_e1969fb867f37097f79118fffeedb304631c4e66\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -308,60 +164,6 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\guava-18.0_23ae9d619c9ad952ac11ce7bff78df802e3e98c2\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="edea92852b40eee716e910af8dad9eeaa58fb0e1">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-appstate-7.8.0_4344ead1eb6aa977096ec0d74efc5fb74d0ac899.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="b99f0b78bbcb76b915bc6529a83b65d4d46990dd">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-vision-7.8.0_57d6f967f515b08ceeaca099883b200656cd5dd8.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2491ae1b2a848af1f4f0c795f3117c1bd6a1989f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-7.8.0_610d79f41ed8ea549be4a7c4fcf3b79b63255ab9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\guava\guava\18.0\guava-18.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="cce0823396aa693798f8882e64213b1772032b09">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\guava-18.0_23ae9d619c9ad952ac11ce7bff78df802e3e98c2.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="98137c4d12c50923f5809852b1ef4d1c4e162081">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-7.8.0_4107fbd5713577881e8f9e472dd98e110b751167\classes.dex" />
-    </item>
-    <item
         is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.8.0\jars\classes.jar"
         jumboMode="false"
@@ -371,15 +173,6 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-7.8.0_55cc211010b6de2f151009fa3ecbe4a3286a6b2c\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2491ae1b2a848af1f4f0c795f3117c1bd6a1989f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-plus-7.8.0_610d79f41ed8ea549be4a7c4fcf3b79b63255ab9.jar" />
-    </item>
-    <item
         is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\7.8.0\jars\classes.jar"
         jumboMode="false"
@@ -387,24 +180,6 @@
         revision="23.0.3"
         sha1="b99f0b78bbcb76b915bc6529a83b65d4d46990dd">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-7.8.0_57d6f967f515b08ceeaca099883b200656cd5dd8\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.1.1_12a8f864b4708a3efc33c4a0c889504521c30655.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_38b1077b2bca361a94c2de87ff8ebfe6f52555da\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -417,6 +192,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c5cafb324568d954780abb858c25db7ce675ab3c">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-7.8.0_b1b76f31339e85e3f395533b4a7c62a7b3dd9072\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -426,39 +210,30 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-22.2.0_2f1191594ec8414419cdd1861f05f3b182df9a81\classes.dex" />
+        sha1="edea92852b40eee716e910af8dad9eeaa58fb0e1">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appstate-7.8.0_4344ead1eb6aa977096ec0d74efc5fb74d0ac899\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.1_38b1077b2bca361a94c2de87ff8ebfe6f52555da.jar" />
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.1.1_54774b33cc1ce56630ee8d3d3b76cf957a8443f0\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0_6c2db7fc537c39f88bd4bfee60681634576ba31d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.support-mediarouter-v7-22.2.0_2f1191594ec8414419cdd1861f05f3b182df9a81.jar" />
+        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-7.8.0_e34c898ba433768a83a95ce1ecaccf413ee456ae\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -470,31 +245,13 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="d11330ea68c0d964d30d5caed1f27e6b1488b189">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-identity-7.8.0_d4fe256b9784fcdf377279f6e97c403b508891e6.jar" />
-    </item>
-    <item
         is-multidex="true"
-        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.2.2\baseLibrary-2.2.2.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="8e3519b9d5287840df40776a8268ae336ca9f063">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\baseLibrary-2.2.2_549c1050baf55698fccfb58cff10564e3d758b2f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c756d14e99d39471e99013a1e8fd2f3813ed42bf">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-7.8.0_b520d11fc3c25e0ac34754f0db205a9c6723f731\classes.dex" />
+        sha1="4a135d56554069e5d0ff80e3220e887e57146ee5">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-7.8.0_d6e033569d0b3cbca6190608f9a1c746e6bcd0f3\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -506,112 +263,31 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\logansquare-1.3.6_ba13e2b2b2ea0efac55b5e534c964d49642bcd36\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.2.2\baseLibrary-2.2.2.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="8e3519b9d5287840df40776a8268ae336ca9f063">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\baseLibrary-2.2.2_549c1050baf55698fccfb58cff10564e3d758b2f.jar" />
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_bec320d1da1308f4c75baa2459da63ffc6190ffd\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\guava\guava\18.0\guava-18.0.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="adebe28e0c0c05d34a3bfd76f3275bf4d8ff87b6">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-nearby-7.8.0_3ba02dda16609726d88ca278fd0797d8df535e8d.jar" />
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\guava-18.0_23ae9d619c9ad952ac11ce7bff78df802e3e98c2\classes.dex" />
     </item>
     <item
-        is-multidex="false"
+        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
         sha1="c756d14e99d39471e99013a1e8fd2f3813ed42bf">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-gcm-7.8.0_b520d11fc3c25e0ac34754f0db205a9c6723f731.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.satyan\sugar\1.4\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ac045b53684345f4ec8468477e8fc5034d0d2bfd">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.satyan-sugar-1.4_b6e51db23a356c834c08594f1d4117d78f25154f\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.wrdlbrnft\sorted-list-adapter\0.2.0.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="1e4e400603780c5d414531d26bce6eacca94c86e">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.bluelinelabs\logansquare\1.3.6\2e059622d3d37758b0f8022fd678de02b025cbe8\logansquare-1.3.6.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2e059622d3d37758b0f8022fd678de02b025cbe8">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\logansquare-1.3.6_ba13e2b2b2ea0efac55b5e534c964d49642bcd36.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_fdac5b13fef7711bee4ea22e7651c75b32e4d904\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_626ae9ad3494c3bcbbc4e56ff64f4115621be1db\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="42a1ee578b62fd1bd28b3307a679dc9ba0791587">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-drive-7.8.0_e1969fb867f37097f79118fffeedb304631c4e66.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="77a9dcb5f8b1dba36aacaa9c150eb0942dbea158">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-fitness-7.8.0_f477c584a0172032d4c76cbe9bc60cadea44aaf7.jar" />
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-7.8.0_b520d11fc3c25e0ac34754f0db205a9c6723f731\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -642,6 +318,348 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.0_6c2db7fc537c39f88bd4bfee60681634576ba31d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="166e458ee3b5fb5fcff0f936df3f3a788e6c54f3">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-7.8.0_55cc211010b6de2f151009fa3ecbe4a3286a6b2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-22.2.0_2f1191594ec8414419cdd1861f05f3b182df9a81\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2491ae1b2a848af1f4f0c795f3117c1bd6a1989f">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-7.8.0_610d79f41ed8ea549be4a7c4fcf3b79b63255ab9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.wrdlbrnft\sorted-list-adapter\0.2.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="1e4e400603780c5d414531d26bce6eacca94c86e">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.wrdlbrnft-sorted-list-adapter-0.2.0.1_7be86a88a4760fc69cb48c1a599c7d170e99704f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-7.8.0_89a09002b80faa515aea4020a57944b3f635f5f7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.0_6c2db7fc537c39f88bd4bfee60681634576ba31d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="adebe28e0c0c05d34a3bfd76f3275bf4d8ff87b6">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-7.8.0_3ba02dda16609726d88ca278fd0797d8df535e8d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.1_8f1901b9882882a311fbae1fcaac41921b5779a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.bluelinelabs\logansquare\1.3.6\2e059622d3d37758b0f8022fd678de02b025cbe8\logansquare-1.3.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2e059622d3d37758b0f8022fd678de02b025cbe8">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\logansquare-1.3.6_ba13e2b2b2ea0efac55b5e534c964d49642bcd36\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e23ea11124bb700eeddd4ab7aa848c615f493850">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-7.8.0_4a4ec4791dc15bf687d33de5b21751ead9dd94b1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-7.8.0_e34c898ba433768a83a95ce1ecaccf413ee456ae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="edea92852b40eee716e910af8dad9eeaa58fb0e1">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appstate-7.8.0_4344ead1eb6aa977096ec0d74efc5fb74d0ac899\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c0c912d58c9468b1f9d9769c8975afdf2c85d681">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-7.8.0_fd858ddf5eaa0fff5c672fa0d82179da49ea1c4e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2491ae1b2a848af1f4f0c795f3117c1bd6a1989f">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-7.8.0_610d79f41ed8ea549be4a7c4fcf3b79b63255ab9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="130b32ed466fa0f63efd4c7d6250ccd2ed506790">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-7.8.0_e297378bc8d24bd9a614a838cc59bbfdb1454d77\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="98137c4d12c50923f5809852b1ef4d1c4e162081">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-7.8.0_4107fbd5713577881e8f9e472dd98e110b751167\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="1ff30fa49c07a08c3035d7218a3efebf5680d522">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-7.8.0_66cd4374c3dacf8fbbc912c18d94390bfd58ce63\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_38b1077b2bca361a94c2de87ff8ebfe6f52555da\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.1.1_8f1901b9882882a311fbae1fcaac41921b5779a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-22.2.0_2f1191594ec8414419cdd1861f05f3b182df9a81\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-7.8.0_89a09002b80faa515aea4020a57944b3f635f5f7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c2ac04c5b232f6f0658ee4f1c13be09cd76406e2">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-7.8.0_18ff7a957c73bc167d604ccfe4639b9441ab0223\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\android\databinding\baseLibrary\2.2.2\baseLibrary-2.2.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8e3519b9d5287840df40776a8268ae336ca9f063">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\baseLibrary-2.2.2_549c1050baf55698fccfb58cff10564e3d758b2f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c756d14e99d39471e99013a1e8fd2f3813ed42bf">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-7.8.0_b520d11fc3c25e0ac34754f0db205a9c6723f731\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\library\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="957dc30b1495f8689271e00d56ab09cc9192df02">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-library-1.2.1_74eacda8fb673fb116801dd8fc680bdb9d463b1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e23ea11124bb700eeddd4ab7aa848c615f493850">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-7.8.0_4a4ec4791dc15bf687d33de5b21751ead9dd94b1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_2b1a900cb332a555f24c40631f38b28b7583826c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_fdac5b13fef7711bee4ea22e7651c75b32e4d904\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2e24e5f1b11170163028277de63f709e42525db4">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-7.8.0_2b600ffc2cce0d472bd8c90cca78b4a8163b2ac5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.satyan\sugar\1.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ac045b53684345f4ec8468477e8fc5034d0d2bfd">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.satyan-sugar-1.4_b6e51db23a356c834c08594f1d4117d78f25154f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_626ae9ad3494c3bcbbc4e56ff64f4115621be1db\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6e85edfc9b5346d216e50ccef1f8e825504144a3">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-7.8.0_e4a396efc17c74f0c8c02a45e9cf5c12b79904b2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_fdac5b13fef7711bee4ea22e7651c75b32e4d904\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_626ae9ad3494c3bcbbc4e56ff64f4115621be1db\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.github.satyan\sugar\1.4\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ac045b53684345f4ec8468477e8fc5034d0d2bfd">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.satyan-sugar-1.4_b6e51db23a356c834c08594f1d4117d78f25154f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.volley-volley-1.0.0_13e4a50cd0beac0cbaa4762166095d8a77188e5c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.8.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -650,31 +668,13 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-7.8.0_e1969fb867f37097f79118fffeedb304631c4e66\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c0c912d58c9468b1f9d9769c8975afdf2c85d681">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-7.8.0_fd858ddf5eaa0fff5c672fa0d82179da49ea1c4e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="1ff30fa49c07a08c3035d7218a3efebf5680d522">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-ads-7.8.0_66cd4374c3dacf8fbbc912c18d94390bfd58ce63.jar" />
-    </item>
-    <item
         is-multidex="true"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.android.databinding\adapters\1.2.1\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.0_6c2db7fc537c39f88bd4bfee60681634576ba31d\classes.dex" />
+        sha1="c56d29136c2257f63f08c29c4e739efb03b06c7d">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.databinding-adapters-1.2.1_c70608dba2aa896f4938bafc20232a1962c8d2a4\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -695,13 +695,22 @@
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-7.8.0_f477c584a0172032d4c76cbe9bc60cadea44aaf7\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.8.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\7.8.0\jars\classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="c5cafb324568d954780abb858c25db7ce675ab3c">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-wearable-7.8.0_b1b76f31339e85e3f395533b4a7c62a7b3dd9072.jar" />
+        sha1="b99f0b78bbcb76b915bc6529a83b65d4d46990dd">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-7.8.0_57d6f967f515b08ceeaca099883b200656cd5dd8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.8.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="98137c4d12c50923f5809852b1ef4d1c4e162081">
+        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-7.8.0_4107fbd5713577881e8f9e472dd98e110b751167\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -711,15 +720,6 @@
         revision="23.0.3"
         sha1="1ff30fa49c07a08c3035d7218a3efebf5680d522">
         <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-7.8.0_66cd4374c3dacf8fbbc912c18d94390bfd58ce63\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="130b32ed466fa0f63efd4c7d6250ccd2ed506790">
-        <dex dex="C:\Users\Harry\Desktop\Uni\Mobile Computing\assignment\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-cast-7.8.0_e297378bc8d24bd9a614a838cc59bbfdb1454d77.jar" />
     </item>
 
 </items>

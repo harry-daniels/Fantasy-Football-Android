@@ -253,14 +253,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="@{viewmodel.nextFixture.oppositionName}"
+                            android:text='@{viewmodel.nextFixture.away ? viewmodel.nextFixture.homeTeamName : viewmodel.nextFixture.awayTeamName}'
                             android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="@{viewmodel.nextFixture.location}"
+                            android:text='@{viewmodel.nextFixture.away ? "Away" : "Home"}'
                             android:textSize="12sp" />
 
                         <TextView

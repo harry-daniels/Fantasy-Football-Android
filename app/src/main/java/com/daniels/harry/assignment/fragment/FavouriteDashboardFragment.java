@@ -1,5 +1,6 @@
 package com.daniels.harry.assignment.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,10 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private String mPrevCrestApiEndpoint = "http://fifabuddy.net/api/Crest/";
     private String mPositionApiEndpoint = "http://api.football-data.org/v1/competitions/426/leagueTable";
 
+    private String mNextCrestUrl;
+    private String mPrevCrestUrl;
+    private String mTeamApiUrl;
+
     private RequestQueue mRequestQueue;
     private FragmentFavouriteDashboardBinding mBinding;
     private FavouriteTeamViewModel mFavouriteTeamVm;
@@ -76,24 +81,38 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mCurrentUser = User.first(User.class);
-
-        mTeamApiEndpoint += mCurrentUser.favouriteTeam.apiId;
-        mNextFixtureApiEndpoint = mNextFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
-        mPrevFixtureApiEndpoint = mPrevFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
-
         mRequestQueue = Volley.newRequestQueue(getActivity());
-        handleHttpRequests();
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_dashboard, container, false);
+
         View view = mBinding.getRoot();
 
         return view;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onResume()
+    {
+        super.onResume();
+
+        mCurrentUser = User.first(User.class);
+
+        mTeamApiUrl = mTeamApiEndpoint + mCurrentUser.favouriteTeam.apiId;
+        mNextFixtureApiEndpoint = "http://api.football-data.org/v1/teams/###/fixtures?timeFrame=n10";
+        mPrevFixtureApiEndpoint = "http://api.football-data.org/v1/teams/###/fixtures?timeFrame=p10";
+        mNextFixtureApiEndpoint = mNextFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
+        mPrevFixtureApiEndpoint = mPrevFixtureApiEndpoint.replace("###", mCurrentUser.favouriteTeam.apiId);
+
+        mRequestQueue.addRequestFinishedListener(this);
+
+        handleHttpRequests();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mRequestQueue.removeRequestFinishedListener(this);
     }
 
     private void handleHttpRequests(){
@@ -102,7 +121,6 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         createPositionRequest();
         createFixtureRequests();
 
-        mRequestQueue.addRequestFinishedListener(this);
         mRequestQueue.add(mTeamRequest);
     }
 
@@ -144,12 +162,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
         };
         mPositionRequest.setTag(REQUEST_POSITION);
+        //mPositionRequest.setShouldCache(false);
 
     }
 
     public void createTeamRequest()
     {
-        mTeamRequest = new JsonObjectRequest(Request.Method.GET, mTeamApiEndpoint, null,
+        mTeamRequest = new JsonObjectRequest(Request.Method.GET, mTeamApiUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -241,7 +260,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     public void createCrestRequests()
     {
-        mNextCrestRequest = new StringRequest(Request.Method.GET, mNextCrestApiEndpoint,
+        mNextCrestRequest = new StringRequest(Request.Method.GET, mNextCrestUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -255,7 +274,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         });
         mNextCrestRequest.setTag(REQUEST_NEXT_CREST);
 
-        mPrevCrestRequest = new StringRequest(Request.Method.GET, mPrevCrestApiEndpoint,
+        mPrevCrestRequest = new StringRequest(Request.Method.GET, mPrevCrestUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -285,8 +304,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mRequestQueue.add(mPrevFixtureRequest);
                 break;
             case REQUEST_PREV_FIXTURE :
-                mNextCrestApiEndpoint += mFavouriteTeamVm.getNextFixture().getOppositionName().replace(" ", "%20");
-                mPrevCrestApiEndpoint += mFavouriteTeamVm.getPrevFixture().getOppositionName().replace(" ", "%20");
+                mNextCrestUrl = mNextCrestApiEndpoint + mFavouriteTeamVm.getNextFixture().getOppositionName().replace(" ", "%20");
+                mPrevCrestUrl = mPrevCrestApiEndpoint + mFavouriteTeamVm.getPrevFixture().getOppositionName().replace(" ", "%20");
                 createCrestRequests();
                 mRequestQueue.add(mNextCrestRequest);
                 break;

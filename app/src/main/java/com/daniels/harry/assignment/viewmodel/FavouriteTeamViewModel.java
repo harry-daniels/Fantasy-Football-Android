@@ -30,13 +30,11 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
             if (Objects.equals(prevFixture.getHomeTeamName(), name))
             {
                 prevFixture.setOppositionName(prevFixture.getAwayTeamName());
-                prevFixture.setLocation("Home");
                 prevFixture.setAway(false);
             }
             else
             {
                 prevFixture.setOppositionName(prevFixture.getHomeTeamName());
-                prevFixture.setLocation("Away");
                 prevFixture.setAway(true);
             }
         }
@@ -46,13 +44,11 @@ public class FavouriteTeamViewModel implements SortedListAdapter.ViewModel {
             if (Objects.equals(nextFixture.getHomeTeamName(), name))
             {
                 nextFixture.setOppositionName(nextFixture.getAwayTeamName());
-                nextFixture.setLocation("Home");
                 nextFixture.setAway(false);
             }
             else
             {
                 nextFixture.setOppositionName(nextFixture.getHomeTeamName());
-                nextFixture.setLocation("Away");
                 nextFixture.setAway(true);
             }
         }

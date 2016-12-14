@@ -12,6 +12,25 @@ import com.squareup.picasso.Picasso;
 @JsonObject
 public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
+    @JsonField(name = "homeTeamName")
+    private String homeTeamName;
+
+    @JsonField(name = "awayTeamName")
+    private String awayTeamName;
+
+    @JsonField(name = "date")
+    private String date;
+
+    private int homeScore;
+    private int awayScore;
+
+    private String crestUrl;
+    private String outcome;
+    private String score;
+    private String oppositionName;
+
+    private boolean isAway;
+
     public FixtureViewModel() {
 
     }
@@ -23,32 +42,6 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
                 .placeholder(R.drawable.icon_team)
                 .into(view);
     }
-
-    @JsonField(name = "homeTeamName")
-    private String homeTeamName;
-
-    @JsonField(name = "awayTeamName")
-    private String awayTeamName;
-
-    @JsonField(name = "date")
-    private String date;
-
-    @JsonField(name = "odds")
-    private String odds;
-
-    @JsonField(name = "draw")
-    private String drawOdds;
-
-    private int homeScore;
-    private int awayScore;
-
-    private String crestUrl;
-    private String oppositionName;
-    private String outcome;
-    private String location;
-    private String score;
-
-    private boolean isAway;
 
     public String getHomeTeamName() {
         return homeTeamName;
@@ -82,37 +75,12 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
         this.date = returnDate;
     }
-
-    public String getOdds() {
-        return odds;
-    }
-
-    public void setOdds(String odds) {
-        this.odds = odds;
-    }
-
-    public String getDrawOdds() {
-        return drawOdds;
-    }
-
-    public void setDrawOdds(String drawOdds) {
-        this.drawOdds = drawOdds;
-    }
-
     public String getCrestUrl() {
         return crestUrl;
     }
 
     public void setCrestUrl(String crestUrl) {
         this.crestUrl = crestUrl;
-    }
-
-    public String getOppositionName() {
-        return oppositionName;
-    }
-
-    public void setOppositionName(String oppositionName) {
-        this.oppositionName = oppositionName;
     }
 
     public int getHomeScore() {
@@ -161,14 +129,6 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
         this.outcome = outcome;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getScore() {
 
         if(awayScore >= homeScore)
@@ -192,5 +152,13 @@ public class FixtureViewModel implements SortedListAdapter.ViewModel {
 
     public void setAway(boolean away) {
         isAway = away;
+    }
+
+    public String getOppositionName() {
+        return oppositionName;
+    }
+
+    public void setOppositionName(String oppositionName) {
+        this.oppositionName = oppositionName;
     }
 }

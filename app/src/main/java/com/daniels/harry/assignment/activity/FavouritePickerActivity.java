@@ -94,8 +94,7 @@ public class FavouritePickerActivity
 
                 new AlertDialog.Builder(FavouritePickerActivity.this)
                         .setTitle("Confirm")
-                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getName())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getName() + "?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 User user = User.first(User.class);
@@ -103,7 +102,6 @@ public class FavouritePickerActivity
                                 team.name = mSelectedViewModel.getName();
                                 team.apiId = mSelectedViewModel.getId();
                                 team.save();
-                                user.save();
                                 finish();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
