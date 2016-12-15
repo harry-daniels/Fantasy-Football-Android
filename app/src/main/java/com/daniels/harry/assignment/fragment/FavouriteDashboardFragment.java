@@ -18,6 +18,10 @@ import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
 import com.daniels.harry.assignment.jsonobject.MatchdayJson;
+import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
+import com.daniels.harry.assignment.mapper.FixtureMapper;
+import com.daniels.harry.assignment.model.FavouriteTeam;
+import com.daniels.harry.assignment.model.Fixture;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.UrlBuilders;
 
@@ -151,9 +155,17 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case REQUEST_CRESTS: {
                 mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
+                updateDatabase();
                 break;
             }
         }
+    }
+
+    private void updateDatabase() {
+        FavouriteTeam favouriteTeam = mCurrentUser.getFavouriteTeam();
+        Fixture prevFixture = FixtureMapper.jsonToModel(mPrevFixtureJson, favouriteTeam.previousFixture, favouriteTeam.name, mCrestsJson.getPrevCrest());
+        Fixture nextFixture = FixtureMapper.jsonToModel(mNextFixtureJson, favouriteTeam.nextFixture, favouriteTeam.name, mCrestsJson.getNextCrest());
+        favouriteTeam = FavouriteTeamMapper.jsonToModel()
     }
 
     private void checkIsTeamChosen() {

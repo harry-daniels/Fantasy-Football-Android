@@ -8,7 +8,7 @@ import com.daniels.harry.assignment.model.FavouriteTeam;
 
 public class FavouriteTeamMapper {
 
-    public static FavouriteTeam map(FavouriteTeamJson team, FixtureJson prevFixture,
+    public static FavouriteTeam jsonToModel(FavouriteTeamJson team, FixtureJson prevFixture,
                                     FixtureJson nextFixture, StandingJson standing){
         return new FavouriteTeam();
     }

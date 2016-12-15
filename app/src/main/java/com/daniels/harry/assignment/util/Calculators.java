@@ -25,6 +25,15 @@ public class Calculators {
     }
 
     public static FixtureJson calculateFixture(String teamName, MatchdayJson matchday) {
-        return matchday.getFixtures().get(1);
+        FixtureJson fixture = new FixtureJson();
+
+        for(FixtureJson f : matchday.getFixtures()){
+            if(Objects.equals(teamName, f.getHomeTeamName()) || Objects.equals(teamName, f.getAwayTeamName())){
+                fixture = f;
+                break;
+            }
+        }
+
+        return fixture;
     }
 }
