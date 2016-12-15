@@ -15,4 +15,12 @@
     <string name="upcoming">UPCOMING</string>
     <string name="points">POINTS</string>
     <string name="app_name_caps">FANTASY PL</string>
+    <string name="team_api_endpoint">http://fifabuddy.net/api/team/</string>
+    <string name="fixture_api_endpoint">http://api.football-data.org/v1/competitions/426/fixtures?matchday=</string>
+    <string name="league_table_api_endpoint">http://api.football-data.org/v1/competitions/426/leagueTable</string>
+    <string name="team_request_tag">req_team</string>
+    <string name="position_request_tag">req_pos</string>
+    <string name="next_fixture_request_tag">req_nf</string>
+    <string name="prev_fixture_request_tag">req_pf</string>
+    <string name="crest_request_tag">req_crest</string>
 </resources>
