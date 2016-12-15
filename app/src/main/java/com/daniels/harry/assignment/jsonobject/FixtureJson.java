@@ -6,21 +6,69 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 @JsonObject
 public class FixtureJson {
 
-    @JsonField(name = "Id")
-    private String id;
+    @JsonField(name = "date")
+    private String date;
 
-    @JsonField(name = "Name")
-    private String name;
+    @JsonField(name = "status")
+    private String status;
 
-    @JsonField(name = "Latitude")
-    private double latitude;
+    @JsonField(name = "matchday")
+    private double matchday;
 
-    @JsonField(name = "Longitude")
-    private double longitude;
+    @JsonField(name = "homeTeamName")
+    private double homeTeamName;
 
-    @JsonField(name = "Ground")
-    private String ground;
+    @JsonField(name = "awayTeamName")
+    private String awayTeamName;
 
-    @JsonField(name = "CrestURL")
-    private String crestUrl;
+    @JsonField(name = "result")
+    private ResultJson result;
+
+    public ResultJson getResult() {
+        return result;
+    }
+
+    public void setResult(ResultJson result) {
+        this.result = result;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getMatchday() {
+        return matchday;
+    }
+
+    public void setMatchday(double matchday) {
+        this.matchday = matchday;
+    }
+
+    public double getHomeTeamName() {
+        return homeTeamName;
+    }
+
+    public void setHomeTeamName(double homeTeamName) {
+        this.homeTeamName = homeTeamName;
+    }
+
+    public String getAwayTeamName() {
+        return awayTeamName;
+    }
+
+    public void setAwayTeamName(String awayTeamName) {
+        this.awayTeamName = awayTeamName;
+    }
 }

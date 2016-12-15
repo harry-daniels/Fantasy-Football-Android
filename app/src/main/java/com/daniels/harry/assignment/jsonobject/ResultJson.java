@@ -6,21 +6,25 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 @JsonObject
 public class ResultJson {
 
-    @JsonField(name = "Id")
-    private String id;
+    @JsonField(name = "goalsHomeTeam")
+    private String homeScore;
 
-    @JsonField(name = "Name")
-    private String name;
+    @JsonField(name = "goalsAwayTeam")
+    private String awayScore;
 
-    @JsonField(name = "Latitude")
-    private double latitude;
+    public String getHomeScore() {
+        return homeScore;
+    }
 
-    @JsonField(name = "Longitude")
-    private double longitude;
+    public void setHomeScore(String homeScore) {
+        this.homeScore = homeScore;
+    }
 
-    @JsonField(name = "Ground")
-    private String ground;
+    public String getAwayScore() {
+        return awayScore;
+    }
 
-    @JsonField(name = "CrestURL")
-    private String crestUrl;
+    public void setAwayScore(String awayScore) {
+        this.awayScore = awayScore;
+    }
 }

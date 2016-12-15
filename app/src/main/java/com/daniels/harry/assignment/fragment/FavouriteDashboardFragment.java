@@ -1,6 +1,7 @@
 package com.daniels.harry.assignment.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
+import com.daniels.harry.assignment.jsonobject.FixtureJson;
+import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.User;
 import com.daniels.harry.assignment.singleton.CurrentUser;
@@ -38,8 +41,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static android.R.attr.type;
 
-public class FavouriteDashboardFragment extends Fragment implements RequestQueue.RequestFinishedListener {
+
+public class FavouriteDashboardFragment <T> extends Fragment implements RequestQueue.RequestFinishedListener {
 
     private static final String REQUEST_TEAM = "req_team";
     private static final String REQUEST_POSITION = "req_pos";
@@ -66,6 +71,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     private JsonObjectRequest mTeamRequest, mPositionRequest, mPrevFixtureRequest, mNextFixtureRequest;
     private StringRequest mPrevCrestRequest, mNextCrestRequest;
+    private T mJsonObject;
 
     private LinearLayout mAvailableLayout, mPlaceholderLayout;
 
@@ -125,6 +131,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     private void handleHttpRequests() {
 
+        createJsonObjectRequest(mPositionApiEndpoint, (Class<T>) LeagueTableJson.class);
         createTeamRequest();
         createPositionRequest();
         createFixtureRequests();
@@ -133,25 +140,30 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     }
 
     public void createPositionRequest() {
-        final String teamName = mCurrentUser.getFavouriteTeam().name;
+        //final String teamName = mCurrentUser.getFavouriteTeam().name;
 
         mPositionRequest = new JsonObjectRequest(Request.Method.GET, mPositionApiEndpoint, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray standings = response.getJSONArray("standing");
-                            for (int i = 0; i < standings.length(); i++) {
-                                JSONObject standing = standings.getJSONObject(i);
-                                if (Objects.equals(standing.getString("teamName"), teamName)) {
-                                    mFavouriteTeamVm.setPosition(standing.getString("position"));
-                                    mFavouriteTeamVm.setPoints(standing.getString("points"));
-                                    mFavouriteTeamVm.setWins(standing.getString("wins"));
-                                    mFavouriteTeamVm.setDraws(standing.getString("draws"));
-                                    mFavouriteTeamVm.setLosses(standing.getString("losses"));
-                                }
-                            }
-                        } catch (JSONException e) {
+                            LeagueTableJson lt = LoganSquare.parse(response.toString(), LeagueTableJson.class);
+                            int x = 1;
+                            checkIsTeamChosen();
+//                            JSONArray standings = response.getJSONArray("standing");
+//                            for (int i = 0; i < standings.length(); i++) {
+//                                JSONObject standing = standings.getJSONObject(i);
+//                                if (Objects.equals(standing.getString("teamName"), teamName)) {
+//                                    mFavouriteTeamVm.setPosition(standing.getString("position"));
+//                                    mFavouriteTeamVm.setPoints(standing.getString("points"));
+//                                    mFavouriteTeamVm.setWins(standing.getString("wins"));
+//                                    mFavouriteTeamVm.setDraws(standing.getString("draws"));
+//                                    mFavouriteTeamVm.setLosses(standing.getString("losses"));
+//                                }
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -339,5 +351,27 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             mAvailableLayout.setVisibility(View.GONE);
             mPlaceholderLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void createJsonObjectRequest(String url, final Class<T> jsonObjectType)
+    {
+        mTeamRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                             mJsonObject = LoganSquare.parse(response.toString(), jsonObjectType);
+                            createPositionRequest();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //TODO: Add error handling
+            }
+        });
+        //mNextCrestRequest.setTag(REQUEST_NEXT_CREST);
     }
 }
