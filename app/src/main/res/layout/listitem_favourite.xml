@@ -9,7 +9,7 @@
             type="com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter.Listener" />
         <variable
             name="viewmodel"
-            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel" />
+            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel" />
     </data>
 
     <FrameLayout

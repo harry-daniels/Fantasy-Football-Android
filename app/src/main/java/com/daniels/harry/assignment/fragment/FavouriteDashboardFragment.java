@@ -18,12 +18,17 @@ import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
 import com.daniels.harry.assignment.jsonobject.MatchdayJson;
+import com.daniels.harry.assignment.jsonobject.StandingJson;
 import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.mapper.FixtureMapper;
+import com.daniels.harry.assignment.mapper.HomeAwayStatMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.Fixture;
+import com.daniels.harry.assignment.model.HomeAwayStat;
 import com.daniels.harry.assignment.singleton.CurrentUser;
+import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.UrlBuilders;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
 
 
 public class FavouriteDashboardFragment extends Fragment implements RequestQueue.RequestFinishedListener {
@@ -38,17 +43,18 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private FragmentFavouriteDashboardBinding mBinding;
     private CurrentUser mCurrentUser;
 
+    private FavouriteTeamDashboardViewModel mViewModel;
+
     private FavouriteTeamJson mFavouriteTeamJson;
     private LeagueTableJson mLeagueTableJson;
     private MatchdayJson mPrevMatchdayJson, mNextMatchdayJson;
     private FixtureJson mPrevFixtureJson, mNextFixtureJson;
     private CrestsJson mCrestsJson;
+    private StandingJson mStandingJson;
 
     private LinearLayout mAvailableLayout, mPlaceholderLayout;
 
     private String mTeamApiUrl, mCrestApiUrl, mNextFixtureApiUrl, mPrevFixtureApiUrl;
-
-    private boolean mIsTeamChosen;
 
     public static FavouriteDashboardFragment newInstance() {
         FavouriteDashboardFragment fragment = new FavouriteDashboardFragment();
@@ -80,10 +86,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
         mCurrentUser = CurrentUser.getInstance();
 
-        checkIsTeamChosen();
         setVisibility();
 
-        if (mIsTeamChosen) {
+        if (isTeamChosen()) {
             mTeamApiUrl = getString(R.string.team_api_endpoint)
                     + mCurrentUser.getFavouriteTeam().apiId;
 
@@ -113,6 +118,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case REQUEST_POSITION: {
                 mLeagueTableJson = (LeagueTableJson) mRequestHandler.getResultObject();
+                mStandingJson = Calculators.calculateStanding(mFavouriteTeamJson.getName(), mLeagueTableJson);
 
                 mNextFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
                         getString(R.string.fixture_api_endpoint),
@@ -127,6 +133,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case REQUEST_NEXT_FIXTURE: {
                 mNextMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
+                mNextFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mNextMatchdayJson);
 
                 mPrevFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
                         getString(R.string.fixture_api_endpoint),
@@ -141,6 +148,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case REQUEST_PREV_FIXTURE: {
                 mPrevMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
+                mPrevFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mPrevMatchdayJson);
 
                 mCrestApiUrl = UrlBuilders.buildCrestApiUrls(getString(R.string.crests_api_endpoint),
                         mFavouriteTeamJson.getName(),
@@ -155,23 +163,49 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case REQUEST_CRESTS: {
                 mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
-                updateDatabase();
+                mapJsonToDb();
                 break;
             }
         }
     }
 
-    private void updateDatabase() {
-        FavouriteTeam favouriteTeam = mCurrentUser.getFavouriteTeam();
-        Fixture prevFixture = FixtureMapper.jsonToModel(mPrevFixtureJson, favouriteTeam.previousFixture, favouriteTeam.name, mCrestsJson.getPrevCrest());
-        Fixture nextFixture = FixtureMapper.jsonToModel(mNextFixtureJson, favouriteTeam.nextFixture, favouriteTeam.name, mCrestsJson.getNextCrest());
+    private void setViewModel() {
+        mViewModel = FavouriteTeamMapper.modelToViewModel(mCurrentUser.getFavouriteTeam());
+        mBinding.setViewmodel(mViewModel);
     }
 
-    private void checkIsTeamChosen() {
+    private void mapJsonToDb() {
+        Fixture prevFixture = FixtureMapper.jsonToModel(mPrevFixtureJson,
+                mCurrentUser.getFavouriteTeam().previousFixture,
+                mCurrentUser.getFavouriteTeam().name,
+                mCrestsJson.getPrevCrest());
+
+        Fixture nextFixture = FixtureMapper.jsonToModel(mNextFixtureJson,
+                mCurrentUser.getFavouriteTeam().nextFixture,
+                mCurrentUser.getFavouriteTeam().name,
+                mCrestsJson.getNextCrest());
+
+        HomeAwayStat homeStat = HomeAwayStatMapper.jsonToModel(mStandingJson.getHomeStats(),
+                mCurrentUser.getFavouriteTeam().homeStat);
+
+        HomeAwayStat awayStat = HomeAwayStatMapper.jsonToModel(mStandingJson.getAwayStats(),
+                mCurrentUser.getFavouriteTeam().awayStat);
+
+        FavouriteTeam favTeam = FavouriteTeamMapper.jsonToModel(mFavouriteTeamJson,
+                mStandingJson,
+                mCurrentUser.getFavouriteTeam(),
+                prevFixture, nextFixture,
+                homeStat, awayStat);
+
+        isTeamChosen();
+
+    }
+
+    private boolean isTeamChosen() {
         if (mCurrentUser.getFavouriteTeam() != null) {
-            mIsTeamChosen = true;
+            return true;
         } else {
-            mIsTeamChosen = false;
+            return false;
         }
     }
 

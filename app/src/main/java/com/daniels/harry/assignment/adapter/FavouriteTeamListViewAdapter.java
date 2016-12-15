@@ -5,39 +5,39 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.daniels.harry.assignment.databinding.ListitemFavouriteBinding;
-import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
 import com.daniels.harry.assignment.viewholder.FavouritePickerListViewHolder;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
 import java.util.Comparator;
 import java.util.Objects;
 
-public class FavouriteTeamListViewAdapter extends SortedListAdapter<FavouriteTeamViewModel> {
+public class FavouriteTeamListViewAdapter extends SortedListAdapter<FavouriteTeamPickerViewModel> {
 
     public interface Listener {
-        void onClick(FavouriteTeamViewModel model);
+        void onClick(FavouriteTeamPickerViewModel model);
     }
 
     private final Listener mListener;
 
-    public FavouriteTeamListViewAdapter(Context context, Comparator<FavouriteTeamViewModel> comparator, Listener listener) {
-        super(context, FavouriteTeamViewModel.class, comparator);
+    public FavouriteTeamListViewAdapter(Context context, Comparator<FavouriteTeamPickerViewModel> comparator, Listener listener) {
+        super(context, FavouriteTeamPickerViewModel.class, comparator);
         mListener = listener;
     }
 
     @Override
-    protected ViewHolder<? extends FavouriteTeamViewModel> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType) {
+    protected ViewHolder<? extends FavouriteTeamPickerViewModel> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType) {
         final ListitemFavouriteBinding binding = ListitemFavouriteBinding.inflate(inflater, parent, false);
         return new FavouritePickerListViewHolder(binding, mListener);
     }
 
     @Override
-    protected boolean areItemsTheSame(FavouriteTeamViewModel item1, FavouriteTeamViewModel item2) {
-        return Objects.equals(item1.getName(), item2.getName());
+    protected boolean areItemsTheSame(FavouriteTeamPickerViewModel item1, FavouriteTeamPickerViewModel item2) {
+        return Objects.equals(item1.getId(), item2.getId());
     }
 
     @Override
-    protected boolean areItemContentsTheSame(FavouriteTeamViewModel oldItem, FavouriteTeamViewModel newItem) {
+    protected boolean areItemContentsTheSame(FavouriteTeamPickerViewModel oldItem, FavouriteTeamPickerViewModel newItem) {
         return oldItem.equals(newItem);
     }
 }

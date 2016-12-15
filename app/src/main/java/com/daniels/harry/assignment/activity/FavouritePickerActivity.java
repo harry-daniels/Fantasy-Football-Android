@@ -8,7 +8,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -17,37 +16,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
+import com.daniels.harry.assignment.handler.HttpRequestHandler;
+import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.model.FavouriteTeam;
-import com.daniels.harry.assignment.model.User;
 import com.daniels.harry.assignment.singleton.CurrentUser;
-import com.daniels.harry.assignment.singleton.HttpRequestQueue;
-import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
-import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
+import com.daniels.harry.assignment.util.Calculators;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -56,22 +41,25 @@ public class FavouritePickerActivity
         implements LocationListener, GoogleApiClient.ConnectionCallbacks,
                    GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener {
 
-    private static final Comparator<FavouriteTeamViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamViewModel>() {
+    private static final Comparator<FavouriteTeamPickerViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamPickerViewModel>() {
         @Override
-        public int compare(FavouriteTeamViewModel a, FavouriteTeamViewModel b) {
-            return a.getDistance().compareTo(b.getDistance());
+        public int compare(FavouriteTeamPickerViewModel a, FavouriteTeamPickerViewModel b) {
+            return Float.compare(a.getDistance(), b.getDistance());
         }
     };
 
-    private static final int REQUESTCODE_LOCATION_PERMISSION = 53;
+    private static final int REQUESTCODE_LOCATION_PERMISSION = 53053;
+    private static final String REQUEST_TEAM = "req_team";
 
-    private List<FavouriteTeamViewModel> mViewModels = new ArrayList<>();
-    private FavouriteTeamViewModel mSelectedViewModel;
+    private List<FavouriteTeamPickerViewModel> mViewModels = new ArrayList<>();
+    private FavouriteTeamPickerViewModel mSelectedViewModel;
+
     private FavouriteTeamListViewAdapter mListViewAdapter;
     private ActivityFavouritePickerBinding mBinding;
+
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private Location mLastLocation;
+    private HttpRequestHandler mRequestHandler;
 
     private boolean mLocationReceived;
 
@@ -90,19 +78,18 @@ public class FavouritePickerActivity
 
         mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, new FavouriteTeamListViewAdapter.Listener() {
             @Override
-            public void onClick(FavouriteTeamViewModel vm) {
+            public void onClick(FavouriteTeamPickerViewModel vm) {
 
                 mSelectedViewModel = vm;
 
                 new AlertDialog.Builder(FavouritePickerActivity.this)
                         .setTitle("Confirm")
-                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getName() + "?")
+                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getTeamName() + "?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 CurrentUser user = CurrentUser.getInstance();
-                                //TODO: Get previous
-                                FavouriteTeam team = new FavouriteTeam();
-                                team.name = mSelectedViewModel.getName();
+                                FavouriteTeam team = user.getFavouriteTeam() != null ? user.getFavouriteTeam() : new FavouriteTeam();
+                                team.name = mSelectedViewModel.getTeamName();
                                 team.apiId = mSelectedViewModel.getId();
                                 team.save();
                                 user.setFavouriteTeam(team);
@@ -156,7 +143,7 @@ public class FavouritePickerActivity
 
     @Override
     public boolean onQueryTextChange(String query) {
-        final List<FavouriteTeamViewModel> filteredModelList = filter(mViewModels, query);
+        final List<FavouriteTeamPickerViewModel> filteredModelList = filter(mViewModels, query);
 
         resetListAdapter(filteredModelList);
 
@@ -168,13 +155,13 @@ public class FavouritePickerActivity
         return false;
     }
 
-    private static List<FavouriteTeamViewModel> filter (List<FavouriteTeamViewModel> models, String query)
+    private static List<FavouriteTeamPickerViewModel> filter (List<FavouriteTeamPickerViewModel> models, String query)
     {
         final String lowerCaseQuery = query.toLowerCase();
 
-        final List<FavouriteTeamViewModel> filteredModelList = new ArrayList<>();
-        for (FavouriteTeamViewModel model : models) {
-            final String name = model.getName().toLowerCase();
+        final List<FavouriteTeamPickerViewModel> filteredModelList = new ArrayList<>();
+        for (FavouriteTeamPickerViewModel model : models) {
+            final String name = model.getTeamName().toLowerCase();
             if (name.contains(lowerCaseQuery)) {
                 filteredModelList.add(model);
             }
@@ -238,45 +225,13 @@ public class FavouritePickerActivity
         }
     }
 
-    //TODO: Maybe abstract method to separate class?
     private void handleHttpRequest(){
-        HttpRequestQueue queue = HttpRequestQueue.getInstance(this);
-        //TODO: Move URL strings to string resources
-        String url ="http://fifabuddy.net/api/team";
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject o = response.getJSONObject(i);
-                                FavouriteTeamViewModel vm = LoganSquare.parse(o.toString(), FavouriteTeamViewModel.class);
-                                mViewModels.add(vm);
-
-                                //TODO: Handle catch
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        resetListAdapter(mViewModels);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //TODO: Add error handling
-            }
-        });
-
-        queue.addRequest(request, this);
+        mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
+                REQUEST_TEAM,
+                FavouriteTeamJson.class);
     }
 
-    private void resetListAdapter(List<FavouriteTeamViewModel> items){
+    private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
         mListViewAdapter.edit().removeAll().commit();
         mListViewAdapter.edit().add(items).commit();
         mBinding.listFavouritePicker.scrollToPosition(0);
@@ -284,10 +239,8 @@ public class FavouritePickerActivity
 
     private void updateViewModels(Location location)
     {
-        for (FavouriteTeamViewModel vm : mViewModels) {
-            vm.setUserLatitude(location.getLatitude());
-            vm.setUserLongitude(location.getLongitude());
-            vm.calculateDistance();
+        for (FavouriteTeamPickerViewModel vm : mViewModels) {
+            vm.setDistance(Calculators.calculateDistance());
         }
     }
 }

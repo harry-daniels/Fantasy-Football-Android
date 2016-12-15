@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel" />
+            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel" />
     </data>
 
     <FrameLayout
@@ -46,12 +46,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="No team info available."/>
+                    android:text="@string/no_team_info_available"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Select your favourite team here."/>
+                    android:text="@string/select_your_favourite_team_here"/>
             </LinearLayout>
 
 
@@ -111,7 +111,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight=".40"
-                            android:text="@{viewmodel.name}"
+                            android:text="@{viewmodel.teamName}"
                             android:textSize="24sp" />
 
                         <TextView
@@ -299,14 +299,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text='@{viewmodel.nextFixture.away ? viewmodel.nextFixture.homeTeamName : viewmodel.nextFixture.awayTeamName}'
+                            android:text='@{viewmodel.nextFixture.oppositionName}'
                             android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text='@{viewmodel.nextFixture.away ? "Away" : "Home"}'
+                            android:text='@{viewmodel.nextFixture.isHome ? "Home" : "Away"}'
                             android:textSize="12sp" />
 
                         <TextView

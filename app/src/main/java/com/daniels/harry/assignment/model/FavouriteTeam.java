@@ -1,6 +1,5 @@
 package com.daniels.harry.assignment.model;
 
-import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.orm.SugarRecord;
 
 public class FavouriteTeam extends SugarRecord {
@@ -8,8 +7,7 @@ public class FavouriteTeam extends SugarRecord {
     public String apiId;
     public String name;
 
-    public double latitude;
-    public double longitude;
+    public float distance;
 
     public String ground;
     public String crestUrl;

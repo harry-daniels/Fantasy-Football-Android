@@ -22,4 +22,6 @@
     <string name="fixture_api_endpoint">http://api.football-data.org/v1/competitions/426/fixtures?matchday=</string>
     <string name="league_table_api_endpoint">http://api.football-data.org/v1/competitions/426/leagueTable</string>
     <string name="crests_api_endpoint">http://fifabuddy.net/api/crests?prev=#prev#&amp;next=#next#</string>
+    <string name="no_team_info_available">No team info available.</string>
+    <string name="select_your_favourite_team_here">Select your favourite team here.</string>
 </resources>

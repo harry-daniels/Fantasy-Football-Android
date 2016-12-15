@@ -2,7 +2,7 @@ package com.daniels.harry.assignment.model;
 
 import com.orm.SugarRecord;
 
-public class Fixture extends SugarRecord{
+public class Fixture extends SugarRecord {
 
     public String date;
 
@@ -13,6 +13,8 @@ public class Fixture extends SugarRecord{
     public int awayScore;
 
     public String crestUrl;
+
+    public boolean isHome;
 
     public Fixture(){
 

@@ -1,13 +1,11 @@
 package com.daniels.harry.assignment.viewholder;
 
-import android.widget.ImageView;
-
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ListitemFavouriteBinding;
-import com.daniels.harry.assignment.viewmodel.FavouriteTeamViewModel;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
-public class FavouritePickerListViewHolder extends SortedListAdapter.ViewHolder<FavouriteTeamViewModel> {
+public class FavouritePickerListViewHolder extends SortedListAdapter.ViewHolder<FavouriteTeamPickerViewModel> {
 
     private final ListitemFavouriteBinding mBinding;
 
@@ -18,7 +16,7 @@ public class FavouritePickerListViewHolder extends SortedListAdapter.ViewHolder<
     }
 
     @Override
-    protected void performBind(FavouriteTeamViewModel item) {
+    protected void performBind(FavouriteTeamPickerViewModel item) {
         mBinding.setViewmodel(item);
     }
 
