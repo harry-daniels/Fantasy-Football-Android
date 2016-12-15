@@ -8,27 +8,18 @@ public class FavouriteTeam extends SugarRecord {
     public String apiId;
     public String name;
 
-    private double latitude;
-    private double longitude;
+    public double latitude;
+    public double longitude;
 
-    private String ground;
-    private String crestUrl;
+    public String ground;
+    public String crestUrl;
 
-    private String position;
+    public int position;
+    public int playedGames;
+    public int points;
 
-    private int playedGames;
-
-    private int points;
-
-    private int goalsFor;
-
-    private int goalsAgainst;
-
-    private int wins;
-
-    private int draws;
-
-    private int losses;
+    public HomeAwayStat homeStat;
+    public HomeAwayStat awayStat;
 
     public Fixture previousFixture;
     public Fixture nextFixture;

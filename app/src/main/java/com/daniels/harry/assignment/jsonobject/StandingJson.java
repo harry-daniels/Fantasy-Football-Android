@@ -6,11 +6,11 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 @JsonObject
 public class StandingJson {
 
-    @JsonField(name = "position")
-    private String position;
-
     @JsonField(name = "teamName")
     private String teamName;
+
+    @JsonField(name = "position")
+    private int position;
 
     @JsonField(name = "playedGames")
     private int playedGames;
@@ -39,11 +39,11 @@ public class StandingJson {
     @JsonField(name = "away")
     private HomeAwayStatJson awayStats;
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

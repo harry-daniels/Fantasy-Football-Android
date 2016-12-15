@@ -165,7 +165,6 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         FavouriteTeam favouriteTeam = mCurrentUser.getFavouriteTeam();
         Fixture prevFixture = FixtureMapper.jsonToModel(mPrevFixtureJson, favouriteTeam.previousFixture, favouriteTeam.name, mCrestsJson.getPrevCrest());
         Fixture nextFixture = FixtureMapper.jsonToModel(mNextFixtureJson, favouriteTeam.nextFixture, favouriteTeam.name, mCrestsJson.getNextCrest());
-        favouriteTeam = FavouriteTeamMapper.jsonToModel()
     }
 
     private void checkIsTeamChosen() {
