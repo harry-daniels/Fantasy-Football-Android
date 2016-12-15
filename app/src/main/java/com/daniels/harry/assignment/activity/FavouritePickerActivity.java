@@ -100,6 +100,7 @@ public class FavouritePickerActivity
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 CurrentUser user = CurrentUser.getInstance();
+                                //TODO: Get previous
                                 FavouriteTeam team = new FavouriteTeam();
                                 team.name = mSelectedViewModel.getName();
                                 team.apiId = mSelectedViewModel.getId();

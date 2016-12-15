@@ -13,10 +13,10 @@ public class FixtureJson {
     private String status;
 
     @JsonField(name = "matchday")
-    private double matchday;
+    private int matchday;
 
     @JsonField(name = "homeTeamName")
-    private double homeTeamName;
+    private String homeTeamName;
 
     @JsonField(name = "awayTeamName")
     private String awayTeamName;
@@ -52,15 +52,15 @@ public class FixtureJson {
         return matchday;
     }
 
-    public void setMatchday(double matchday) {
+    public void setMatchday(int matchday) {
         this.matchday = matchday;
     }
 
-    public double getHomeTeamName() {
+    public String getHomeTeamName() {
         return homeTeamName;
     }
 
-    public void setHomeTeamName(double homeTeamName) {
+    public void setHomeTeamName(String homeTeamName) {
         this.homeTeamName = homeTeamName;
     }
 

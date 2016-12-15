@@ -1,26 +1,25 @@
 <resources>
-    <string name="app_name">Fantasy PL</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="favourite_team">Favourite Team</string>
-    <string name="append_miles">miles</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_favourite_picker">FavouritePickerActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="app_name">Fantasy PL</string>
+
+    <string name="title_activity_favourite_picker">Select Favourite</string>
     <string name="select_favourite">Select favourite</string>
+
+    <string name="favourite_team">Favourite Team</string>
     <string name="next_fixture">NEXT FIXTURE</string>
     <string name="previous">PREVIOUS</string>
     <string name="upcoming">UPCOMING</string>
     <string name="points">POINTS</string>
     <string name="app_name_caps">FANTASY PL</string>
+
+    <string name="append_miles">miles</string>
+
     <string name="team_api_endpoint">http://fifabuddy.net/api/team/</string>
     <string name="fixture_api_endpoint">http://api.football-data.org/v1/competitions/426/fixtures?matchday=</string>
     <string name="league_table_api_endpoint">http://api.football-data.org/v1/competitions/426/leagueTable</string>
-    <string name="team_request_tag">req_team</string>
-    <string name="position_request_tag">req_pos</string>
-    <string name="next_fixture_request_tag">req_nf</string>
-    <string name="prev_fixture_request_tag">req_pf</string>
-    <string name="crest_request_tag">req_crest</string>
+    <string name="crests_api_endpoint">http://fifabuddy.net/api/crests?prev=#prev#&amp;next=#next#</string>
 </resources>

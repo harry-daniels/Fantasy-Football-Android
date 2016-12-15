@@ -9,16 +9,16 @@ import java.util.List;
 public class LeagueTableJson {
 
     @JsonField(name = "matchday")
-    private String matchday;
+    private int matchday;
 
     @JsonField(name = "standing")
     private List<StandingJson> standings;
 
-    public String getMatchday() {
+    public int getMatchday() {
         return matchday;
     }
 
-    public void setMatchday(String matchday) {
+    public void setMatchday(int matchday) {
         this.matchday = matchday;
     }
 

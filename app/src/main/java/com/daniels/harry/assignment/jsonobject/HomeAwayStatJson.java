@@ -7,57 +7,57 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 public class HomeAwayStatJson {
 
     @JsonField(name = "goals")
-    private String goalsFor;
+    private int goalsFor;
 
     @JsonField(name = "goalsAgainst")
-    private String goalsAgainst;
+    private int goalsAgainst;
 
     @JsonField(name = "wins")
-    private String wins;
+    private int wins;
 
     @JsonField(name = "draws")
-    private String draws;
+    private int draws;
 
     @JsonField(name = "losses")
-    private String losses;
+    private int losses;
 
-    public String getGoalsFor() {
+    public int getGoalsFor() {
         return goalsFor;
     }
 
-    public void setGoalsFor(String goalsFor) {
+    public void setGoalsFor(int goalsFor) {
         this.goalsFor = goalsFor;
     }
 
-    public String getGoalsAgainst() {
+    public int getGoalsAgainst() {
         return goalsAgainst;
     }
 
-    public void setGoalsAgainst(String goalsAgainst) {
+    public void setGoalsAgainst(int goalsAgainst) {
         this.goalsAgainst = goalsAgainst;
     }
 
-    public String getWins() {
+    public int getWins() {
         return wins;
     }
 
-    public void setWins(String wins) {
+    public void setWins(int wins) {
         this.wins = wins;
     }
 
-    public String getDraws() {
+    public int getDraws() {
         return draws;
     }
 
-    public void setDraws(String draws) {
+    public void setDraws(int draws) {
         this.draws = draws;
     }
 
-    public String getLosses() {
+    public int getLosses() {
         return losses;
     }
 
-    public void setLosses(String losses) {
+    public void setLosses(int losses) {
         this.losses = losses;
     }
 }
