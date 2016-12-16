@@ -341,7 +341,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text='@{viewmodel.nextFixture.oppositionName}'
-                            android:textSize="18sp" />
+                            android:textSize="17sp" />
 
                         <TextView
                             android:layout_width="match_parent"

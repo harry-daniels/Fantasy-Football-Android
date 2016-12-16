@@ -1,6 +1,7 @@
 package com.daniels.harry.assignment.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -10,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
@@ -26,9 +26,9 @@ import com.daniels.harry.assignment.dialog.ConfirmDialogs;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
-import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
+import com.daniels.harry.assignment.repository.FavouriteTeamRepository;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.Constants;
@@ -63,12 +63,13 @@ public class FavouritePickerActivity
 
     private FavouriteTeamListViewAdapter mListViewAdapter;
     private ActivityFavouritePickerBinding mBinding;
+    private ProgressDialog mProgressDialog;
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private HttpRequestHandler mRequestHandler;
 
-    private boolean mHttpResponseReceived;
+    private boolean mViewModelsLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class FavouritePickerActivity
         mBinding.listFavouritePicker.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
 
-        handleHttpRequest();
+        getData();
     }
 
     @Override
@@ -160,10 +161,11 @@ public class FavouritePickerActivity
     @Override
     public void onLocationChanged(Location location) {
 
-        if (mHttpResponseReceived)
+        if (mViewModelsLoaded && mProgressDialog != null)
         {
             updateViewModelLocation(location);
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mProgressDialog.dismiss();
         }
     }
 
@@ -177,6 +179,7 @@ public class FavouritePickerActivity
     @Override
     public void onConnectionSuspended(int i) {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        mProgressDialog.dismiss();
     }
 
     @Override
@@ -202,58 +205,12 @@ public class FavouritePickerActivity
         }
     }
 
-    private void requestLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
-
-            mLocationRequest = LocationRequest.create();
-            mLocationRequest.setInterval(100);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
-        else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_LOCATION_PERMISSION);
-        }
-    }
-
-    private void handleHttpRequest(){
-        mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
-                Constants.REQUEST_TEAMS,
-                AllTeamsJson.class);
-    }
-
-    private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
-        mListViewAdapter.edit().removeAll().commit();
-        mListViewAdapter.edit().add(items).commit();
-        mBinding.listFavouritePicker.scrollToPosition(0);
-    }
-
-    private void updateViewModelLocation(Location location)
-    {
-        for (FavouriteTeamPickerViewModel vm : mViewModels) {
-            vm.setDistance(Calculators.calculateDistance(vm.getGroundLat(),
-                    vm.getGroundLong(),
-                    (float)location.getLatitude(),
-                    (float)location.getLongitude()));
-        }
-
-        resetListAdapter(mViewModels);
-    }
-
     @Override
     public void onRequestFinished(Request request) {
         switch (request.getTag().toString())
         {
             case Constants.REQUEST_TEAMS: {
-                mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
-                for (FavouriteTeamJson team : mTeamsJson.getTeams()) {
-                    mViewModels.add(FavouriteTeamMapper.jsonToViewModel(team));
-                }
-                mListViewAdapter.edit().add(mViewModels).commit();
-                mHttpResponseReceived = true;
+                handleTeamsResponse();
                 break;
             }
         }
@@ -276,5 +233,81 @@ public class FavouritePickerActivity
         team.save();
         user.setFavouriteTeam(team);
         finish();
+    }
+
+    private void requestLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+
+            mLocationRequest = LocationRequest.create();
+            mLocationRequest.setInterval(100);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            mProgressDialog = ProgressDialog.show(this,
+                    getString(R.string.dialog_title_location_progress),
+                    getString(R.string.please_wait),
+                    true, true);
+        }
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_LOCATION_PERMISSION);
+        }
+    }
+
+    private void handleHttpRequest(){
+        mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
+                Constants.REQUEST_TEAMS,
+                AllTeamsJson.class);
+    }
+
+    private void handleTeamsResponse() {
+        mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
+
+        List<FavouriteTeam> teams = FavouriteTeamMapper.jsonToModels(mTeamsJson);
+        FavouriteTeamRepository.saveAll(teams);
+
+        setViewModels(teams);
+
+        resetListAdapter(mViewModels);
+    }
+
+    private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
+        mListViewAdapter.edit().removeAll().commit();
+        mListViewAdapter.edit().add(items).commit();
+        mBinding.listFavouritePicker.scrollToPosition(0);
+    }
+
+    private void updateViewModelLocation(Location location)
+    {
+        for (FavouriteTeamPickerViewModel vm : mViewModels) {
+            vm.setDistance(Calculators.calculateDistance(vm.getGroundLat(),
+                    vm.getGroundLong(),
+                    (float)location.getLatitude(),
+                    (float)location.getLongitude()));
+        }
+
+        resetListAdapter(mViewModels);
+    }
+
+    private void setViewModels(List<FavouriteTeam> teams) {
+        for (FavouriteTeam team : teams) {
+            mViewModels.add(FavouriteTeamMapper.modelToPickerViewModel(team));
+        }
+        mViewModelsLoaded = true;
+    }
+
+    private void getData() {
+        if (mRequestHandler.isNetworkConnected()) {
+            handleHttpRequest();
+        } else if(FavouriteTeam.count(FavouriteTeam.class) > 0) {
+            setViewModels(FavouriteTeamRepository.getAll());
+            resetListAdapter(mViewModels);
+        } else {
+            ErrorDialogs.showErrorDialog(this,
+                    getString(R.string.dialog_title_noteams_error),
+                    getString(R.string.dialog_message_noteams_error));
+        }
     }
 }

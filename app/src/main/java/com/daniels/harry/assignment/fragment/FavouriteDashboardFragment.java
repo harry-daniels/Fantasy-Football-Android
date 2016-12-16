@@ -1,16 +1,19 @@
 package com.daniels.harry.assignment.fragment;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
+import com.daniels.harry.assignment.activity.DashboardActivity;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
@@ -40,6 +43,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     private HttpRequestHandler mRequestHandler;
     private FragmentFavouriteDashboardBinding mBinding;
+    private ProgressDialog mProgressDialog;
     private CurrentUser mCurrentUser;
 
     private FavouriteTeamDashboardViewModel mViewModel;
@@ -72,9 +76,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_dashboard, container, false);
         View rootView = mBinding.getRoot();
 
-        mAvailableLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_available);
-        mPlaceholderLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_placeholder);
-        mNoDataLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_no_data);
+        mAvailableLayout = (LinearLayout) rootView.findViewById(R.id.layout_favourite_available);
+        mPlaceholderLayout = (LinearLayout) rootView.findViewById(R.id.layout_favourite_placeholder);
+        mNoDataLayout = (LinearLayout) rootView.findViewById(R.id.layout_favourite_no_data);
 
         return rootView;
     }
@@ -153,8 +157,13 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             }
             case Constants.REQUEST_CRESTS: {
                 mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
+
                 mapJsonToDb();
                 setViewModel();
+
+                if (mProgressDialog != null)
+                    mProgressDialog.dismiss();
+
                 break;
             }
         }
@@ -162,7 +171,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     private void setViewModel() {
         try {
-            mViewModel = FavouriteTeamMapper.modelToViewModel(mCurrentUser.getFavouriteTeam());
+            mViewModel = FavouriteTeamMapper.modelToDashboardViewModel(mCurrentUser.getFavouriteTeam());
             mBinding.setViewmodel(mViewModel);
         } catch (Exception e) {
             ErrorDialogs.showErrorDialog(getActivity(),
@@ -200,7 +209,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private boolean isTeamChosen() {
         boolean isChosen = false;
 
-        if(mCurrentUser != null) {
+        if (mCurrentUser != null) {
             isChosen = mCurrentUser.getFavouriteTeam() != null;
         }
 
@@ -214,9 +223,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         return false;
     }
 
-    private void setVisibility()
-    {
-        if (isTeamChosen()){
+    private void setVisibility() {
+        if (isTeamChosen()) {
             if (isTeamPopulated()) {
                 mAvailableLayout.setVisibility(View.VISIBLE);
                 mPlaceholderLayout.setVisibility(View.GONE);
@@ -238,6 +246,11 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             if (mRequestHandler.isNetworkConnected() ||
                     !Objects.equals(Calculators.calculateMobileNetworkType(getActivity()), Constants.NETWORK_2G)) {
 
+                mProgressDialog = ProgressDialog.show(getActivity(),
+                        getString(R.string.dialog_title_team_progress),
+                        getString(R.string.please_wait),
+                        true);
+
                 mRequestHandler.addRequestFinishedListener();
 
                 mTeamApiUrl = getString(R.string.team_api_endpoint)
@@ -248,10 +261,6 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                         FavouriteTeamJson.class);
             } else if (isTeamPopulated()) {
                 setViewModel();
-            } else {
-                ErrorDialogs.showErrorDialog(getActivity(),
-                        getString(R.string.dialog_title_nodata_error),
-                        getString(R.string.dialog_message_nodata_error));
             }
         }
     }

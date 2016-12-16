@@ -1,6 +1,5 @@
 package com.daniels.harry.assignment.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,17 +7,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.DashboardViewPagerAdapter;
-import com.daniels.harry.assignment.model.FavouriteTeam;
-import com.daniels.harry.assignment.model.User;
 
 public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
 
         getSupportActionBar().setElevation(0);

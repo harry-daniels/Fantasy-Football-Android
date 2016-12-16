@@ -44,4 +44,9 @@
     <string name="dialog_message_generic_error">"Error performing action: "</string>
     <string name="dialog_title_confirm">Confirm</string>
     <string name="dialog_message_team_confirm">"Are you sure you wish to change your favourite team to %1$s ?"</string>
+    <string name="dialog_title_noteams_error">No Teams</string>
+    <string name="dialog_message_noteams_error">No teams have been stored yet. Try reloading this page when you have an internet connection.</string>
+    <string name="dialog_title_team_progress">Fetching team details</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="dialog_title_location_progress">Acquiring location</string>
 </resources>

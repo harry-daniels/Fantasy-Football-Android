@@ -3,6 +3,7 @@ package com.daniels.harry.assignment.mapper;
 
 import android.location.Location;
 
+import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
 import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.jsonobject.StandingJson;
 import com.daniels.harry.assignment.model.FavouriteTeam;
@@ -12,6 +13,9 @@ import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavouriteTeamMapper {
 
@@ -41,7 +45,24 @@ public class FavouriteTeamMapper {
         return new FavouriteTeam();
     }
 
-    public static FavouriteTeamDashboardViewModel modelToViewModel(FavouriteTeam team){
+    public static List<FavouriteTeam> jsonToModels(AllTeamsJson json) {
+        List<FavouriteTeam> teams = new ArrayList<FavouriteTeam>();
+
+        for (FavouriteTeamJson j : json.getTeams()){
+            FavouriteTeam f = new FavouriteTeam();
+            f.apiId = j.getId();
+            f.name = j.getName();
+            f.crestUrl = j.getCrestUrl();
+            f.groundLat = j.getLatitude();
+            f.groundLong = j.getLongitude();
+
+            teams.add(f);
+        }
+
+        return teams;
+    }
+
+    public static FavouriteTeamDashboardViewModel modelToDashboardViewModel(FavouriteTeam team){
         FavouriteTeamDashboardViewModel dashboardVm = new FavouriteTeamDashboardViewModel();
         FixtureViewModel nextFixtureVm = new FixtureViewModel();
         FixtureViewModel prevFixtureVm = new FixtureViewModel();
@@ -75,15 +96,16 @@ public class FavouriteTeamMapper {
         return dashboardVm;
     }
 
-    public static FavouriteTeamPickerViewModel jsonToViewModel(FavouriteTeamJson json){
+    public static FavouriteTeamPickerViewModel modelToPickerViewModel(FavouriteTeam team) {
         FavouriteTeamPickerViewModel vm = new FavouriteTeamPickerViewModel();
 
-        vm.setId(json.getId());
-        vm.setCrestUrl(json.getCrestUrl());
-        vm.setTeamName(json.getName());
-        vm.setGroundLat(json.getLatitude());
-        vm.setGroundLong(json.getLongitude());
+        vm.setCrestUrl(team.crestUrl);
+        vm.setGroundLat(team.groundLat);
+        vm.setGroundLong(team.groundLong);
+        vm.setTeamName(team.name);
+        vm.setId(team.apiId);
 
         return vm;
     }
+
 }
