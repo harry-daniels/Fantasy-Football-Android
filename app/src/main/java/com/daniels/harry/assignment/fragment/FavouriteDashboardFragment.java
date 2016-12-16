@@ -165,7 +165,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             mViewModel = FavouriteTeamMapper.modelToViewModel(mCurrentUser.getFavouriteTeam());
             mBinding.setViewmodel(mViewModel);
         } catch (Exception e) {
-            ErrorDialogs.showNoStatisticsErrorDialog(getActivity());
+            ErrorDialogs.showErrorDialog(getActivity(),
+                    getString(R.string.dialog_title_nodata_error),
+                    getString(R.string.dialog_message_nodata_error));
         }
     }
 
@@ -191,6 +193,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mCurrentUser.getFavouriteTeam(),
                 prevFixture, nextFixture,
                 homeStat, awayStat);
+
+        setVisibility();
     }
 
     private boolean isTeamChosen() {
@@ -219,8 +223,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mNoDataLayout.setVisibility(View.GONE);
             } else {
                 mAvailableLayout.setVisibility(View.GONE);
-                mPlaceholderLayout.setVisibility(View.VISIBLE);
-                mNoDataLayout.setVisibility(View.GONE);
+                mPlaceholderLayout.setVisibility(View.GONE);
+                mNoDataLayout.setVisibility(View.VISIBLE);
             }
         } else {
             mAvailableLayout.setVisibility(View.GONE);
@@ -245,7 +249,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             } else if (isTeamPopulated()) {
                 setViewModel();
             } else {
-                ErrorDialogs.showNoStatisticsErrorDialog(getActivity());
+                ErrorDialogs.showErrorDialog(getActivity(),
+                        getString(R.string.dialog_title_nodata_error),
+                        getString(R.string.dialog_message_nodata_error));
             }
         }
     }

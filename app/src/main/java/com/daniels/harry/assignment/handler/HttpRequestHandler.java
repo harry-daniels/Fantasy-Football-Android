@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bluelinelabs.logansquare.LoganSquare;
+import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.activity.FavouritePickerActivity;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.model.FavouriteTeam;
@@ -53,7 +54,10 @@ public class HttpRequestHandler <T> {
         try {
             mRequestQueue.removeRequestFinishedListener(mRequestFinishedListener, mContext);
         } catch (Exception e) {
-            ErrorDialogs.showGenericErrorDialog(mContext, e.getMessage());
+            ErrorDialogs.showErrorDialog(mContext,
+                    mContext.getString(R.string.dialog_title_generic_error),
+                    mContext.getString(R.string.dialog_message_generic_error) +
+                    e.getMessage());
         }
     }
 
@@ -61,7 +65,10 @@ public class HttpRequestHandler <T> {
         try {
             mRequestQueue.addRequestFinishedListener(mRequestFinishedListener, mContext);
         } catch (Exception e) {
-            ErrorDialogs.showGenericErrorDialog(mContext, e.getMessage());
+            ErrorDialogs.showErrorDialog(mContext,
+                    mContext.getString(R.string.dialog_title_generic_error),
+                    mContext.getString(R.string.dialog_message_generic_error) +
+                            e.getMessage());
         }
     }
 
@@ -70,7 +77,9 @@ public class HttpRequestHandler <T> {
             JsonObjectRequest request = createJsonObjectRequest(url, requestTag, jsonObjectType);
             mRequestQueue.addRequest(request, mContext);
         } else {
-            ErrorDialogs.showNetworkErrorDialog(mContext);
+            ErrorDialogs.showErrorDialog(mContext,
+                    mContext.getString(R.string.dialog_title_network_error),
+                    mContext.getString(R.string.dialog_message_network_error));
         }
     }
 
@@ -84,7 +93,9 @@ public class HttpRequestHandler <T> {
                             mResultObject = LoganSquare.parse(response.toString(), jsonObjectType);
                         } catch (IOException e) {
                             if (!mActivity.isFinishing()) {
-                                ErrorDialogs.showParsingErrorDialog(mContext, e.getMessage());
+                                ErrorDialogs.showErrorDialog(mContext,
+                                        mContext.getString(R.string.dialog_title_parser_error),
+                                        mContext.getString(R.string.dialog_message_parser_error));
                             }
                         }
                     }
@@ -92,7 +103,10 @@ public class HttpRequestHandler <T> {
             @Override
             public void onErrorResponse(VolleyError e) {
                 if (!mActivity.isFinishing()) {
-                    ErrorDialogs.showVolleyErrorDialog(mContext, e.getMessage());
+                    ErrorDialogs.showErrorDialog(mContext,
+                            mContext.getString(R.string.dialog_title_http_error),
+                            mContext.getString(R.string.dialog_message_http_error) +
+                                    e.getMessage());
                 }
             }
         })

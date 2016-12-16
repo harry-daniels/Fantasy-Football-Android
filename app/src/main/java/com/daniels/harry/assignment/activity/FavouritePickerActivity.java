@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
+import com.daniels.harry.assignment.dialog.ConfirmDialogs;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
@@ -46,7 +47,7 @@ public class FavouritePickerActivity
         extends AppCompatActivity
         implements LocationListener, GoogleApiClient.ConnectionCallbacks,
                    GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener,
-                   RequestQueue.RequestFinishedListener {
+                   RequestQueue.RequestFinishedListener, FavouriteTeamListViewAdapter.Listener, DialogInterface.OnClickListener {
 
     private static final Comparator<FavouriteTeamPickerViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamPickerViewModel>() {
         @Override
@@ -85,32 +86,7 @@ public class FavouritePickerActivity
                     .build();
         }
 
-        mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, new FavouriteTeamListViewAdapter.Listener() {
-
-            //TODO: move to outer method
-            @Override
-            public void onClick(FavouriteTeamPickerViewModel vm) {
-
-                mSelectedViewModel = vm;
-
-                new AlertDialog.Builder(FavouritePickerActivity.this)
-                        .setTitle("Confirm")
-                        .setMessage("Are you sure you wish to change your favourite team to " + vm.getTeamName() + "?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                CurrentUser user = CurrentUser.getInstance();
-                                FavouriteTeam team = user.getFavouriteTeam() != null ? user.getFavouriteTeam() : new FavouriteTeam();
-                                team.name = mSelectedViewModel.getTeamName();
-                                team.apiId = mSelectedViewModel.getId();
-                                team.distance = mSelectedViewModel.getDistance();
-                                team.populated = false;
-                                team.save();
-                                user.setFavouriteTeam(team);
-                                finish();
-                            }})
-                        .setNegativeButton(android.R.string.no, null).show();
-            }
-        });
+        mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, this);
 
         mBinding.listFavouritePicker.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
@@ -205,7 +181,10 @@ public class FavouritePickerActivity
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        ErrorDialogs.showGenericErrorDialog(this, connectionResult.getErrorMessage());
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_generic_error),
+                getString(R.string.dialog_message_generic_error)
+                + connectionResult.getErrorMessage());
     }
 
     @Override
@@ -215,7 +194,9 @@ public class FavouritePickerActivity
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLocationUpdates();
                 } else {
-                    ErrorDialogs.showLocationErrorDialog(this);
+                    ErrorDialogs.showErrorDialog(this,
+                            getString(R.string.dialog_title_location_error),
+                            getString(R.string.dialog_message_location_error));
                 }
             }
         }
@@ -276,5 +257,24 @@ public class FavouritePickerActivity
                 break;
             }
         }
+    }
+
+    @Override
+    public void onClick(FavouriteTeamPickerViewModel model) {
+        mSelectedViewModel = model;
+        ConfirmDialogs.showConfirmFavouriteDialog(this, this, model.getTeamName());
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        CurrentUser user = CurrentUser.getInstance();
+        FavouriteTeam team = user.getFavouriteTeam() != null ? user.getFavouriteTeam() : new FavouriteTeam();
+        team.name = mSelectedViewModel.getTeamName();
+        team.apiId = mSelectedViewModel.getId();
+        team.distance = mSelectedViewModel.getDistance();
+        team.populated = false;
+        team.save();
+        user.setFavouriteTeam(team);
+        finish();
     }
 }

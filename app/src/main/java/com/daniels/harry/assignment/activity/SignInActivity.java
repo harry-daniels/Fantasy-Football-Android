@@ -99,7 +99,9 @@ public class SignInActivity extends AppCompatActivity  implements
             finish();
 
         } else {
-            ErrorDialogs.showSignInErrorDialog(this);
+            ErrorDialogs.showErrorDialog(this,
+                    getString(R.string.dialog_title_signin_error),
+                    getString(R.string.dialog_message_signin_error));
         }
     }
 
@@ -117,7 +119,9 @@ public class SignInActivity extends AppCompatActivity  implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        ErrorDialogs.showNetworkErrorDialog(this);
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_http_error),
+                getString(R.string.dialog_message_http_error));
     }
 
     @Override

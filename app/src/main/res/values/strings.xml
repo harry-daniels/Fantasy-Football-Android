@@ -22,8 +22,26 @@
     <string name="fixture_api_endpoint">http://api.football-data.org/v1/competitions/426/fixtures?matchday=</string>
     <string name="league_table_api_endpoint">http://api.football-data.org/v1/competitions/426/leagueTable</string>
     <string name="crests_api_endpoint">http://fifabuddy.net/api/crests?prev=#prev#&amp;next=#next#</string>
+
     <string name="no_team_info_available">No team info available.</string>
     <string name="select_your_favourite_team_here">Select your favourite team here.</string>
     <string name="no_offline_data">No offline data available for your favourite team.</string>
     <string name="reload_page">Connect to the internet and reload this page.</string>
+
+    <string name="dialog_title_network_error">Network Error</string>
+    <string name="dialog_message_network_error">Unable to find an internet connection. Please check you have a Wi-Fi or mobile data connection and try again.</string>
+    <string name="dialog_title_location_error">Location Error</string>
+    <string name="dialog_message_location_error">Unable to retrieve your location. Ensure you have granted Fantasy PL permission to use your location and have your mobile location enabled.</string>
+    <string name="dialog_title_signin_error">Sign In Error</string>
+    <string name="dialog_message_signin_error">Unable to sign in using your Google account. Please try again.</string>
+    <string name="dialog_title_http_error">HTTP Request Error</string>
+    <string name="dialog_message_http_error">"Error requesting data from web API: "</string>
+    <string name="dialog_title_parser_error">Parser Error</string>
+    <string name="dialog_message_parser_error">"Error parsing HTTP response: "</string>
+    <string name="dialog_title_nodata_error">Nothing to Show</string>
+    <string name="dialog_message_nodata_error">Your selected team has no statistics saved yet. Try reloading this page when you have an internet connection.</string>
+    <string name="dialog_title_generic_error">Error</string>
+    <string name="dialog_message_generic_error">"Error performing action: "</string>
+    <string name="dialog_title_confirm">Confirm</string>
+    <string name="dialog_message_team_confirm">"Are you sure you wish to change your favourite team to %1$s ?"</string>
 </resources>
