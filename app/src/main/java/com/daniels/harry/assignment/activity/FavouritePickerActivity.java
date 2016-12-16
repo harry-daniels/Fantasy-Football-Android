@@ -17,11 +17,15 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
+import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
 import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
+import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
@@ -39,7 +43,8 @@ import java.util.List;
 public class FavouritePickerActivity
         extends AppCompatActivity
         implements LocationListener, GoogleApiClient.ConnectionCallbacks,
-                   GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener {
+                   GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener,
+                   RequestQueue.RequestFinishedListener {
 
     private static final Comparator<FavouriteTeamPickerViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamPickerViewModel>() {
         @Override
@@ -48,11 +53,13 @@ public class FavouritePickerActivity
         }
     };
 
-    private static final int REQUESTCODE_LOCATION_PERMISSION = 53053;
-    private static final String REQUEST_TEAM = "req_team";
+    private static final int REQUEST_LOCATION_PERMISSION = 53053;
+    private static final String REQUEST_TEAM = "req_teams";
 
     private List<FavouriteTeamPickerViewModel> mViewModels = new ArrayList<>();
     private FavouriteTeamPickerViewModel mSelectedViewModel;
+
+    private AllTeamsJson mTeamsJson;
 
     private FavouriteTeamListViewAdapter mListViewAdapter;
     private ActivityFavouritePickerBinding mBinding;
@@ -61,12 +68,17 @@ public class FavouritePickerActivity
     private LocationRequest mLocationRequest;
     private HttpRequestHandler mRequestHandler;
 
-    private boolean mLocationReceived;
+    private Location mLocation;
+
+    private boolean mLocationReceived, mHttpResponseReceived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favourite_picker);
+
+        mRequestHandler = new HttpRequestHandler(this, this);
+        mRequestHandler.addRequestFinishedListener();
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -91,6 +103,7 @@ public class FavouritePickerActivity
                                 FavouriteTeam team = user.getFavouriteTeam() != null ? user.getFavouriteTeam() : new FavouriteTeam();
                                 team.name = mSelectedViewModel.getTeamName();
                                 team.apiId = mSelectedViewModel.getId();
+                                team.distance = mSelectedViewModel.getDistance();
                                 team.save();
                                 user.setFavouriteTeam(team);
                                 finish();
@@ -125,6 +138,8 @@ public class FavouritePickerActivity
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        mRequestHandler.removeRequestFinishedListener();
 
         super.onStop();
     }
@@ -172,11 +187,12 @@ public class FavouritePickerActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        if (!mLocationReceived)
+        mLocation = location;
+
+        if (!mLocationReceived && mHttpResponseReceived)
         {
             mLocationReceived = true;
-            updateViewModels(location);
-            resetListAdapter(mViewModels);
+            updateViewModelLocation(location);
         }
     }
 
@@ -198,7 +214,7 @@ public class FavouritePickerActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case  REQUESTCODE_LOCATION_PERMISSION : {
+            case  REQUEST_LOCATION_PERMISSION : {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLocationUpdates();
                 } else {
@@ -221,14 +237,14 @@ public class FavouritePickerActivity
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
         else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUESTCODE_LOCATION_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         }
     }
 
     private void handleHttpRequest(){
         mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
                 REQUEST_TEAM,
-                FavouriteTeamJson.class);
+                AllTeamsJson.class);
     }
 
     private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
@@ -237,10 +253,31 @@ public class FavouritePickerActivity
         mBinding.listFavouritePicker.scrollToPosition(0);
     }
 
-    private void updateViewModels(Location location)
+    private void updateViewModelLocation(Location location)
     {
         for (FavouriteTeamPickerViewModel vm : mViewModels) {
-            vm.setDistance(Calculators.calculateDistance());
+            vm.setDistance(Calculators.calculateDistance(vm.getGroundLat(),
+                    vm.getGroundLong(),
+                    (float)location.getLatitude(),
+                    (float)location.getLongitude()));
+        }
+
+        resetListAdapter(mViewModels);
+    }
+
+    @Override
+    public void onRequestFinished(Request request) {
+        switch (request.getTag().toString())
+        {
+            case REQUEST_TEAM: {
+                mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
+                for (FavouriteTeamJson team : mTeamsJson.getTeams()) {
+                    mViewModels.add(FavouriteTeamMapper.jsonToViewModel(team, mLocation));
+                }
+                mListViewAdapter.edit().add(mViewModels).commit();
+                mHttpResponseReceived = true;
+                break;
+            }
         }
     }
 }

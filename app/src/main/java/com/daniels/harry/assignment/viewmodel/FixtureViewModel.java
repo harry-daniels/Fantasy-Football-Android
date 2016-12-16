@@ -19,7 +19,6 @@ public class FixtureViewModel {
     private boolean isHome;
 
     public FixtureViewModel() {
-
     }
 
     @BindingAdapter({"bind:crestUrl"})

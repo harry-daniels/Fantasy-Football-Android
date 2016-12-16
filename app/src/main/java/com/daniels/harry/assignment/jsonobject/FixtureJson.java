@@ -48,7 +48,7 @@ public class FixtureJson {
         this.status = status;
     }
 
-    public double getMatchday() {
+    public int getMatchday() {
         return matchday;
     }
 

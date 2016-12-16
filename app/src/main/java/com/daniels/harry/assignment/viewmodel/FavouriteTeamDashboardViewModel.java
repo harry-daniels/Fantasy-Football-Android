@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-@JsonObject
 public class FavouriteTeamDashboardViewModel {
 
     private String teamName;
@@ -22,8 +21,8 @@ public class FavouriteTeamDashboardViewModel {
     private String ground;
     private String crestUrl;
 
-    private int position;
-    private int points;
+    private String position;
+    private String points;
 
     private String wins;
     private String draws;
@@ -116,19 +115,19 @@ public class FavouriteTeamDashboardViewModel {
         this.nextFixture = nextFixture;
     }
 
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
-    public int getPoints() {
+    public String getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(String points) {
         this.points = points;
     }
 }

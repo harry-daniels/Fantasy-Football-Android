@@ -60,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewmodel.name}"
+                        android:text="@{viewmodel.teamName}"
                         android:textSize="16sp" />
                     <TextView
                         android:layout_width="wrap_content"

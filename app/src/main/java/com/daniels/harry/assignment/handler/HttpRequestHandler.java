@@ -28,11 +28,14 @@ public class HttpRequestHandler <T> {
         mContext = c;
         mRequestFinishedListener = listener;
         mRequestQueue = HttpRequestQueue.getInstance(c);
-        mRequestQueue.addRequestFinishedListener(listener, c);
     }
 
     public void removeRequestFinishedListener(){
         mRequestQueue.removeRequestFinishedListener(mRequestFinishedListener, mContext);
+    }
+
+    public void addRequestFinishedListener() {
+        mRequestQueue.addRequestFinishedListener(mRequestFinishedListener, mContext);
     }
 
     public void sendJsonObjectRequest(String url, String requestTag, final Class<T> jsonObjectType) {

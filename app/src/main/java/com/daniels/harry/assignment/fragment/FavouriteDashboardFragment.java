@@ -29,6 +29,7 @@ import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.UrlBuilders;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
+import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
 
 public class FavouriteDashboardFragment extends Fragment implements RequestQueue.RequestFinishedListener {
@@ -64,12 +65,12 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRequestHandler = new HttpRequestHandler(getActivity(), this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        mRequestHandler = new HttpRequestHandler(getActivity(), this);
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_dashboard, container, false);
         View rootView = mBinding.getRoot();
@@ -89,6 +90,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         setVisibility();
 
         if (isTeamChosen()) {
+            mRequestHandler.addRequestFinishedListener();
+
             mTeamApiUrl = getString(R.string.team_api_endpoint)
                     + mCurrentUser.getFavouriteTeam().apiId;
 
@@ -111,9 +114,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mFavouriteTeamJson = (FavouriteTeamJson) mRequestHandler.getResultObject();
 
                 mRequestHandler.sendJsonObjectRequest(
-                        mTeamApiUrl,
-                        REQUEST_TEAM,
-                        FavouriteTeamJson.class);
+                        getString(R.string.league_table_api_endpoint),
+                        REQUEST_POSITION,
+                        LeagueTableJson.class);
                 break;
             }
             case REQUEST_POSITION: {
@@ -128,7 +131,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mRequestHandler.sendJsonObjectRequest(
                         mNextFixtureApiUrl,
                         REQUEST_NEXT_FIXTURE,
-                        FixtureJson.class);
+                        MatchdayJson.class);
                 break;
             }
             case REQUEST_NEXT_FIXTURE: {
@@ -143,7 +146,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mRequestHandler.sendJsonObjectRequest(
                         mPrevFixtureApiUrl,
                         REQUEST_PREV_FIXTURE,
-                        FixtureJson.class);
+                        MatchdayJson.class);
                 break;
             }
             case REQUEST_PREV_FIXTURE: {
@@ -164,6 +167,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
             case REQUEST_CRESTS: {
                 mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
                 mapJsonToDb();
+                setViewModel();
                 break;
             }
         }
@@ -196,9 +200,6 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
                 mCurrentUser.getFavouriteTeam(),
                 prevFixture, nextFixture,
                 homeStat, awayStat);
-
-        isTeamChosen();
-
     }
 
     private boolean isTeamChosen() {
@@ -211,7 +212,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     private void setVisibility()
     {
-        if (mIsTeamChosen){
+        if (isTeamChosen()){
             mAvailableLayout.setVisibility(View.VISIBLE);
             mPlaceholderLayout.setVisibility(View.GONE);
         } else {

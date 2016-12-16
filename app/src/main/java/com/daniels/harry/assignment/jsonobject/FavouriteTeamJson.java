@@ -13,16 +13,19 @@ public class FavouriteTeamJson {
     private String name;
 
     @JsonField(name = "Latitude")
-    private double latitude;
+    private float latitude;
 
     @JsonField(name = "Longitude")
-    private double longitude;
+    private float longitude;
 
     @JsonField(name = "Ground")
     private String ground;
 
     @JsonField(name = "CrestURL")
     private String crestUrl;
+
+    @JsonField(name = "Colour")
+    private String colour;
 
     public String getId() {
         return id;
@@ -40,19 +43,19 @@ public class FavouriteTeamJson {
         this.name = name;
     }
 
-    public double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
@@ -70,5 +73,13 @@ public class FavouriteTeamJson {
 
     public void setCrestUrl(String crestUrl) {
         this.crestUrl = crestUrl;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 }

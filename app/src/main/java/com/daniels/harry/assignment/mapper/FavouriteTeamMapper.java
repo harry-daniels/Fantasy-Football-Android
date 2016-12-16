@@ -1,6 +1,8 @@
 package com.daniels.harry.assignment.mapper;
 
 
+import android.location.Location;
+
 import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
 import com.daniels.harry.assignment.jsonobject.StandingJson;
 import com.daniels.harry.assignment.model.FavouriteTeam;
@@ -8,6 +10,7 @@ import com.daniels.harry.assignment.model.Fixture;
 import com.daniels.harry.assignment.model.HomeAwayStat;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
+import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
 public class FavouriteTeamMapper {
@@ -17,6 +20,13 @@ public class FavouriteTeamMapper {
         if(model == null)
             model = new FavouriteTeam();
 
+        model.name = teamJson.getName();
+        model.crestUrl = teamJson.getCrestUrl();
+        model.apiId = teamJson.getId();
+        model.ground = teamJson.getGround();
+        model.groundLat = teamJson.getLatitude();
+        model.groundLong = teamJson.getLongitude();
+        model.colour = teamJson.getColour();
         model.position = standingJson.getPosition();
         model.playedGames = standingJson.getPlayedGames();
         model.points = standingJson.getPoints();
@@ -50,10 +60,10 @@ public class FavouriteTeamMapper {
         prevFixtureVm.setCrestUrl(team.previousFixture.crestUrl);
 
         dashboardVm.setTeamName(team.name);
-        dashboardVm.setPosition(team.position);
+        dashboardVm.setPosition(Calculators.calculatePositionString(String.valueOf(team.position)));
         dashboardVm.setGround(team.ground);
         dashboardVm.setCrestUrl(team.crestUrl);
-        dashboardVm.setPoints(team.points);
+        dashboardVm.setPoints(String.valueOf(team.points));
         dashboardVm.setDistance(String.valueOf(team.distance));
         dashboardVm.setWins(String.valueOf(team.homeStat.wins + team.awayStat.wins));
         dashboardVm.setDraws(String.valueOf(team.homeStat.draws + team.awayStat.draws));
@@ -62,5 +72,25 @@ public class FavouriteTeamMapper {
         dashboardVm.setNextFixture(nextFixtureVm);
 
         return dashboardVm;
+    }
+
+    public static FavouriteTeamPickerViewModel jsonToViewModel(FavouriteTeamJson json, Location location){
+        FavouriteTeamPickerViewModel vm = new FavouriteTeamPickerViewModel();
+
+        float distance = 0.00F;
+
+        if (location != null)
+        {
+            distance = Calculators.calculateDistance(json.getLatitude(), json.getLongitude(), ((float)location.getLatitude()), (float)location.getLongitude());
+        }
+
+        vm.setId(json.getId());
+        vm.setCrestUrl(json.getCrestUrl());
+        vm.setDistance(distance);
+        vm.setTeamName(json.getName());
+        vm.setGroundLat(json.getLatitude());
+        vm.setGroundLong(json.getLongitude());
+
+        return vm;
     }
 }

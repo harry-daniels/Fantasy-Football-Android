@@ -8,7 +8,10 @@ public class FavouriteTeam extends SugarRecord {
     public String name;
 
     public float distance;
+    public float groundLat;
+    public float groundLong;
 
+    public String colour;
     public String ground;
     public String crestUrl;
 
