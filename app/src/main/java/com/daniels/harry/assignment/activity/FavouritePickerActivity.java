@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
+import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
 import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
@@ -29,6 +30,7 @@ import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
+import com.daniels.harry.assignment.util.Constants;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,9 +55,6 @@ public class FavouritePickerActivity
         }
     };
 
-    private static final int REQUEST_LOCATION_PERMISSION = 53053;
-    private static final String REQUEST_TEAM = "req_teams";
-
     private List<FavouriteTeamPickerViewModel> mViewModels = new ArrayList<>();
     private FavouriteTeamPickerViewModel mSelectedViewModel;
 
@@ -68,16 +67,14 @@ public class FavouritePickerActivity
     private LocationRequest mLocationRequest;
     private HttpRequestHandler mRequestHandler;
 
-    private Location mLocation;
-
-    private boolean mLocationReceived, mHttpResponseReceived;
+    private boolean mHttpResponseReceived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favourite_picker);
 
-        mRequestHandler = new HttpRequestHandler(this, this);
+        mRequestHandler = new HttpRequestHandler(this, this, this);
         mRequestHandler.addRequestFinishedListener();
 
         if (mGoogleApiClient == null) {
@@ -89,6 +86,8 @@ public class FavouritePickerActivity
         }
 
         mListViewAdapter = new FavouriteTeamListViewAdapter(this, DISTANCE_COMPARATOR, new FavouriteTeamListViewAdapter.Listener() {
+
+            //TODO: move to outer method
             @Override
             public void onClick(FavouriteTeamPickerViewModel vm) {
 
@@ -104,6 +103,7 @@ public class FavouritePickerActivity
                                 team.name = mSelectedViewModel.getTeamName();
                                 team.apiId = mSelectedViewModel.getId();
                                 team.distance = mSelectedViewModel.getDistance();
+                                team.populated = false;
                                 team.save();
                                 user.setFavouriteTeam(team);
                                 finish();
@@ -123,8 +123,6 @@ public class FavouritePickerActivity
     {
         super.onStart();
 
-        mLocationReceived = false;
-
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
@@ -133,8 +131,6 @@ public class FavouritePickerActivity
     @Override
     protected void onStop()
     {
-        mLocationReceived = false;
-
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -187,38 +183,39 @@ public class FavouritePickerActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        mLocation = location;
 
-        if (!mLocationReceived && mHttpResponseReceived)
+        if (mHttpResponseReceived)
         {
-            mLocationReceived = true;
             updateViewModelLocation(location);
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        requestLocationUpdates();
+        if (mRequestHandler.isNetworkConnected()) {
+            requestLocationUpdates();
+        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        //TODO: Handle connection
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //TODO: Handle connection
+        ErrorDialogs.showGenericErrorDialog(this, connectionResult.getErrorMessage());
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case  REQUEST_LOCATION_PERMISSION : {
+            case  Constants.REQUEST_LOCATION_PERMISSION : {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLocationUpdates();
                 } else {
-                    //TODO: Handle permission denied
+                    ErrorDialogs.showLocationErrorDialog(this);
                 }
             }
         }
@@ -237,13 +234,13 @@ public class FavouritePickerActivity
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
         else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_LOCATION_PERMISSION);
         }
     }
 
     private void handleHttpRequest(){
         mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
-                REQUEST_TEAM,
+                Constants.REQUEST_TEAMS,
                 AllTeamsJson.class);
     }
 
@@ -269,10 +266,10 @@ public class FavouritePickerActivity
     public void onRequestFinished(Request request) {
         switch (request.getTag().toString())
         {
-            case REQUEST_TEAM: {
+            case Constants.REQUEST_TEAMS: {
                 mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
                 for (FavouriteTeamJson team : mTeamsJson.getTeams()) {
-                    mViewModels.add(FavouriteTeamMapper.jsonToViewModel(team, mLocation));
+                    mViewModels.add(FavouriteTeamMapper.jsonToViewModel(team));
                 }
                 mListViewAdapter.edit().add(mViewModels).commit();
                 mHttpResponseReceived = true;

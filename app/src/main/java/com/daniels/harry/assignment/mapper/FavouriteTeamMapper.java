@@ -34,6 +34,7 @@ public class FavouriteTeamMapper {
         model.awayStat = awayStat;
         model.previousFixture = prevFixture;
         model.nextFixture = nextFixture;
+        model.populated = true;
 
         model.save();
 
@@ -74,19 +75,11 @@ public class FavouriteTeamMapper {
         return dashboardVm;
     }
 
-    public static FavouriteTeamPickerViewModel jsonToViewModel(FavouriteTeamJson json, Location location){
+    public static FavouriteTeamPickerViewModel jsonToViewModel(FavouriteTeamJson json){
         FavouriteTeamPickerViewModel vm = new FavouriteTeamPickerViewModel();
-
-        float distance = 0.00F;
-
-        if (location != null)
-        {
-            distance = Calculators.calculateDistance(json.getLatitude(), json.getLongitude(), ((float)location.getLatitude()), (float)location.getLongitude());
-        }
 
         vm.setId(json.getId());
         vm.setCrestUrl(json.getCrestUrl());
-        vm.setDistance(distance);
         vm.setTeamName(json.getName());
         vm.setGroundLat(json.getLatitude());
         vm.setGroundLong(json.getLongitude());

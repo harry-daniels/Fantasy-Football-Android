@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
+import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.CrestsJson;
 import com.daniels.harry.assignment.jsonobject.FavouriteTeamJson;
@@ -27,18 +28,15 @@ import com.daniels.harry.assignment.model.Fixture;
 import com.daniels.harry.assignment.model.HomeAwayStat;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
+import com.daniels.harry.assignment.util.Constants;
 import com.daniels.harry.assignment.util.UrlBuilders;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
 import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
+import java.util.Objects;
+
 
 public class FavouriteDashboardFragment extends Fragment implements RequestQueue.RequestFinishedListener {
-
-    private static final String REQUEST_TEAM = "req_team";
-    private static final String REQUEST_POSITION = "req_pos";
-    private static final String REQUEST_PREV_FIXTURE = "req_pf";
-    private static final String REQUEST_NEXT_FIXTURE = "req_nf";
-    private static final String REQUEST_CRESTS = "req_crest";
 
     private HttpRequestHandler mRequestHandler;
     private FragmentFavouriteDashboardBinding mBinding;
@@ -53,7 +51,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     private CrestsJson mCrestsJson;
     private StandingJson mStandingJson;
 
-    private LinearLayout mAvailableLayout, mPlaceholderLayout;
+    private LinearLayout mAvailableLayout, mPlaceholderLayout, mNoDataLayout;
 
     private String mTeamApiUrl, mCrestApiUrl, mNextFixtureApiUrl, mPrevFixtureApiUrl;
 
@@ -65,8 +63,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mRequestHandler = new HttpRequestHandler(getActivity(), this);
+        mRequestHandler = new HttpRequestHandler(getActivity(), getActivity(), this);
     }
 
     @Override
@@ -77,6 +74,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
         mAvailableLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_available);
         mPlaceholderLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_placeholder);
+        mNoDataLayout = (LinearLayout)rootView.findViewById(R.id.layout_favourite_no_data);
 
         return rootView;
     }
@@ -86,19 +84,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         super.onResume();
 
         mCurrentUser = CurrentUser.getInstance();
-
         setVisibility();
-
-        if (isTeamChosen()) {
-            mRequestHandler.addRequestFinishedListener();
-
-            mTeamApiUrl = getString(R.string.team_api_endpoint)
-                    + mCurrentUser.getFavouriteTeam().apiId;
-
-            mRequestHandler.sendJsonObjectRequest(mTeamApiUrl,
-                    REQUEST_TEAM,
-                    FavouriteTeamJson.class);
-        }
+        getData();
     }
 
     @Override
@@ -110,16 +97,16 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     @Override
     public void onRequestFinished(Request request) {
         switch (request.getTag().toString()) {
-            case REQUEST_TEAM: {
+            case Constants.REQUEST_TEAM: {
                 mFavouriteTeamJson = (FavouriteTeamJson) mRequestHandler.getResultObject();
 
                 mRequestHandler.sendJsonObjectRequest(
                         getString(R.string.league_table_api_endpoint),
-                        REQUEST_POSITION,
+                        Constants.REQUEST_POSITION,
                         LeagueTableJson.class);
                 break;
             }
-            case REQUEST_POSITION: {
+            case Constants.REQUEST_POSITION: {
                 mLeagueTableJson = (LeagueTableJson) mRequestHandler.getResultObject();
                 mStandingJson = Calculators.calculateStanding(mFavouriteTeamJson.getName(), mLeagueTableJson);
 
@@ -130,11 +117,11 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
                 mRequestHandler.sendJsonObjectRequest(
                         mNextFixtureApiUrl,
-                        REQUEST_NEXT_FIXTURE,
+                        Constants.REQUEST_NEXT_FIXTURE,
                         MatchdayJson.class);
                 break;
             }
-            case REQUEST_NEXT_FIXTURE: {
+            case Constants.REQUEST_NEXT_FIXTURE: {
                 mNextMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
                 mNextFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mNextMatchdayJson);
 
@@ -145,11 +132,11 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
                 mRequestHandler.sendJsonObjectRequest(
                         mPrevFixtureApiUrl,
-                        REQUEST_PREV_FIXTURE,
+                        Constants.REQUEST_PREV_FIXTURE,
                         MatchdayJson.class);
                 break;
             }
-            case REQUEST_PREV_FIXTURE: {
+            case Constants.REQUEST_PREV_FIXTURE: {
                 mPrevMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
                 mPrevFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mPrevMatchdayJson);
 
@@ -160,11 +147,11 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
                 mRequestHandler.sendJsonObjectRequest(
                         mCrestApiUrl,
-                        REQUEST_CRESTS,
+                        Constants.REQUEST_CRESTS,
                         CrestsJson.class);
                 break;
             }
-            case REQUEST_CRESTS: {
+            case Constants.REQUEST_CRESTS: {
                 mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
                 mapJsonToDb();
                 setViewModel();
@@ -174,8 +161,12 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     }
 
     private void setViewModel() {
-        mViewModel = FavouriteTeamMapper.modelToViewModel(mCurrentUser.getFavouriteTeam());
-        mBinding.setViewmodel(mViewModel);
+        try {
+            mViewModel = FavouriteTeamMapper.modelToViewModel(mCurrentUser.getFavouriteTeam());
+            mBinding.setViewmodel(mViewModel);
+        } catch (Exception e) {
+            ErrorDialogs.showNoStatisticsErrorDialog(getActivity());
+        }
     }
 
     private void mapJsonToDb() {
@@ -203,21 +194,59 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     }
 
     private boolean isTeamChosen() {
-        if (mCurrentUser.getFavouriteTeam() != null) {
-            return true;
-        } else {
-            return false;
+        boolean isChosen = false;
+
+        if(mCurrentUser != null) {
+            isChosen = mCurrentUser.getFavouriteTeam() != null;
         }
+
+        return isChosen;
+    }
+
+    private boolean isTeamPopulated() {
+        if (isTeamChosen() && mCurrentUser.getFavouriteTeam().populated)
+            return true;
+
+        return false;
     }
 
     private void setVisibility()
     {
         if (isTeamChosen()){
-            mAvailableLayout.setVisibility(View.VISIBLE);
-            mPlaceholderLayout.setVisibility(View.GONE);
+            if (isTeamPopulated()) {
+                mAvailableLayout.setVisibility(View.VISIBLE);
+                mPlaceholderLayout.setVisibility(View.GONE);
+                mNoDataLayout.setVisibility(View.GONE);
+            } else {
+                mAvailableLayout.setVisibility(View.GONE);
+                mPlaceholderLayout.setVisibility(View.VISIBLE);
+                mNoDataLayout.setVisibility(View.GONE);
+            }
         } else {
             mAvailableLayout.setVisibility(View.GONE);
             mPlaceholderLayout.setVisibility(View.VISIBLE);
+            mNoDataLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void getData() {
+        if (isTeamChosen()) {
+            if (mRequestHandler.isNetworkConnected() ||
+                    !Objects.equals(Calculators.calculateMobileNetworkType(getActivity()), Constants.NETWORK_2G)) {
+
+                mRequestHandler.addRequestFinishedListener();
+
+                mTeamApiUrl = getString(R.string.team_api_endpoint)
+                        + mCurrentUser.getFavouriteTeam().apiId;
+
+                mRequestHandler.sendJsonObjectRequest(mTeamApiUrl,
+                        Constants.REQUEST_TEAM,
+                        FavouriteTeamJson.class);
+            } else if (isTeamPopulated()) {
+                setViewModel();
+            } else {
+                ErrorDialogs.showNoStatisticsErrorDialog(getActivity());
+            }
         }
     }
 

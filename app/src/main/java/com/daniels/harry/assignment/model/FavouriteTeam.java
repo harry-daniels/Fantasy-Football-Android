@@ -7,6 +7,8 @@ public class FavouriteTeam extends SugarRecord {
     public String apiId;
     public String name;
 
+    public boolean populated;
+
     public float distance;
     public float groundLat;
     public float groundLong;

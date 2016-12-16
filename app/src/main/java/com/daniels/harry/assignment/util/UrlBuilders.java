@@ -7,12 +7,12 @@ import com.daniels.harry.assignment.jsonobject.FixtureJson;
 public class UrlBuilders {
 
     public static String serialiseString(String s){
-        return s.replace(" ", "%20");
+        return s.replace(" ", Constants.SERIALISE_URL_SPACE);
     }
 
     public static String buildFixtureApiUrls(String endpoint, int matchday, boolean isNext){
-        if (isNext)
-            matchday++;
+        if (!isNext)
+            matchday--;
 
         return endpoint + matchday;
     }
@@ -24,6 +24,7 @@ public class UrlBuilders {
         prevOppositionName = serialiseString(prevOppositionName);
         nextOppositionName = serialiseString(nextOppositionName);
 
-        return endpoint.replace("#prev#", prevOppositionName).replace("#next#", nextOppositionName);
+        return endpoint.replace(Constants.URL_SLUG_REPLACE_PREV, prevOppositionName)
+                .replace(Constants.URL_SLUG_REPLACE_NEXT, nextOppositionName);
     }
 }

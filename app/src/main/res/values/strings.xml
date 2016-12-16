@@ -24,4 +24,6 @@
     <string name="crests_api_endpoint">http://fifabuddy.net/api/crests?prev=#prev#&amp;next=#next#</string>
     <string name="no_team_info_available">No team info available.</string>
     <string name="select_your_favourite_team_here">Select your favourite team here.</string>
+    <string name="no_offline_data">No offline data available for your favourite team.</string>
+    <string name="reload_page">Connect to the internet and reload this page.</string>
 </resources>

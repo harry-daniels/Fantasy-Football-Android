@@ -1,7 +1,9 @@
 package com.daniels.harry.assignment.util;
 
 
+import android.content.Context;
 import android.location.Location;
+import android.telephony.TelephonyManager;
 
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
@@ -61,7 +63,7 @@ public class Calculators {
         Location.distanceBetween(latA, longA, latB, longB, distance);
 
         //TODO: Add to constants
-        String formatted = String.format(Locale.ENGLISH.UK, "%.2f", (distance[0] * 0.000621371f));
+        String formatted = String.format(Locale.ENGLISH.UK, Constants.FLOAT_2DP, (distance[0] * Constants.KM_TO_MILES));
         Float parsedDistance = Float.valueOf(formatted);
 
         return parsedDistance;
@@ -110,7 +112,7 @@ public class Calculators {
 
     public static String calculateScoreString(int homeScore, int awayScore) {
 
-        String score = "";
+        String score;
 
         if(awayScore >= homeScore)
         {
@@ -145,5 +147,35 @@ public class Calculators {
         }
 
         return returnPosition;
+    }
+
+    public static String calculateMobileNetworkType(Context context) {
+        TelephonyManager mTelephonyManager = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+
+        int networkType = mTelephonyManager.getNetworkType();
+
+        switch (networkType) {
+            case TelephonyManager.NETWORK_TYPE_GPRS:
+            case TelephonyManager.NETWORK_TYPE_EDGE:
+            case TelephonyManager.NETWORK_TYPE_CDMA:
+            case TelephonyManager.NETWORK_TYPE_1xRTT:
+            case TelephonyManager.NETWORK_TYPE_IDEN:
+                return Constants.NETWORK_2G;
+            case TelephonyManager.NETWORK_TYPE_UMTS:
+            case TelephonyManager.NETWORK_TYPE_EVDO_0:
+            case TelephonyManager.NETWORK_TYPE_EVDO_A:
+            case TelephonyManager.NETWORK_TYPE_HSDPA:
+            case TelephonyManager.NETWORK_TYPE_HSUPA:
+            case TelephonyManager.NETWORK_TYPE_HSPA:
+            case TelephonyManager.NETWORK_TYPE_EVDO_B:
+            case TelephonyManager.NETWORK_TYPE_EHRPD:
+            case TelephonyManager.NETWORK_TYPE_HSPAP:
+                return Constants.NETWORK_3G;
+            case TelephonyManager.NETWORK_TYPE_LTE:
+                return Constants.NETWORK_4G;
+            default:
+                return Constants.NETWORK_2G;
+        }
     }
 }
