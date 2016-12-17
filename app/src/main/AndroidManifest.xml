@@ -18,6 +18,9 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.daniels.harry.assignment" />
+        <meta-data
+            android:name="ENCRYPTION_KEY"
+            android:value="@string/db_encryption_key" />
 
         <activity
             android:name=".activity.DashboardActivity"

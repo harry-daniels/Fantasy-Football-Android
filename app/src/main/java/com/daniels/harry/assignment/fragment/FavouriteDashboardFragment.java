@@ -100,71 +100,74 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
 
     @Override
     public void onRequestFinished(Request request) {
-        switch (request.getTag().toString()) {
-            case Constants.REQUEST_TEAM: {
-                mFavouriteTeamJson = (FavouriteTeamJson) mRequestHandler.getResultObject();
+        if (request.hasHadResponseDelivered()) {
 
-                mRequestHandler.sendJsonObjectRequest(
-                        getString(R.string.league_table_api_endpoint),
-                        Constants.REQUEST_POSITION,
-                        LeagueTableJson.class);
-                break;
-            }
-            case Constants.REQUEST_POSITION: {
-                mLeagueTableJson = (LeagueTableJson) mRequestHandler.getResultObject();
-                mStandingJson = Calculators.calculateStanding(mFavouriteTeamJson.getName(), mLeagueTableJson);
+            switch (request.getTag().toString()) {
+                case Constants.REQUEST_TEAM: {
+                    mFavouriteTeamJson = (FavouriteTeamJson) mRequestHandler.getResultObject();
 
-                mNextFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
-                        getString(R.string.fixture_api_endpoint),
-                        mLeagueTableJson.getMatchday(),
-                        true);
+                    mRequestHandler.sendJsonObjectRequest(
+                            getString(R.string.league_table_api_endpoint),
+                            Constants.REQUEST_POSITION,
+                            LeagueTableJson.class);
+                    break;
+                }
+                case Constants.REQUEST_POSITION: {
+                    mLeagueTableJson = (LeagueTableJson) mRequestHandler.getResultObject();
+                    mStandingJson = Calculators.calculateStanding(mFavouriteTeamJson.getName(), mLeagueTableJson);
 
-                mRequestHandler.sendJsonObjectRequest(
-                        mNextFixtureApiUrl,
-                        Constants.REQUEST_NEXT_FIXTURE,
-                        MatchdayJson.class);
-                break;
-            }
-            case Constants.REQUEST_NEXT_FIXTURE: {
-                mNextMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
-                mNextFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mNextMatchdayJson);
+                    mNextFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
+                            getString(R.string.fixture_api_endpoint),
+                            mLeagueTableJson.getMatchday(),
+                            true);
 
-                mPrevFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
-                        getString(R.string.fixture_api_endpoint),
-                        mLeagueTableJson.getMatchday(),
-                        false);
+                    mRequestHandler.sendJsonObjectRequest(
+                            mNextFixtureApiUrl,
+                            Constants.REQUEST_NEXT_FIXTURE,
+                            MatchdayJson.class);
+                    break;
+                }
+                case Constants.REQUEST_NEXT_FIXTURE: {
+                    mNextMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
+                    mNextFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mNextMatchdayJson);
 
-                mRequestHandler.sendJsonObjectRequest(
-                        mPrevFixtureApiUrl,
-                        Constants.REQUEST_PREV_FIXTURE,
-                        MatchdayJson.class);
-                break;
-            }
-            case Constants.REQUEST_PREV_FIXTURE: {
-                mPrevMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
-                mPrevFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mPrevMatchdayJson);
+                    mPrevFixtureApiUrl = UrlBuilders.buildFixtureApiUrls(
+                            getString(R.string.fixture_api_endpoint),
+                            mLeagueTableJson.getMatchday(),
+                            false);
 
-                mCrestApiUrl = UrlBuilders.buildCrestApiUrls(getString(R.string.crests_api_endpoint),
-                        mFavouriteTeamJson.getName(),
-                        mPrevFixtureJson,
-                        mNextFixtureJson);
+                    mRequestHandler.sendJsonObjectRequest(
+                            mPrevFixtureApiUrl,
+                            Constants.REQUEST_PREV_FIXTURE,
+                            MatchdayJson.class);
+                    break;
+                }
+                case Constants.REQUEST_PREV_FIXTURE: {
+                    mPrevMatchdayJson = (MatchdayJson) mRequestHandler.getResultObject();
+                    mPrevFixtureJson = Calculators.calculateFixture(mFavouriteTeamJson.getName(), mPrevMatchdayJson);
 
-                mRequestHandler.sendJsonObjectRequest(
-                        mCrestApiUrl,
-                        Constants.REQUEST_CRESTS,
-                        CrestsJson.class);
-                break;
-            }
-            case Constants.REQUEST_CRESTS: {
-                mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
+                    mCrestApiUrl = UrlBuilders.buildCrestApiUrls(getString(R.string.crests_api_endpoint),
+                            mFavouriteTeamJson.getName(),
+                            mPrevFixtureJson,
+                            mNextFixtureJson);
 
-                mapJsonToDb();
-                setViewModel();
+                    mRequestHandler.sendJsonObjectRequest(
+                            mCrestApiUrl,
+                            Constants.REQUEST_CRESTS,
+                            CrestsJson.class);
+                    break;
+                }
+                case Constants.REQUEST_CRESTS: {
+                    mCrestsJson = (CrestsJson) mRequestHandler.getResultObject();
 
-                if (mProgressDialog != null)
-                    mProgressDialog.dismiss();
+                    mapJsonToDb();
+                    setViewModel();
 
-                break;
+                    if (mProgressDialog != null)
+                        mProgressDialog.dismiss();
+
+                    break;
+                }
             }
         }
     }

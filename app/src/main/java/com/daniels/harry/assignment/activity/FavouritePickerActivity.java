@@ -2,10 +2,12 @@ package com.daniels.harry.assignment.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -171,9 +173,7 @@ public class FavouritePickerActivity
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (mRequestHandler.isNetworkConnected()) {
             requestLocationUpdates();
-        }
     }
 
     @Override
@@ -241,15 +241,26 @@ public class FavouritePickerActivity
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
 
-            mLocationRequest = LocationRequest.create();
-            mLocationRequest.setInterval(100);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            mProgressDialog = ProgressDialog.show(this,
-                    getString(R.string.dialog_title_location_progress),
-                    getString(R.string.please_wait),
-                    true, true);
+            if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                    || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+                mLocationRequest = LocationRequest.create();
+                mLocationRequest.setInterval(100);
+                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+                mProgressDialog = ProgressDialog.show(this,
+                        getString(R.string.dialog_title_location_progress),
+                        getString(R.string.please_wait),
+                        true, true);
+            } else {
+                ErrorDialogs.showErrorDialog(this,
+                        getString(R.string.dialog_title_location_error),
+                        getString(R.string.dialog_message_location_error));
+            }
         }
         else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_LOCATION_PERMISSION);
