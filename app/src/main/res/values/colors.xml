@@ -3,4 +3,8 @@
     <item name="fantasyGreen" type="color">#4C9966</item>
     <item name="fantasyGreenDark" type="color">#0F5B29</item>
     <item name="fantasyGreenDarkest" type="color">#00240C</item>
+    <item name="fantasyGreenLight" type="color">#77B68C</item>
+    <item name="fantasyGreenLightest" type="color">#A9D4B8</item>
+
+    <item name="footballField" type="color">#6AAC4B</item>
 </resources>
