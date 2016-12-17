@@ -5,13 +5,14 @@ import android.content.Context;
 import android.location.Location;
 import android.telephony.TelephonyManager;
 
+import com.daniels.harry.assignment.R;
+import com.daniels.harry.assignment.constant.Constants;
+import com.daniels.harry.assignment.constant.Enums;
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
 import com.daniels.harry.assignment.jsonobject.MatchdayJson;
 import com.daniels.harry.assignment.jsonobject.StandingJson;
-import com.daniels.harry.assignment.model.Fixture;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -147,6 +148,111 @@ public class Calculators {
         }
 
         return returnPosition;
+    }
+
+    public static Enums.ShirtColour calculateShirtColour(String colour) {
+        switch (colour) {
+            case "darkred":
+                return Enums.ShirtColour.DARKRED;
+            case "darkblue":
+                return Enums.ShirtColour.DARKBLUE;
+            case "lightblue":
+                return Enums.ShirtColour.LIGHTBLUE;
+            case "lightred":
+                return Enums.ShirtColour.LIGHTRED;
+            case "orange":
+                return Enums.ShirtColour.ORANGE;
+            case "turqoise":
+                return Enums.ShirtColour.TURQOISE;
+            case "white":
+                return Enums.ShirtColour.WHITE;
+            case "yellow":
+                return Enums.ShirtColour.YELLOW;
+            case "purple":
+                return Enums.ShirtColour.PURPLE;
+            default:
+                return Enums.ShirtColour.TRANSLUCENT;
+        }
+    }
+
+    public static String calculateTeamIdFromTag(String tag) {
+        String[] splitTag = tag.split("_");
+        return splitTag[splitTag.length - 1];
+    }
+
+    public static String calculatePlayerName(String name, boolean isFirstName) {
+        String nameSplit[] = name.split(" ");
+
+        if (isFirstName) {
+            return nameSplit[0];
+        } else {
+            String surnames = "";
+            for(int i = 1; i < nameSplit.length; i++){
+                surnames += nameSplit[i] + " ";
+            }
+
+            return surnames;
+        }
+    }
+
+    public static Float calculatePlayerPrice(String price) {
+        if (price != null) {
+            return Float.valueOf(price.replace(",", "").replace(" ", "").replace("€", ""));
+        } else {
+            return 100000F;
+        }
+    }
+
+    public static int calculateShirtColourResource(Enums.ShirtColour colour) {
+        switch (colour) {
+            case DARKRED:
+                return R.drawable.icon_shirt_darkred;
+            case DARKBLUE:
+                return R.drawable.icon_shirt_darkblue;
+            case LIGHTBLUE:
+                return R.drawable.icon_shirt_lightblue;
+            case LIGHTRED:
+                return R.drawable.icon_shirt_lightred;
+            case ORANGE:
+                return R.drawable.icon_shirt_orange;
+            case TRANSLUCENT:
+                return R.drawable.icon_shirt_translucent;
+            case TURQOISE:
+                return R.drawable.icon_shirt_turqoise;
+            case WHITE:
+                return R.drawable.icon_shirt_white;
+            case YELLOW:
+                return R.drawable.icon_shirt_yellow;
+            case PURPLE:
+                return R.drawable.icon_shrit_purple;
+            default:
+                return R.drawable.icon_shirt_translucent;
+        }
+    }
+
+    public static int calculateShirtColourResourceFromString(String colour) {
+        switch (colour) {
+            case "darkred":
+                return R.drawable.icon_shirt_darkred;
+            case "darkblue":
+                return R.drawable.icon_shirt_darkblue;
+            case "lightblue":
+                return R.drawable.icon_shirt_lightblue;
+            case "lightred":
+                return R.drawable.icon_shirt_lightred;
+            case "orange":
+                return R.drawable.icon_shirt_orange;
+            case "turqoise":
+                return R.drawable.icon_shirt_turqoise;
+            case "white":
+                return R.drawable.icon_shirt_white;
+            case "yellow":
+                return R.drawable.icon_shirt_yellow;
+            case "purple":
+                return R.drawable.icon_shrit_purple;
+            default:
+                return R.drawable.icon_shirt_translucent;
+        }
     }
 
     public static String calculateMobileNetworkType(Context context) {

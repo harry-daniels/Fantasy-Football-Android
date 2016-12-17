@@ -9,7 +9,7 @@ import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.model.User;
 import com.daniels.harry.assignment.singleton.CurrentUser;
-import com.daniels.harry.assignment.util.Constants;
+import com.daniels.harry.assignment.constant.Constants;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -103,18 +103,6 @@ public class SignInActivity extends AppCompatActivity  implements
                     getString(R.string.dialog_title_signin_error),
                     getString(R.string.dialog_message_signin_error));
         }
-    }
-
-    private void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
-                    }
-                });
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.daniels.harry.assignment.util;
 
 
-import com.daniels.harry.assignment.R;
+import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 
 public class UrlBuilders {
@@ -26,5 +26,9 @@ public class UrlBuilders {
 
         return endpoint.replace(Constants.URL_SLUG_REPLACE_PREV, prevOppositionName)
                 .replace(Constants.URL_SLUG_REPLACE_NEXT, nextOppositionName);
+    }
+
+    public static String buildPlayerApiUrl(String id, String url) {
+        return url.replace(Constants.URL_SLUG_REPLACE_ID, id);
     }
 }

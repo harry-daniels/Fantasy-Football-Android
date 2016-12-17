@@ -48,7 +48,7 @@ public class DashboardViewPagerAdapter extends FragmentPagerAdapter {
         switch (index)
         {
             case 0 :
-                title = "Team";
+                title = "FantasyTeam";
                 break;
             case 1 :
                 title = "Leagues";

@@ -33,7 +33,7 @@ import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.repository.FavouriteTeamRepository;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
-import com.daniels.harry.assignment.util.Constants;
+import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;

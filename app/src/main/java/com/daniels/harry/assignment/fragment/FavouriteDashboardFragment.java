@@ -7,13 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
-import com.daniels.harry.assignment.activity.DashboardActivity;
 import com.daniels.harry.assignment.databinding.FragmentFavouriteDashboardBinding;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
@@ -31,10 +29,9 @@ import com.daniels.harry.assignment.model.Fixture;
 import com.daniels.harry.assignment.model.HomeAwayStat;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
-import com.daniels.harry.assignment.util.Constants;
+import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.util.UrlBuilders;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamDashboardViewModel;
-import com.daniels.harry.assignment.viewmodel.FixtureViewModel;
 
 import java.util.Objects;
 

@@ -12,4 +12,7 @@ public class HomeAwayStat extends SugarRecord {
     public int draws;
     public int losses;
 
+    public HomeAwayStat() {
+
+    }
 }

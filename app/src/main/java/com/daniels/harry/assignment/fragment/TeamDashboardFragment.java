@@ -12,10 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.daniels.harry.assignment.R;
+import com.daniels.harry.assignment.activity.SignInActivity;
 import com.daniels.harry.assignment.activity.TeamEditorActivity;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 
-public class TeamDashboardFragment extends Fragment {
+public class TeamDashboardFragment extends Fragment implements View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener{
+
+    public GoogleApiClient mGoogleApiClient;
 
     public TeamDashboardFragment() {
 
@@ -29,6 +38,11 @@ public class TeamDashboardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity(), this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
     }
 
     @Override
@@ -36,18 +50,45 @@ public class TeamDashboardFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_team_dashboard, container, false);
 
         CardView b = (CardView)rootView.findViewById(R.id.btn_edit_team);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), TeamEditorActivity.class);
-                startActivity(i);
-            }
-        });
+        b.setOnClickListener(this);
+
         return rootView;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.btn_edit_team:
+                Intent i = new Intent(getActivity(), TeamEditorActivity.class);
+                startActivity(i);
+                break;
+            case R.id.btn_sign_out:
+                signOut();
+        }
+
+
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Intent i = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(i);
+                        getActivity().finish();
+                    }
+                });
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        //TODO: Handle
     }
 }

@@ -22,6 +22,7 @@
     <string name="fixture_api_endpoint">http://api.football-data.org/v1/competitions/426/fixtures?matchday=</string>
     <string name="league_table_api_endpoint">http://api.football-data.org/v1/competitions/426/leagueTable</string>
     <string name="crests_api_endpoint">http://fifabuddy.net/api/crests?prev=#prev#&amp;next=#next#</string>
+    <string name="players_api_endpoint">http://api.football-data.org/v1/teams/#id#/players</string>
 
     <string name="no_team_info_available">No team info available.</string>
     <string name="select_your_favourite_team_here">Select your favourite team here.</string>
@@ -51,4 +52,8 @@
     <string name="dialog_title_location_progress">Acquiring location</string>
 
     <string name="db_encryption_key">HIhuiBIBH;BHIbi+ftyFTfgGFU</string>
+    <string name="dialog_title_initialising_progress">Initialising</string>
+    <string name="dialog_title_noplayers_error">No Players</string>
+    <string name="dialog_message_noplayers_error">No players found. Please reload this page when you have an internet connection.</string>
+    <string name="select_player">Select player</string>
 </resources>

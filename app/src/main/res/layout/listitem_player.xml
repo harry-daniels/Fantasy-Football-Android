@@ -6,11 +6,11 @@
 
         <variable
             name="listener"
-            type="com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter.Listener" />
+            type="com.daniels.harry.assignment.adapter.SelectPlayerListViewAdapter.Listener" />
 
         <variable
             name="viewmodel"
-            type="com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel" />
+            type="com.daniels.harry.assignment.viewmodel.SelectPlayerViewModel" />
     </data>
 
     <FrameLayout
@@ -54,7 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".20"
-                    android:src="@drawable/icon_shirt_darkred" />
+                    android:src="@{viewmodel.iconResource}" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -72,13 +72,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Christian Benteke"
+                            android:text="@{viewmodel.name}"
                             android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text='Crystal Palace'
+                            android:text='@{viewmodel.teamName}'
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -87,7 +87,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".30"
-                        android:text='£32.5M'
+                        android:text='@{"£" + viewmodel.price}'
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>

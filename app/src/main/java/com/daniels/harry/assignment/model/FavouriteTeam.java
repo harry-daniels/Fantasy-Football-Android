@@ -1,5 +1,6 @@
 package com.daniels.harry.assignment.model;
 
+import com.daniels.harry.assignment.constant.Enums;
 import com.orm.SugarRecord;
 
 public class FavouriteTeam extends SugarRecord {

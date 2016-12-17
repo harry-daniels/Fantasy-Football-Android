@@ -55,6 +55,7 @@ public class FavouriteTeamMapper {
             f.crestUrl = j.getCrestUrl();
             f.groundLat = j.getLatitude();
             f.groundLong = j.getLongitude();
+            f.colour = j.getColour();
 
             teams.add(f);
         }

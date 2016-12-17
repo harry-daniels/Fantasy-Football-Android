@@ -49,6 +49,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.daniels.harry.assignment.activity.DashboardActivity" />
         </activity>
+        <activity
+            android:name=".activity.SelectPlayerActivity"
+            android:label="@string/select_player"
+            android:parentActivityName=".activity.TeamEditorActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.daniels.harry.assignment.activity.TeamEditorActivity" />
+        </activity>
     </application>
 
 </manifest>
