@@ -12,8 +12,8 @@ public class SelectPlayerViewModel implements SortedListAdapter.ViewModel{
     private String id;
     private String name;
     private String teamName;
+    private double price;
     private int iconResource;
-    private float price;
 
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView view, int resource) {
@@ -48,11 +48,11 @@ public class SelectPlayerViewModel implements SortedListAdapter.ViewModel{
         this.teamName = teamName;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

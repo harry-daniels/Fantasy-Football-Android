@@ -23,7 +23,7 @@ android {
     defaultConfig {
         applicationId "com.daniels.harry.assignment"
         minSdkVersion 21
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true

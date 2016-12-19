@@ -30,7 +30,7 @@ public class FavouriteTeamMapper {
         model.ground = teamJson.getGround();
         model.groundLat = teamJson.getLatitude();
         model.groundLong = teamJson.getLongitude();
-        model.colour = teamJson.getColour();
+        model.colour = Calculators.calculateShirtColour(teamJson.getColour());
         model.position = standingJson.getPosition();
         model.playedGames = standingJson.getPlayedGames();
         model.points = standingJson.getPoints();
@@ -55,7 +55,7 @@ public class FavouriteTeamMapper {
             f.crestUrl = j.getCrestUrl();
             f.groundLat = j.getLatitude();
             f.groundLong = j.getLongitude();
-            f.colour = j.getColour();
+            f.colour = Calculators.calculateShirtColour(j.getColour());
 
             teams.add(f);
         }

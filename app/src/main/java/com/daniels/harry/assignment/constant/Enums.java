@@ -28,4 +28,11 @@ public class Enums {
         LS,
         RS
     }
+
+    public enum Area {
+        Keeper,
+        Defender,
+        Midfielder,
+        Striker
+    }
 }

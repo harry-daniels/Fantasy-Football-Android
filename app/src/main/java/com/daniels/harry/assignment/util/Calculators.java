@@ -35,8 +35,8 @@ public class Calculators {
     public static FixtureJson calculateFixture(String teamName, MatchdayJson matchday) {
         FixtureJson fixture = new FixtureJson();
 
-        for(FixtureJson f : matchday.getFixtures()){
-            if(Objects.equals(teamName, f.getHomeTeamName()) || Objects.equals(teamName, f.getAwayTeamName())){
+        for (FixtureJson f : matchday.getFixtures()) {
+            if (Objects.equals(teamName, f.getHomeTeamName()) || Objects.equals(teamName, f.getAwayTeamName())) {
                 fixture = f;
                 break;
             }
@@ -48,8 +48,8 @@ public class Calculators {
     public static StandingJson calculateStanding(String teamName, LeagueTableJson table) {
         StandingJson standing = new StandingJson();
 
-        for(StandingJson s : table.getStandings()) {
-            if (Objects.equals(s.getTeamName(), teamName)){
+        for (StandingJson s : table.getStandings()) {
+            if (Objects.equals(s.getTeamName(), teamName)) {
                 standing = s;
                 break;
             }
@@ -58,8 +58,7 @@ public class Calculators {
         return standing;
     }
 
-    public static float calculateDistance(float latA, float longA, float latB, float longB)
-    {
+    public static float calculateDistance(float latA, float longA, float latB, float longB) {
         float[] distance = new float[1];
         Location.distanceBetween(latA, longA, latB, longB, distance);
 
@@ -77,7 +76,7 @@ public class Calculators {
 
         returnDate += dateArray[0].substring(8, 10) + "-"
                 + dateArray[0].substring(5, 7) + "-"
-                + dateArray[0].substring(0,4) + " "
+                + dateArray[0].substring(0, 4) + " "
                 + dateArray[1].substring(0, 8);
 
         return returnDate;
@@ -87,24 +86,19 @@ public class Calculators {
 
         String outcome = "";
 
-        if (isHome && homeScore < awayScore)
-        {
+        if (isHome && homeScore < awayScore) {
             outcome = "LOSS";
         }
-        if (isHome && homeScore > awayScore)
-        {
+        if (isHome && homeScore > awayScore) {
             outcome = "WIN";
         }
-        if (!isHome && homeScore < awayScore)
-        {
+        if (!isHome && homeScore < awayScore) {
             outcome = "WIN";
         }
-        if (!isHome && homeScore > awayScore)
-        {
+        if (!isHome && homeScore > awayScore) {
             outcome = "LOSS";
         }
-        if (homeScore == awayScore)
-        {
+        if (homeScore == awayScore) {
             outcome = "DRAW";
         }
 
@@ -115,12 +109,9 @@ public class Calculators {
 
         String score;
 
-        if(awayScore >= homeScore)
-        {
+        if (awayScore >= homeScore) {
             score = awayScore + " - " + homeScore;
-        }
-        else
-        {
+        } else {
             score = homeScore + " - " + awayScore;
         }
 
@@ -131,18 +122,17 @@ public class Calculators {
 
         String returnPosition;
 
-        switch (position)
-        {
-            case "1" :
+        switch (position) {
+            case "1":
                 returnPosition = "1st";
                 break;
-            case "2" :
+            case "2":
                 returnPosition = "2nd";
                 break;
-            case "3" :
+            case "3":
                 returnPosition = "3rd";
                 break;
-            default :
+            default:
                 returnPosition = position + "th";
                 break;
         }
@@ -187,7 +177,7 @@ public class Calculators {
             return nameSplit[0];
         } else {
             String surnames = "";
-            for(int i = 1; i < nameSplit.length; i++){
+            for (int i = 1; i < nameSplit.length; i++) {
                 surnames += nameSplit[i] + " ";
             }
 
@@ -230,28 +220,54 @@ public class Calculators {
         }
     }
 
-    public static int calculateShirtColourResourceFromString(String colour) {
-        switch (colour) {
-            case "darkred":
-                return R.drawable.icon_shirt_darkred;
-            case "darkblue":
-                return R.drawable.icon_shirt_darkblue;
-            case "lightblue":
-                return R.drawable.icon_shirt_lightblue;
-            case "lightred":
-                return R.drawable.icon_shirt_lightred;
-            case "orange":
-                return R.drawable.icon_shirt_orange;
-            case "turqoise":
-                return R.drawable.icon_shirt_turqoise;
-            case "white":
-                return R.drawable.icon_shirt_white;
-            case "yellow":
-                return R.drawable.icon_shirt_yellow;
-            case "purple":
-                return R.drawable.icon_shrit_purple;
+    public static double calculateShortPlayerValue(float value) {
+        double valueNoDecimals = Math.round(value);
+        valueNoDecimals = (valueNoDecimals / 1000000);
+
+        return valueNoDecimals;
+    }
+
+    public static Enums.Area calculatePlayerAreaFromString(String position) {
+        switch (position) {
+            case "Keeper":
+                return Enums.Area.Keeper;
+            case "Centre Back":
+            case "Left-Back":
+            case "Right-Back":
+                return Enums.Area.Defender;
+            case "Central Midfield":
+            case "Defensive Midfield":
+            case "Attacking Midfield":
+                    return Enums.Area.Midfielder;
+            case "Left Wing":
+            case "Right Wing":
+            case "Secondary Striker":
+            case "Centre Forward":
+                return  Enums.Area.Striker;
             default:
-                return R.drawable.icon_shirt_translucent;
+                return Enums.Area.Keeper;
+        }
+    }
+
+    public static Enums.Area calculatePlayerAreaFromEnum(Enums.Position position) {
+        switch (position) {
+            case GK:
+                return Enums.Area.Keeper;
+            case LB:
+            case LCB:
+            case RCB:
+            case RB:
+                return Enums.Area.Defender;
+            case LM:
+            case LCM:
+            case RCM:
+            case RM:
+                return Enums.Area.Midfielder;
+            case LS:
+            case RS:
+                return  Enums.Area.Striker;
+            default:
+                return Enums.Area.Keeper;
         }
     }
 

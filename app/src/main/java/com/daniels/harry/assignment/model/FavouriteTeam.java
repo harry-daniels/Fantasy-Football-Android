@@ -14,7 +14,7 @@ public class FavouriteTeam extends SugarRecord {
     public float groundLat;
     public float groundLong;
 
-    public String colour;
+    public Enums.ShirtColour colour;
     public String ground;
     public String crestUrl;
 

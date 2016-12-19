@@ -20,6 +20,7 @@ import com.daniels.harry.assignment.databinding.ActivitySelectPlayerBinding;
 import com.daniels.harry.assignment.mapper.PlayerMapper;
 import com.daniels.harry.assignment.model.Player;
 import com.daniels.harry.assignment.repository.PlayerRepository;
+import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.viewmodel.SelectPlayerViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
     private static final Comparator<SelectPlayerViewModel> VALUE_COMPARATOR = new Comparator<SelectPlayerViewModel>() {
         @Override
         public int compare(SelectPlayerViewModel a, SelectPlayerViewModel b) {
-            return Float.compare(a.getPrice(), b.getPrice());
+            return Double.compare(b.getPrice(), a.getPrice());
         }
     };
 
@@ -54,7 +55,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
         mBinding.listPlayerSelector.setLayoutManager(new LinearLayoutManager(this));
         mBinding.listPlayerSelector.setAdapter(mListViewAdapter);
 
-        mPosition = Enums.Position.values()[getIntent().getIntExtra(Constants.IE_POSITION, 0)];
+        mPosition = (Enums.Position)getIntent().getSerializableExtra(Constants.IE_POSITION);
 
         setViewModels();
     }
@@ -110,7 +111,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void setViewModels() {
-        for (Player p : PlayerRepository.getAll()) {
+        for (Player p : PlayerRepository.getByArea(Calculators.calculatePlayerAreaFromEnum(mPosition))) {
             mViewModels.add(PlayerMapper.modelToViewModel(p));
         }
         resetListAdapter(mViewModels);

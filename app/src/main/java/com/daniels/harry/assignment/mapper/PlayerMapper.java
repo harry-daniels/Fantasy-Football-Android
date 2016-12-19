@@ -27,6 +27,7 @@ public class PlayerMapper {
             player.surname = Calculators.calculatePlayerName(p.getName(), false);
             player.price = Calculators.calculatePlayerPrice(p.getValue());
             player.team = t;
+            player.area = Calculators.calculatePlayerAreaFromString(p.getPosition());
 
             players.add(player);
         }
@@ -39,8 +40,8 @@ public class PlayerMapper {
 
         vm.setTeamName(player.team.name);
         vm.setName(player.firstName + " " + player.surname);
-        vm.setPrice(player.price);
-        vm.setIconResource(Calculators.calculateShirtColourResourceFromString(player.team.colour));
+        vm.setPrice(Calculators.calculateShortPlayerValue(player.price));
+        vm.setIconResource(Calculators.calculateShirtColourResource(player.team.colour));
 
         return vm;
     }

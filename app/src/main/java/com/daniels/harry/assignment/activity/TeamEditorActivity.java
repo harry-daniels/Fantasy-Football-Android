@@ -25,11 +25,15 @@ import com.daniels.harry.assignment.repository.PlayerRepository;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.UrlBuilders;
 import com.daniels.harry.assignment.viewmodel.SelectPlayerViewModel;
+import com.orm.SugarApp;
+import com.orm.SugarDb;
+import com.orm.SugarRecord;
+import com.orm.SugarTransactionHelper;
 
 import java.util.List;
 
 public class TeamEditorActivity extends AppCompatActivity implements View.OnClickListener,
-        RequestQueue.RequestFinishedListener {
+        RequestQueue.RequestFinishedListener, PlayerRepository.onFinish {
 
     private HttpRequestHandler mRequestHandler;
     private ProgressDialog mProgressDialog;
@@ -162,9 +166,9 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                     AllPlayersJson playersJson = (AllPlayersJson) mRequestHandler.getResultObject();
                     String teamId = Calculators.calculateTeamIdFromTag(request.getTag().toString());
                     List<Player> players = PlayerMapper.jsonToModels(playersJson, teamId);
-                    PlayerRepository.saveAll(players);
-                    launchSelectPlayerActivity();
-                    mProgressDialog.dismiss();
+                    PlayerRepository pr = new PlayerRepository();
+                    pr.saveAll(players, this, this);
+
             }
         }
     }
@@ -241,5 +245,11 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         for (LinearLayout btn : mPositionButtons) {
             btn.setOnClickListener(this);
         }
+    }
+
+    @Override
+    public void callback() {
+        launchSelectPlayerActivity();
+        mProgressDialog.dismiss();
     }
 }
