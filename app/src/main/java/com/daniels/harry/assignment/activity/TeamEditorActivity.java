@@ -30,6 +30,7 @@ import com.orm.SugarDb;
 import com.orm.SugarRecord;
 import com.orm.SugarTransactionHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamEditorActivity extends AppCompatActivity implements View.OnClickListener,
@@ -41,6 +42,9 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     private Enums.Position mInitialiseForPosition;
 
     private LinearLayout[] mPositionButtons;
+
+    private List<Player> mPlayers = new ArrayList<>();
+    int count = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,9 +169,12 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                 default:
                     AllPlayersJson playersJson = (AllPlayersJson) mRequestHandler.getResultObject();
                     String teamId = Calculators.calculateTeamIdFromTag(request.getTag().toString());
-                    List<Player> players = PlayerMapper.jsonToModels(playersJson, teamId);
-                    PlayerRepository pr = new PlayerRepository();
-                    pr.saveAll(players, this, this);
+                    mPlayers.addAll(PlayerMapper.jsonToModels(playersJson, teamId));
+                    count++;
+                    if (count == 20) {
+                        PlayerRepository pr = new PlayerRepository();
+                        pr.saveAll(mPlayers, this, this);
+                    }
 
             }
         }
