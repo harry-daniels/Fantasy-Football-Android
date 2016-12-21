@@ -28,4 +28,7 @@ public class Constants {
     public static final String URL_SLUG_REPLACE_ID = "#id#";
 
     public static final String IE_POSITION = "extra_position";
+
+    public static final String DB_PLAYERS_TAG = "db_players";
+    public static final String DB_TEAMS_TAG = "db_teams";
 }

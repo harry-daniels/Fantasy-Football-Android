@@ -16,25 +16,22 @@ import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllPlayersJson;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
+import com.daniels.harry.assignment.listener.OnDbGetAsyncListener;
+import com.daniels.harry.assignment.listener.OnDbSaveAsyncListener;
 import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.mapper.PlayerMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.Player;
-import com.daniels.harry.assignment.repository.FavouriteTeamRepository;
-import com.daniels.harry.assignment.repository.PlayerRepository;
+import com.daniels.harry.assignment.repository.DbGetAllAsync;
+import com.daniels.harry.assignment.repository.DbSaveAllAsync;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.UrlBuilders;
-import com.daniels.harry.assignment.viewmodel.SelectPlayerViewModel;
-import com.orm.SugarApp;
-import com.orm.SugarDb;
-import com.orm.SugarRecord;
-import com.orm.SugarTransactionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeamEditorActivity extends AppCompatActivity implements View.OnClickListener,
-        RequestQueue.RequestFinishedListener, PlayerRepository.onFinish {
+        RequestQueue.RequestFinishedListener, OnDbSaveAsyncListener, OnDbGetAsyncListener {
 
     private HttpRequestHandler mRequestHandler;
     private ProgressDialog mProgressDialog;
@@ -61,7 +58,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
 
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.btn_select_gk:
                 mInitialiseForPosition = Enums.Position.GK;
                 if (!isInitialised()) {
@@ -162,8 +159,9 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                 case Constants.REQUEST_TEAMS: {
                     AllTeamsJson teamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
                     List<FavouriteTeam> teams = FavouriteTeamMapper.jsonToModels(teamsJson);
-                    FavouriteTeamRepository.saveAll(teams);
-                    handlePlayersRequest();
+                    DbSaveAllAsync<FavouriteTeam> save = new DbSaveAllAsync<>(teams, this, Constants.DB_TEAMS_TAG);
+                    save.execute();
+                    getPlayerData();
                     break;
                 }
                 default:
@@ -172,17 +170,17 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                     mPlayers.addAll(PlayerMapper.jsonToModels(playersJson, teamId));
                     count++;
                     if (count == 20) {
-                        PlayerRepository pr = new PlayerRepository();
-                        pr.saveAll(mPlayers, this, this);
+                        mProgressDialog.dismiss();
+                        DbSaveAllAsync<Player> save = new DbSaveAllAsync<>(mPlayers, this, Constants.DB_PLAYERS_TAG);
+                        save.execute();
                     }
-
             }
         }
     }
 
-    private void initialise(){
+    private void initialise() {
         long count = Player.count(Player.class);
-        if(mRequestHandler.isNetworkConnected() && Player.count(Player.class) == 0) {
+        if (mRequestHandler.isNetworkConnected() && Player.count(Player.class) == 0) {
 
             mProgressDialog = ProgressDialog.show(this,
                     getString(R.string.dialog_title_initialising_progress),
@@ -204,17 +202,22 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                     Constants.REQUEST_TEAMS,
                     AllTeamsJson.class);
         } else {
-            handlePlayersRequest();
+            getPlayerData();
         }
     }
 
-    private void handlePlayersRequest() {
-        for (FavouriteTeam t : FavouriteTeamRepository.getAll()) {
+    private void handlePlayersRequest(List<FavouriteTeam> items) {
+        for (FavouriteTeam t : items) {
             mRequestHandler.sendJsonObjectRequest(
                     UrlBuilders.buildPlayerApiUrl(t.apiId, getString(R.string.players_api_endpoint)),
                     Constants.REQUEST_PLAYERS + "_" + t.apiId,
                     AllPlayersJson.class);
         }
+    }
+
+    private void getPlayerData() {
+        DbGetAllAsync<FavouriteTeam> get = new DbGetAllAsync<>(FavouriteTeam.class, this, Constants.DB_TEAMS_TAG);
+        get.execute();
     }
 
     private void setViewModel() {
@@ -235,18 +238,19 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setButtons() {
-        mPositionButtons = new LinearLayout[] {
-                (LinearLayout)findViewById(R.id.btn_select_gk),
-                (LinearLayout)findViewById(R.id.btn_select_lb),
-                (LinearLayout)findViewById(R.id.btn_select_lcb),
-                (LinearLayout)findViewById(R.id.btn_select_rcb),
-                (LinearLayout)findViewById(R.id.btn_select_rb),
-                (LinearLayout)findViewById(R.id.btn_select_lm),
-                (LinearLayout)findViewById(R.id.btn_select_lcm),
-                (LinearLayout)findViewById(R.id.btn_select_rcm),
-                (LinearLayout)findViewById(R.id.btn_select_rm),
-                (LinearLayout)findViewById(R.id.btn_select_ls),
-                (LinearLayout)findViewById(R.id.btn_select_rs),
+        mPositionButtons = new LinearLayout[]{
+
+                (LinearLayout) findViewById(R.id.btn_select_gk),
+                (LinearLayout) findViewById(R.id.btn_select_lb),
+                (LinearLayout) findViewById(R.id.btn_select_lcb),
+                (LinearLayout) findViewById(R.id.btn_select_rcb),
+                (LinearLayout) findViewById(R.id.btn_select_rb),
+                (LinearLayout) findViewById(R.id.btn_select_lm),
+                (LinearLayout) findViewById(R.id.btn_select_lcm),
+                (LinearLayout) findViewById(R.id.btn_select_rcm),
+                (LinearLayout) findViewById(R.id.btn_select_rm),
+                (LinearLayout) findViewById(R.id.btn_select_ls),
+                (LinearLayout) findViewById(R.id.btn_select_rs),
         };
 
         for (LinearLayout btn : mPositionButtons) {
@@ -255,8 +259,30 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void callback() {
-        launchSelectPlayerActivity();
-        mProgressDialog.dismiss();
+    public void onDbSaveSuccess(String tag) {
+        switch (tag) {
+            case Constants.DB_PLAYERS_TAG:
+                launchSelectPlayerActivity();
+                break;
+        }
+    }
+
+    @Override
+    public void onDbSaveFailure(String tag) {
+
+    }
+
+    @Override
+    public void onDbGetSuccess(String tag, List result) {
+        switch (tag) {
+            case Constants.DB_TEAMS_TAG:
+                handlePlayersRequest(result);
+                break;
+        }
+    }
+
+    @Override
+    public void onDbGetFailure(String tag) {
+
     }
 }
