@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.activity.FavouritePickerActivity;
+import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.singleton.CurrentUser;
@@ -45,11 +46,13 @@ public class HttpRequestHandler <T> {
         mConnectivityManager = (ConnectivityManager)c.getSystemService(mContext.CONNECTIVITY_SERVICE);
     }
 
+    // check for network connection
     public boolean isNetworkConnected(){
         mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         return mNetworkInfo != null && mNetworkInfo.isConnectedOrConnecting();
     }
 
+    // remove request finished listener from the request queue singleton instance
     public void removeRequestFinishedListener(){
         try {
             mRequestQueue.removeRequestFinishedListener(mRequestFinishedListener, mContext);
@@ -61,6 +64,7 @@ public class HttpRequestHandler <T> {
         }
     }
 
+    // add request finished listener to the request queue singleton instance
     public void addRequestFinishedListener() {
         try {
             mRequestQueue.addRequestFinishedListener(mRequestFinishedListener, mContext);
@@ -72,6 +76,8 @@ public class HttpRequestHandler <T> {
         }
     }
 
+    // create a new json object request using the parameters passed in. This accepts any type of json
+    // object as a parameter which will be used for parsing into.
     public void sendJsonObjectRequest(String url, String requestTag, final Class<T> jsonObjectType) {
         if (isNetworkConnected()) {
             JsonObjectRequest request = createJsonObjectRequest(url, requestTag, jsonObjectType);
@@ -83,6 +89,7 @@ public class HttpRequestHandler <T> {
         }
     }
 
+    // create http request
     private JsonObjectRequest createJsonObjectRequest(String url, String requestTag, final Class<T> jsonObjectType){
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -90,6 +97,7 @@ public class HttpRequestHandler <T> {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            // parse json response using logan square library into the json object model passed in generically
                             mResultObject = LoganSquare.parse(response.toString(), jsonObjectType);
                         } catch (IOException e) {
                             if (!mActivity.isFinishing()) {
@@ -117,18 +125,18 @@ public class HttpRequestHandler <T> {
             }
         };
         request.setTag(requestTag);
-        request.setShouldCache(false);
 
         return request;
     }
 
-    //TODO: Move Api Key
+    // create http headers for the request to include the api key for the football-data.org api
     public Map<String, String> getHttpHeaders() {
         Map<String, String> params = new HashMap<>();
-        params.put("X-Auth-Token", "debf9352e2b745759c3eb424fc776d6d");
+        params.put("X-Auth-Token", Constants.API_KEY);
         return params;
     }
 
+    // return the resulting json object model to the activity which requires it
     public T getResultObject() {
         return mResultObject;
     }

@@ -23,6 +23,7 @@ public class SelectPlayerListViewAdapter extends SortedListAdapter<SelectPlayerV
 
     private final Listener mListener;
 
+    // list view adapter to handle data bound viewmodels to the list of players
     public SelectPlayerListViewAdapter(Context context, Comparator<SelectPlayerViewModel> comparator, Listener listener) {
         super(context, SelectPlayerViewModel.class, comparator);
         mListener = listener;

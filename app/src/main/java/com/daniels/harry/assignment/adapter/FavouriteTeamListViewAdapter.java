@@ -20,6 +20,7 @@ public class FavouriteTeamListViewAdapter extends SortedListAdapter<FavouriteTea
 
     private final Listener mListener;
 
+    // list view adapter to handle data bound viewmodels to the list of favourite teams
     public FavouriteTeamListViewAdapter(Context context, Comparator<FavouriteTeamPickerViewModel> comparator, Listener listener) {
         super(context, FavouriteTeamPickerViewModel.class, comparator);
         mListener = listener;

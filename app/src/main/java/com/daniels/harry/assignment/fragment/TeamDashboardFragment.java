@@ -19,6 +19,7 @@ import com.daniels.harry.assignment.activity.TeamEditorActivity;
 import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.databinding.FragmentTeamDashboardBinding;
 import com.daniels.harry.assignment.dialog.ConfirmDialogs;
+import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
@@ -49,6 +50,7 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
         return fragment;
     }
 
+    // instantiate google api client and http request handler
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
         mRequestHandler = new HttpRequestHandler(getActivity(), getActivity(), this);
     }
 
+     // setup button click listeners and databinding
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_team_dashboard, container, false);
@@ -68,9 +71,11 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
 
         CardView editTeambutton = (CardView)rootView.findViewById(R.id.btn_edit_team);
         CardView signOutbutton = (CardView) rootView.findViewById(R.id.btn_sign_out);
+        CardView settingsButton = (CardView) rootView.findViewById(R.id.btn_settings);
 
         editTeambutton.setOnClickListener(this);
         signOutbutton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
 
         return rootView;
     }
@@ -102,9 +107,15 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.btn_sign_out:
                 ConfirmDialogs.showConfirmSignOutDialog(getActivity(), this);
+                break;
+            case R.id.btn_settings:
+                ErrorDialogs.showErrorDialog(getActivity(),
+                        getString(R.string.dialog_title_comingsoon_error),
+                        getString(R.string.dialog_message_comingsoon_error));
         }
     }
 
+    // handle sign out using google auth api to invalidate token and return to login screen.
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
@@ -119,7 +130,9 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        //TODO: Handle
+        ErrorDialogs.showErrorDialog(getActivity(),
+                getString(R.string.dialog_title_generic_error),
+                getString(R.string.dialog_message_generic_error));
     }
 
     @Override
@@ -127,6 +140,7 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
         signOut();
     }
 
+    // handle return of http request for the league table, used to calculate fantasy team points
     @Override
     public void onRequestFinished(Request request) {
         if (request.hasHadResponseDelivered()) {
@@ -146,6 +160,8 @@ public class TeamDashboardFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    // create a http request for the league table to update points, or fallback to the last saved instance if
+    // no network access is available
     private void getData() {
         if(mCurrentUser.isAllPlayersSelected() && mRequestHandler.isNetworkConnected() /*&& mCurrentUser.getFantasyTeam().lastUpdated == null*/) {
             mRequestHandler.sendJsonObjectRequest(getString(R.string.league_table_api_endpoint),

@@ -20,6 +20,8 @@ public class CurrentUser {
         mUser = getCurrentUser();
     }
 
+
+    // singleton instance of user entity currently signed in
     public static synchronized CurrentUser getInstance() {
         if (mInstance == null) {
             mInstance = new CurrentUser();
@@ -52,6 +54,7 @@ public class CurrentUser {
         save();
     }
 
+    // create initial fantast team setup
     public void setupFantasyTeam() {
         FantasyTeam ft = new FantasyTeam();
         ft.name = Calculators.calculateName(mUser.name, false) + "FC";
@@ -79,6 +82,7 @@ public class CurrentUser {
         save();
     }
 
+    // add a new player to the fantasy team
     public void setPlayer(Enums.Position position, Player player) {
         FantasyTeam team = mUser.fantasyTeam;
         team.remainingBudget -= player.price;

@@ -79,6 +79,7 @@ public class FavouritePickerActivity
 
     private boolean mViewModelsLoaded;
 
+    // instantiate http request handler, google api client and databinding
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +128,7 @@ public class FavouritePickerActivity
         return true;
     }
 
+    // handle the change of text inputted into the search bar to filter the list of teams
     @Override
     public boolean onQueryTextChange(String query) {
         final List<FavouriteTeamPickerViewModel> filteredModelList = filter(mViewModels, query);
@@ -135,7 +137,6 @@ public class FavouritePickerActivity
 
         return true;
     }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -156,6 +157,7 @@ public class FavouritePickerActivity
         return filteredModelList;
     }
 
+    // upon location received, stop requesting location updates and calculate distance values
     @Override
     public void onLocationChanged(Location location) {
 
@@ -185,6 +187,7 @@ public class FavouritePickerActivity
                 + connectionResult.getErrorMessage());
     }
 
+    // upon the permission or denial of location services to be used by the app, either request location updates or show an error dialog
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -200,6 +203,7 @@ public class FavouritePickerActivity
         }
     }
 
+    // upon http request response received, handle json object transformation
     @Override
     public void onRequestFinished(Request request) {
         switch (request.getTag().toString())
@@ -211,12 +215,14 @@ public class FavouritePickerActivity
         }
     }
 
+    // upon the selection of a team listview item, show a confirmation dialog
     @Override
     public void onClick(FavouriteTeamPickerViewModel model) {
         mSelectedViewModel = model;
         ConfirmDialogs.showConfirmFavouriteDialog(this, this, model.getTeamName());
     }
 
+    // upon confirmation of a team selection, save this choice to the database
     @Override
     public void onClick(DialogInterface dialog, int which) {
         CurrentUser user = CurrentUser.getInstance();
@@ -230,6 +236,8 @@ public class FavouritePickerActivity
         finish();
     }
 
+    // check that the application has location permissions and request the commence of location updates,
+    // if the user has not granted permissions, prompt the user to do so
     private void requestLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED
@@ -262,12 +270,14 @@ public class FavouritePickerActivity
         }
     }
 
+    // create a new http request to receive all teams in JSON format
     private void handleHttpRequest(){
         mRequestHandler.sendJsonObjectRequest(getString(R.string.team_api_endpoint),
                 Constants.REQUEST_TEAMS,
                 AllTeamsJson.class);
     }
 
+    // upon the response of the http request, map the json objects to database objects and save
     private void handleTeamsResponse() {
         mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
 
@@ -278,12 +288,14 @@ public class FavouritePickerActivity
         save.execute();
     }
 
+    // repopulate the listview with new data
     private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
         mListViewAdapter.edit().removeAll().commit();
         mListViewAdapter.edit().add(items).commit();
         mBinding.listFavouritePicker.scrollToPosition(0);
     }
 
+    // calculate distance values for viewmodel objects
     private void updateViewModelLocation(Location location)
     {
         for (FavouriteTeamPickerViewModel vm : mViewModels) {
@@ -296,6 +308,7 @@ public class FavouritePickerActivity
         resetListAdapter(mViewModels);
     }
 
+    // map database team objects to a list of viewmodels
     private void setViewModels(List<FavouriteTeam> teams) {
         for (FavouriteTeam team : teams) {
             mViewModels.add(FavouriteTeamMapper.modelToPickerViewModel(team));
@@ -303,6 +316,8 @@ public class FavouritePickerActivity
         mViewModelsLoaded = true;
     }
 
+    // handle the process of data retreival by checking for a valid network connection or falling back to use the database if any data exists
+    // if not, ask the user to try again with a network connection through a dialog box
     private void getData() {
         if (mRequestHandler.isNetworkConnected()) {
             connectToGoogleApiClient();
@@ -310,6 +325,7 @@ public class FavouritePickerActivity
         } else if(FavouriteTeam.count(FavouriteTeam.class) > 0) {
             connectToGoogleApiClient();
             DbGetAllAsync<FavouriteTeam> get = new DbGetAllAsync<>(FavouriteTeam.class, this, Constants.DB_TEAMS_TAG);
+            get.execute();
         } else {
             ErrorDialogs.showErrorDialog(this,
                     getString(R.string.dialog_title_noteams_error),
@@ -323,6 +339,7 @@ public class FavouritePickerActivity
         }
     }
 
+    // listeners for async database interactions
     @Override
     public void onDbSaveSuccess(String tag) {
         setViewModels(mTeams);
@@ -331,7 +348,9 @@ public class FavouritePickerActivity
 
     @Override
     public void onDbSaveFailure(String tag) {
-        //TODO: handle
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_db_error),
+                getString(R.string.dialog_message_db_error));
     }
 
     @Override
@@ -342,6 +361,8 @@ public class FavouritePickerActivity
 
     @Override
     public void onDbGetFailure(String tag) {
-        //TODO: Handle
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_db_error),
+                getString(R.string.dialog_message_db_error));
     }
 }

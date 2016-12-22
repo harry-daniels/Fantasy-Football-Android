@@ -5,6 +5,7 @@ public class FantasyTeamDashboardViewModel{
     private String name;
     private String points;
     private String lastUpdated;
+    private String budget;
 
 
     public FantasyTeamDashboardViewModel() {
@@ -33,5 +34,13 @@ public class FantasyTeamDashboardViewModel{
 
     public void setLastUpdated(String lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
     }
 }

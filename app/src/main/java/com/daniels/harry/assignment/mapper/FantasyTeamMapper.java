@@ -92,6 +92,7 @@ public class FantasyTeamMapper {
         vm.setName(team.name);
         vm.setPoints(String.valueOf(team.points));
         vm.setLastUpdated(team.lastUpdated == null ? "N/A" : team.lastUpdated.toString());
+        vm.setBudget(Calculators.calculateBudgetString(team.remainingBudget));
 
         return vm;
     }
@@ -102,6 +103,7 @@ public class FantasyTeamMapper {
         vm.setPoints(String.valueOf(Calculators.calculateFantasyPoints(json, team)));
         vm.setName(team.name);
         vm.setLastUpdated(new Date().toString());
+        vm.setBudget(Calculators.calculateBudgetString(team.remainingBudget));
 
         return vm;
     }

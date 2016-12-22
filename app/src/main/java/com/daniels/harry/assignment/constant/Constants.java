@@ -8,6 +8,8 @@ public class Constants {
     public static final float STARTING_BUDGET = 200000000f;
     public static final float KM_TO_MILES = 0.000621371f;
 
+    public static final String API_KEY = "debf9352e2b745759c3eb424fc776d6d";
+
     public static final String NETWORK_2G = "2G";
     public static final String NETWORK_3G = "3G";
     public static final String NETWORK_4G = "4G";

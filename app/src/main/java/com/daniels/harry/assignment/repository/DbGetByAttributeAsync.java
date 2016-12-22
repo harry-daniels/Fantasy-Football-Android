@@ -24,6 +24,7 @@ public class DbGetByAttributeAsync<T extends SugarRecord> extends AsyncTask<Void
         mValue = value;
     }
 
+    // async method for retrieving many databse entries at once using a WHERE query
     @Override
     protected List<T> doInBackground(Void... params) {
         try {

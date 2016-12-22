@@ -1,9 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="app_name">Fantasy PL</string>
 
     <string name="title_activity_favourite_picker">Select Favourite</string>
@@ -62,4 +57,8 @@
     <string name="dialog_error_nice_try">Nice Try</string>
     <string name="sign_out_message">Are you sure you wish to sign out?</string>
     <string name="updating">Updating</string>
+    <string name="dialog_message_comingsoon_error">Settings will allow team name management and other preference changes.</string>
+    <string name="dialog_title_comingsoon_error">Coming Soon</string>
+    <string name="dialog_title_db_error">Database Error</string>
+    <string name="dialog_message_db_error">Error interacting with the database, please try again.</string>
 </resources>

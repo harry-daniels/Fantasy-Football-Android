@@ -15,6 +15,7 @@ import com.daniels.harry.assignment.adapter.DashboardViewPagerAdapter;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    // Set up views
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    // Set up favourite picker link as options menu button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_dashboard, menu);

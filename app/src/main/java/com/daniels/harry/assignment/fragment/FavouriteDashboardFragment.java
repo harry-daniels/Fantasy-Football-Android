@@ -61,12 +61,14 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         return fragment;
     }
 
+    // isntantiate http request handler
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestHandler = new HttpRequestHandler(getActivity(), getActivity(), this);
     }
 
+    // set up data binding and placeholder layouts
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -98,6 +100,8 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         }
     }
 
+    // create http requests from different api endpoints to build up the team statistics page
+    // ensure requests are made in the correct order as some request filters rely on information returned from previous requests
     @Override
     public void onRequestFinished(Request request) {
         if (request.hasHadResponseDelivered()) {
@@ -183,6 +187,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         }
     }
 
+    // create database entries for all json objects returned from http requests
     private void mapJsonToDb() {
         Fixture prevFixture = FixtureMapper.jsonToModel(mPrevFixtureJson,
                 mCurrentUser.getFavouriteTeam().previousFixture,
@@ -209,6 +214,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         setVisibility();
     }
 
+    // check if the user has chosen a favourite team
     private boolean isTeamChosen() {
         boolean isChosen = false;
 
@@ -219,6 +225,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         return isChosen;
     }
 
+    // check if the users favourite team has statistics stored in the database
     private boolean isTeamPopulated() {
         if (isTeamChosen() && mCurrentUser.getFavouriteTeam().populated)
             return true;
@@ -226,6 +233,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         return false;
     }
 
+    // set the visibility of placeholder views if the user has not chosen a team or has no network connection
     private void setVisibility() {
         if (isTeamChosen()) {
             if (isTeamPopulated()) {
@@ -244,6 +252,7 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
         }
     }
 
+    // retrieve data from network if possible or fall back to database
     private void getData() {
         if (isTeamChosen()) {
             if (mRequestHandler.isNetworkConnected() ||

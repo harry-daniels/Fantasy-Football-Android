@@ -9,6 +9,8 @@ import com.daniels.harry.assignment.activity.FavouritePickerActivity;
 
 public class ConfirmDialogs {
 
+    // confirmation dialogs to be used throughout the app
+
     public static void showConfirmFavouriteDialog(Context c, DialogInterface.OnClickListener listener, String teamName) {
         new AlertDialog.Builder(c)
                 .setTitle(c.getString(R.string.dialog_title_confirm))

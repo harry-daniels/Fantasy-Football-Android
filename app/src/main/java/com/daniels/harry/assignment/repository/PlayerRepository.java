@@ -11,8 +11,4 @@ public class PlayerRepository {
     public static void save(FavouriteTeam team) {
         team.save();
     }
-
-    public static List<Player> getByArea(Enums.Area area) {
-        return Player.find(Player.class, "area = ?", area.toString());
-          }
 }

@@ -4,6 +4,8 @@ package com.daniels.harry.assignment.util;
 import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.jsonobject.FixtureJson;
 
+
+//static methods for building api url's from endpoints and filters
 public class UrlBuilders {
 
     public static String serialiseString(String s){

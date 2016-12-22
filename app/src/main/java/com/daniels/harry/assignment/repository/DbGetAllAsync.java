@@ -23,6 +23,7 @@ public class DbGetAllAsync<T extends SugarRecord> extends AsyncTask<Void, Intege
         mTag = tag;
     }
 
+    // async method for retrieving many database entries at once
     @Override
     protected List<T> doInBackground(Void... params) {
         try {

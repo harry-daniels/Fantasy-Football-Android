@@ -23,6 +23,7 @@ public class DbSaveAllAsync<T extends SugarRecord> extends AsyncTask<Void, Integ
         mTag = tag;
     }
 
+    // async method for saving multiple database entries at once
     @Override
     protected Boolean doInBackground(Void... params) {
         try {

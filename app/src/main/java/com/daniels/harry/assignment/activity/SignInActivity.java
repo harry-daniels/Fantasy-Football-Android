@@ -44,12 +44,14 @@ public class SignInActivity extends AppCompatActivity  implements
                 .build();
     }
 
+    // send an intent to the google sign in service upon button click
     public void launchSignIn()
     {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, Constants.REQUEST_SIGN_IN);
     }
 
+    // check to see if a user has a valid token still available for silent sign in
     @Override
     public void onStart() {
         super.onStart();
@@ -71,6 +73,7 @@ public class SignInActivity extends AppCompatActivity  implements
         }
     }
 
+    // upon the return from the google sign in service, handle the result
     @Override
     public void onActivityResult(int reqCode, int resCode, Intent i) {
         super.onActivityResult(reqCode, resCode, i);
@@ -81,6 +84,8 @@ public class SignInActivity extends AppCompatActivity  implements
         }
     }
 
+    // ensure that the user has signed in successfully and retrieve or insert a new database entry for the user.
+    // then start the main dashboard activity.
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
@@ -94,8 +99,6 @@ public class SignInActivity extends AppCompatActivity  implements
                 CurrentUser.getInstance().setupFantasyTeam();
             }
 
-
-
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);
             finish();
@@ -107,6 +110,7 @@ public class SignInActivity extends AppCompatActivity  implements
         }
     }
 
+    // if google api client failed to connect, show an error dialog
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         ErrorDialogs.showErrorDialog(this,
@@ -114,6 +118,7 @@ public class SignInActivity extends AppCompatActivity  implements
                 getString(R.string.dialog_message_http_error));
     }
 
+    // handle google sign in button click
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

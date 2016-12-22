@@ -69,6 +69,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
         getData();
     }
 
+    // setup the search view using the action bar and options menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -81,6 +82,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
         return true;
     }
 
+    // handle search query and filter listview
     @Override
     public boolean onQueryTextChange(String query) {
         final List<SelectPlayerViewModel> filteredModelList = filter(mViewModels, query);
@@ -89,7 +91,6 @@ public class SelectPlayerActivity extends AppCompatActivity implements
 
         return true;
     }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -115,6 +116,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
 
     }
 
+    // reset the list adapter with new viewmodels
     public void setViewModels(List<Player> players) {
         for (Player p : players) {
             mViewModels.add(PlayerMapper.modelToViewModel(p));
@@ -128,6 +130,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
         mBinding.listPlayerSelector.scrollToPosition(0);
     }
 
+    // retrieve player data asychronously from the database and show a progress dialog
     public void getData() {
         mProgressDialog = ProgressDialog.show(this,
                 getString(R.string.loading_players_progress_dialog),
@@ -149,6 +152,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
         getByArea.execute();
     }
 
+    // upon player selection, save this to the database and close the activity
     @Override
     public void onClick(SelectPlayerViewModel model) {
 
@@ -164,6 +168,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements
         }
     }
 
+    // listeners for async database interactions
     @Override
     public void onDbGetSuccess(String tag, List result) {
         switch (tag) {
@@ -172,7 +177,6 @@ public class SelectPlayerActivity extends AppCompatActivity implements
                 setViewModels(result);
         }
     }
-
     @Override
     public void onDbGetFailure(String tag) {
 

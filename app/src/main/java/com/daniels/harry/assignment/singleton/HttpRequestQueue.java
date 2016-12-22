@@ -16,6 +16,7 @@ public class HttpRequestQueue {
     }
 
 
+    // singleton instance of Volley's http request queue to ensure all requests are handled in the same queue
     public static synchronized HttpRequestQueue getInstance (Context c){
         if (mInstance == null) {
             mInstance = new HttpRequestQueue(c);

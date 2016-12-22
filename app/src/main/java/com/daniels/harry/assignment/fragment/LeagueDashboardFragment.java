@@ -11,6 +11,11 @@ import com.daniels.harry.assignment.R;
 
 public class LeagueDashboardFragment extends Fragment {
 
+    // Overshot expectations for the app and didn't have time to implement the league functionality
+    // as it would require writing a new post api endpoint for my external database, otherwise leagues would just be local on a
+    // single device and therefore pretty much pointless! something to look into in the future.
+
+
     public LeagueDashboardFragment() {
 
     }

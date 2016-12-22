@@ -72,6 +72,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         super.onPause();
     }
 
+    // find out which player position the user has clicked
     @Override
     public void onClick(View v) {
 
@@ -115,6 +116,8 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    // handle http request responses
+    // map json data to database entries and viewmodels where necessary
     @Override
     public void onRequestFinished(Request request) {
 
@@ -157,12 +160,14 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // listners for async database interactions
     @Override
     public void onDbSaveFailure(String tag) {
         mProgressDialog.dismiss();
-        //TODO: handle
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_db_error),
+                getString(R.string.dialog_message_db_error));
     }
-
     @Override
     public void onDbGetSuccess(String tag, List result) {
         switch (tag) {
@@ -171,13 +176,15 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
     @Override
     public void onDbGetFailure(String tag) {
         mProgressDialog.dismiss();
-        //TODO: handle
+        ErrorDialogs.showErrorDialog(this,
+                getString(R.string.dialog_title_db_error),
+                getString(R.string.dialog_message_db_error));
     }
 
+    // check whether the user has populated the database with players from the web api
     private boolean isInitialised() {
         if (Player.count(Player.class) > 0)
             return true;
@@ -185,6 +192,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
             return false;
     }
 
+    // initialise or start the player selector activity if not initialised
     private void checkShouldInitialise() {
         if (!isInitialised()) {
             initialise();
@@ -193,6 +201,8 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // handle http request by checking for teams first, then players.
+    // if teams are already present from other areas of the app, just request players, else request both
     private void initialise() {
         long count = Player.count(Player.class);
         if (mRequestHandler.isNetworkConnected() && Player.count(Player.class) == 0) {
@@ -210,6 +220,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // create a http request for a list of teams
     private void handleTeamsRequest() {
         if (FavouriteTeam.count(FavouriteTeam.class) == 0) {
             mRequestHandler.sendJsonObjectRequest(
@@ -221,6 +232,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // create http request for all players in the premier league
     private void handlePlayersRequest(List<FavouriteTeam> items) {
         for (FavouriteTeam t : items) {
             mRequestHandler.sendJsonObjectRequest(
@@ -230,21 +242,25 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // get all player entries from the database asynchronously
     private void getPlayerData() {
         DbGetAllAsync<FavouriteTeam> get = new DbGetAllAsync<>(FavouriteTeam.class, this, Constants.DB_TEAMS_TAG);
         get.execute();
     }
 
+    // create the viewmodel from the users fantasy team database entry
     private void setViewModel() {
         mViewModel = FantasyTeamMapper.modelToTeamEditorViewModel(CurrentUser.getInstance().getFantasyTeam());
     }
 
+    // start the player selector activity
     private void launchSelectPlayerActivity() {
         Intent i = new Intent(this, SelectPlayerActivity.class);
         i.putExtra(Constants.IE_POSITION, mInitialiseForPosition);
         startActivity(i);
     }
 
+    // add a click listener for all elevel position buttons on the interface
     private void setButtons() {
         mPositionButtons = new LinearLayout[]{
 
