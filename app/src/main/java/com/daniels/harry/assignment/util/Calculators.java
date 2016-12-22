@@ -12,6 +12,7 @@ import com.daniels.harry.assignment.jsonobject.FixtureJson;
 import com.daniels.harry.assignment.jsonobject.LeagueTableJson;
 import com.daniels.harry.assignment.jsonobject.MatchdayJson;
 import com.daniels.harry.assignment.jsonobject.StandingJson;
+import com.daniels.harry.assignment.model.FantasyTeam;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -62,7 +63,6 @@ public class Calculators {
         float[] distance = new float[1];
         Location.distanceBetween(latA, longA, latB, longB, distance);
 
-        //TODO: Add to constants
         String formatted = String.format(Locale.ENGLISH.UK, Constants.FLOAT_2DP, (distance[0] * Constants.KM_TO_MILES));
         Float parsedDistance = Float.valueOf(formatted);
 
@@ -170,7 +170,7 @@ public class Calculators {
         return splitTag[splitTag.length - 1];
     }
 
-    public static String calculatePlayerName(String name, boolean isFirstName) {
+    public static String calculateName(String name, boolean isFirstName) {
         String nameSplit[] = name.split(" ");
 
         if (isFirstName) {
@@ -191,6 +191,12 @@ public class Calculators {
         } else {
             return 100000F;
         }
+    }
+
+    public static String calculateBudgetString(float budget) {
+        double roundedBudget = (Math.round(budget) / 1000000);
+        String budgetString = "£" + roundedBudget + "M";
+        return budgetString;
     }
 
     public static int calculateShirtColourResource(Enums.ShirtColour colour) {
@@ -270,6 +276,79 @@ public class Calculators {
                 return Enums.Area.Keeper;
         }
     }
+
+    public static int calculateFantasyPoints(LeagueTableJson json, FantasyTeam team) {
+        long points = 0;
+
+        for (StandingJson standing : json.getStandings()) {
+            if (Objects.equals(team.gk.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.gk.player.price);
+            }
+            if (Objects.equals(team.lb.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.lb.player.price);
+            }
+            if (Objects.equals(team.lcb.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.lcb.player.price);
+            }
+            if (Objects.equals(team.rcb.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.rcb.player.price);
+            }
+            if (Objects.equals(team.rb.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.rb.player.price);
+            }
+            if (Objects.equals(team.lm.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.lm.player.price);
+            }
+            if (Objects.equals(team.lcm.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.lcm.player.price);
+            }
+            if (Objects.equals(team.rcm.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.rcm.player.price);
+            }
+            if (Objects.equals(team.rm.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.rm.player.price);
+            }
+            if (Objects.equals(team.ls.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.ls.player.price);
+            }
+            if (Objects.equals(team.rs.player.team.name, standing.getTeamName())) {
+                points += calculateFantasyPlayerPoints(standing, team.rs.player.price);
+            }
+        }
+
+        return (int) points;
+    }
+
+    private static long calculateFantasyPlayerPoints(StandingJson standing, float playerValue) {
+        long points = 0;
+
+        points += Long.valueOf(standing.getHomeStats().getWins() * 7);
+        points += Long.valueOf(standing.getHomeStats().getDraws() * 2);
+        points += Long.valueOf(standing.getHomeStats().getLosses() * -1);
+        points += Long.valueOf(standing.getAwayStats().getWins() * 8);
+        points += Long.valueOf(standing.getAwayStats().getDraws() * 3);
+        points += Long.valueOf(Math.round(standing.getHomeStats().getGoalsFor() / 3) * 3);
+        points += Long.valueOf(Math.round(standing.getHomeStats().getGoalsAgainst() / 3) * -1);
+        points += Long.valueOf(Math.round(standing.getAwayStats().getGoalsFor() / 3) * 4);
+
+        if (playerValue > 35000000){
+            points = Math.round(Double.valueOf(points * 1.3));
+            return points;
+        }
+
+        if (playerValue > 20000000) {
+            points = Math.round(Double.valueOf(points * 1.2));
+            return points;
+        }
+
+        if (playerValue > 10000000) {
+            points = Math.round(Double.valueOf(points * 1.1));
+            return points;
+        }
+
+        return points;
+    }
+
 
     public static String calculateMobileNetworkType(Context context) {
         TelephonyManager mTelephonyManager = (TelephonyManager)

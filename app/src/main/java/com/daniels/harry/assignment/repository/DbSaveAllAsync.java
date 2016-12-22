@@ -1,7 +1,11 @@
 package com.daniels.harry.assignment.repository;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.listener.OnDbSaveAsyncListener;
 import com.orm.SugarRecord;
 
@@ -12,7 +16,6 @@ public class DbSaveAllAsync<T extends SugarRecord> extends AsyncTask<Void, Integ
     private OnDbSaveAsyncListener mListener;
     private List<T> mObjects;
     private String mTag;
-    private Ac
 
     public DbSaveAllAsync(List<T> objects, OnDbSaveAsyncListener listener, String tag) {
         mObjects = objects;
@@ -32,9 +35,9 @@ public class DbSaveAllAsync<T extends SugarRecord> extends AsyncTask<Void, Integ
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if (result)
-            mListener.onDbSaveSuccess(mTag);
-        else
-            mListener.onDbSaveFailure(mTag);
+            if (result)
+                mListener.onDbSaveSuccess(mTag);
+            else
+                mListener.onDbSaveFailure(mTag);
     }
 }

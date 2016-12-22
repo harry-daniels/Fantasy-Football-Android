@@ -9,7 +9,7 @@ import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
 public class SelectPlayerViewModel implements SortedListAdapter.ViewModel{
 
-    private String id;
+    private Long id;
     private String name;
     private String teamName;
     private double price;
@@ -24,11 +24,11 @@ public class SelectPlayerViewModel implements SortedListAdapter.ViewModel{
 
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

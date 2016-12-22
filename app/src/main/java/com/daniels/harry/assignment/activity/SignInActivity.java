@@ -86,13 +86,15 @@ public class SignInActivity extends AppCompatActivity  implements
             GoogleSignInAccount account = result.getSignInAccount();
 
             List<User> possibleUsers = User.find(User.class, "google_Id = ?", account.getId());
+            CurrentUser.setUserId(account.getId());
 
             if(possibleUsers.isEmpty()) {
-                User newUser = new User(account.getId());
+                User newUser = new User(account.getId(), account.getDisplayName());
                 newUser.save();
+                CurrentUser.getInstance().setupFantasyTeam();
             }
 
-            CurrentUser.setUserId(account.getId());
+
 
             Intent i = new Intent(this, DashboardActivity.class);
             startActivity(i);

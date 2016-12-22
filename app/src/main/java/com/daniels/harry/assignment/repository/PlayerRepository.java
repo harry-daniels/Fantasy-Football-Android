@@ -12,16 +12,6 @@ public class PlayerRepository {
         team.save();
     }
 
-    public static void saveAll(List<Player> players) {
-        for (Player p : players) {
-            p.save();
-        }
-    }
-
-    public static List<Player> getAll() {
-        return Player.listAll(Player.class);
-    }
-
     public static List<Player> getByArea(Enums.Area area) {
         return Player.find(Player.class, "area = ?", area.toString());
           }

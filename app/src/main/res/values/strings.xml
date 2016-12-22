@@ -56,4 +56,10 @@
     <string name="dialog_title_noplayers_error">No Players</string>
     <string name="dialog_message_noplayers_error">No players found. Please reload this page when you have an internet connection.</string>
     <string name="select_player">Select player</string>
+    <string name="loading_players_progress_dialog">Loading Players</string>
+    <string name="remaining_budget">REMAINING BUDGET</string>
+    <string name="dialog_error_no_money">You don\'t have the money for this player.</string>
+    <string name="dialog_error_nice_try">Nice Try</string>
+    <string name="sign_out_message">Are you sure you wish to sign out?</string>
+    <string name="updating">Updating</string>
 </resources>

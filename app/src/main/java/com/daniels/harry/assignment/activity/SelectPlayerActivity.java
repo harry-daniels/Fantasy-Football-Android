@@ -1,5 +1,6 @@
 package com.daniels.harry.assignment.activity;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -17,9 +18,14 @@ import com.daniels.harry.assignment.adapter.SelectPlayerListViewAdapter;
 import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.constant.Enums;
 import com.daniels.harry.assignment.databinding.ActivitySelectPlayerBinding;
+import com.daniels.harry.assignment.dialog.ErrorDialogs;
+import com.daniels.harry.assignment.listener.OnDbGetAsyncListener;
 import com.daniels.harry.assignment.mapper.PlayerMapper;
 import com.daniels.harry.assignment.model.Player;
+import com.daniels.harry.assignment.repository.DbGetAllAsync;
+import com.daniels.harry.assignment.repository.DbGetByAttributeAsync;
 import com.daniels.harry.assignment.repository.PlayerRepository;
+import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.viewmodel.SelectPlayerViewModel;
 
@@ -27,8 +33,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectPlayerActivity extends AppCompatActivity implements View.OnClickListener,
-        RequestQueue.RequestFinishedListener, SelectPlayerListViewAdapter.Listener, SearchView.OnQueryTextListener {
+public class SelectPlayerActivity extends AppCompatActivity implements
+        RequestQueue.RequestFinishedListener, SelectPlayerListViewAdapter.Listener, SearchView.OnQueryTextListener,
+        OnDbGetAsyncListener {
 
     private static final Comparator<SelectPlayerViewModel> VALUE_COMPARATOR = new Comparator<SelectPlayerViewModel>() {
         @Override
@@ -44,6 +51,8 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
 
     private Enums.Position mPosition;
 
+    private ProgressDialog mProgressDialog;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_select_player);
@@ -57,7 +66,7 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
 
         mPosition = (Enums.Position)getIntent().getSerializableExtra(Constants.IE_POSITION);
 
-        setViewModels();
+        getData();
     }
 
     @Override
@@ -102,16 +111,12 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onClick(View v) {
-    }
-
-    @Override
     public void onRequestFinished(Request request) {
 
     }
 
-    public void setViewModels() {
-        for (Player p : PlayerRepository.getByArea(Calculators.calculatePlayerAreaFromEnum(mPosition))) {
+    public void setViewModels(List<Player> players) {
+        for (Player p : players) {
             mViewModels.add(PlayerMapper.modelToViewModel(p));
         }
         resetListAdapter(mViewModels);
@@ -123,8 +128,53 @@ public class SelectPlayerActivity extends AppCompatActivity implements View.OnCl
         mBinding.listPlayerSelector.scrollToPosition(0);
     }
 
+    public void getData() {
+        mProgressDialog = ProgressDialog.show(this,
+                getString(R.string.loading_players_progress_dialog),
+                getString(R.string.please_wait));
+
+        String playerId = CurrentUser.getInstance().getPlayer(mPosition) == null ?
+                "-1" :
+                CurrentUser.getInstance().getPlayer(mPosition).getId().toString();
+
+        DbGetByAttributeAsync<Player> getByArea = new DbGetByAttributeAsync<>("area = ? and id <> ?",
+                new String[] {
+                    Calculators.calculatePlayerAreaFromEnum(mPosition).toString(),
+                    playerId
+                },
+                Player.class,
+                this,
+                Constants.DB_PLAYERS_TAG);
+
+        getByArea.execute();
+    }
+
     @Override
     public void onClick(SelectPlayerViewModel model) {
+
+        Player chosen = Player.findById(Player.class, model.getId());
+
+        if (CurrentUser.getInstance().getFantasyTeam().remainingBudget > chosen.price) {
+            CurrentUser.getInstance().setPlayer(mPosition, chosen);
+            finish();
+        } else {
+            ErrorDialogs.showErrorDialog(this,
+                    getString(R.string.dialog_error_nice_try),
+                    getString(R.string.dialog_error_no_money));
+        }
+    }
+
+    @Override
+    public void onDbGetSuccess(String tag, List result) {
+        switch (tag) {
+            case Constants.DB_PLAYERS_TAG:
+                mProgressDialog.dismiss();
+                setViewModels(result);
+        }
+    }
+
+    @Override
+    public void onDbGetFailure(String tag) {
 
     }
 }

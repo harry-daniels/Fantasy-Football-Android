@@ -2,11 +2,15 @@ package com.daniels.harry.assignment.model;
 
 import com.orm.SugarRecord;
 
+import java.util.Date;
+
+
 public class FantasyTeam extends SugarRecord {
 
     public String name;
     public int points;
     public float remainingBudget;
+    public Date lastUpdated;
 
     public FantasyPlayer gk;
     public FantasyPlayer lb;

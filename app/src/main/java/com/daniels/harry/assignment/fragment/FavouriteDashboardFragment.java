@@ -93,6 +93,9 @@ public class FavouriteDashboardFragment extends Fragment implements RequestQueue
     public void onPause() {
         super.onPause();
         mRequestHandler.removeRequestFinishedListener();
+        if (mProgressDialog != null){
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override

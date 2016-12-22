@@ -5,6 +5,7 @@ public class Constants {
     public static final int REQUEST_LOCATION_PERMISSION = 53053;
     public static final int REQUEST_SIGN_IN = 52054;
 
+    public static final float STARTING_BUDGET = 200000000f;
     public static final float KM_TO_MILES = 0.000621371f;
 
     public static final String NETWORK_2G = "2G";
@@ -18,6 +19,7 @@ public class Constants {
     public static final String REQUEST_NEXT_FIXTURE = "req_nf";
     public static final String REQUEST_CRESTS = "req_crest";
     public static final String REQUEST_PLAYERS = "req_players";
+    public static final String REQUEST_TABLE = "req_table";
 
     public static final String FLOAT_2DP = "%.2f";
 

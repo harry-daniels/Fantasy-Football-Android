@@ -23,17 +23,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.adapter.FavouriteTeamListViewAdapter;
+import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.databinding.ActivityFavouritePickerBinding;
 import com.daniels.harry.assignment.dialog.ConfirmDialogs;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
+import com.daniels.harry.assignment.listener.OnDbGetAsyncListener;
+import com.daniels.harry.assignment.listener.OnDbSaveAsyncListener;
 import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
-import com.daniels.harry.assignment.repository.FavouriteTeamRepository;
+import com.daniels.harry.assignment.repository.DbGetAllAsync;
+import com.daniels.harry.assignment.repository.DbSaveAllAsync;
 import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
-import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.viewmodel.FavouriteTeamPickerViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,7 +52,8 @@ public class FavouritePickerActivity
         extends AppCompatActivity
         implements LocationListener, GoogleApiClient.ConnectionCallbacks,
                    GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener,
-                   RequestQueue.RequestFinishedListener, FavouriteTeamListViewAdapter.Listener, DialogInterface.OnClickListener {
+                   RequestQueue.RequestFinishedListener, FavouriteTeamListViewAdapter.Listener,
+                   DialogInterface.OnClickListener, OnDbSaveAsyncListener, OnDbGetAsyncListener {
 
     private static final Comparator<FavouriteTeamPickerViewModel> DISTANCE_COMPARATOR = new Comparator<FavouriteTeamPickerViewModel>() {
         @Override
@@ -59,6 +63,8 @@ public class FavouritePickerActivity
     };
 
     private List<FavouriteTeamPickerViewModel> mViewModels = new ArrayList<>();
+    private List<FavouriteTeam> mTeams = new ArrayList<>();
+
     private FavouriteTeamPickerViewModel mSelectedViewModel;
 
     private AllTeamsJson mTeamsJson;
@@ -95,16 +101,6 @@ public class FavouritePickerActivity
         mBinding.listFavouritePicker.setAdapter(mListViewAdapter);
 
         getData();
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
     }
 
     @Override
@@ -178,7 +174,6 @@ public class FavouritePickerActivity
 
     @Override
     public void onConnectionSuspended(int i) {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         mProgressDialog.dismiss();
     }
 
@@ -277,11 +272,10 @@ public class FavouritePickerActivity
         mTeamsJson = (AllTeamsJson) mRequestHandler.getResultObject();
 
         List<FavouriteTeam> teams = FavouriteTeamMapper.jsonToModels(mTeamsJson);
-        FavouriteTeamRepository.saveAll(teams);
+        mTeams = teams;
 
-        setViewModels(teams);
-
-        resetListAdapter(mViewModels);
+        DbSaveAllAsync<FavouriteTeam> save = new DbSaveAllAsync<>(teams, this, Constants.DB_TEAMS_TAG);
+        save.execute();
     }
 
     private void resetListAdapter(List<FavouriteTeamPickerViewModel> items){
@@ -311,14 +305,43 @@ public class FavouritePickerActivity
 
     private void getData() {
         if (mRequestHandler.isNetworkConnected()) {
+            connectToGoogleApiClient();
             handleHttpRequest();
         } else if(FavouriteTeam.count(FavouriteTeam.class) > 0) {
-            setViewModels(FavouriteTeamRepository.getAll());
-            resetListAdapter(mViewModels);
+            connectToGoogleApiClient();
+            DbGetAllAsync<FavouriteTeam> get = new DbGetAllAsync<>(FavouriteTeam.class, this, Constants.DB_TEAMS_TAG);
         } else {
             ErrorDialogs.showErrorDialog(this,
                     getString(R.string.dialog_title_noteams_error),
                     getString(R.string.dialog_message_noteams_error));
         }
+    }
+
+    private void connectToGoogleApiClient() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onDbSaveSuccess(String tag) {
+        setViewModels(mTeams);
+        resetListAdapter(mViewModels);
+    }
+
+    @Override
+    public void onDbSaveFailure(String tag) {
+        //TODO: handle
+    }
+
+    @Override
+    public void onDbGetSuccess(String tag, List result) {
+        setViewModels(result);
+        resetListAdapter(mViewModels);
+    }
+
+    @Override
+    public void onDbGetFailure(String tag) {
+        //TODO: Handle
     }
 }

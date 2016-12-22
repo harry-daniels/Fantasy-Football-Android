@@ -117,6 +117,7 @@ public class HttpRequestHandler <T> {
             }
         };
         request.setTag(requestTag);
+        request.setShouldCache(false);
 
         return request;
     }

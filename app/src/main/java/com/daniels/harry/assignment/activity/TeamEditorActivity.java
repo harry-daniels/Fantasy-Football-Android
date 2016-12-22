@@ -2,6 +2,7 @@ package com.daniels.harry.assignment.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,20 +13,24 @@ import com.android.volley.RequestQueue;
 import com.daniels.harry.assignment.R;
 import com.daniels.harry.assignment.constant.Constants;
 import com.daniels.harry.assignment.constant.Enums;
+import com.daniels.harry.assignment.databinding.ActivityTeamEditorBinding;
 import com.daniels.harry.assignment.dialog.ErrorDialogs;
 import com.daniels.harry.assignment.handler.HttpRequestHandler;
 import com.daniels.harry.assignment.jsonobject.AllPlayersJson;
 import com.daniels.harry.assignment.jsonobject.AllTeamsJson;
 import com.daniels.harry.assignment.listener.OnDbGetAsyncListener;
 import com.daniels.harry.assignment.listener.OnDbSaveAsyncListener;
+import com.daniels.harry.assignment.mapper.FantasyTeamMapper;
 import com.daniels.harry.assignment.mapper.FavouriteTeamMapper;
 import com.daniels.harry.assignment.mapper.PlayerMapper;
 import com.daniels.harry.assignment.model.FavouriteTeam;
 import com.daniels.harry.assignment.model.Player;
 import com.daniels.harry.assignment.repository.DbGetAllAsync;
 import com.daniels.harry.assignment.repository.DbSaveAllAsync;
+import com.daniels.harry.assignment.singleton.CurrentUser;
 import com.daniels.harry.assignment.util.Calculators;
 import com.daniels.harry.assignment.util.UrlBuilders;
+import com.daniels.harry.assignment.viewmodel.TeamEditorViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +40,16 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
 
     private HttpRequestHandler mRequestHandler;
     private ProgressDialog mProgressDialog;
-
+    private ActivityTeamEditorBinding mBinding;
     private Enums.Position mInitialiseForPosition;
-
     private LinearLayout[] mPositionButtons;
-
     private List<Player> mPlayers = new ArrayList<>();
-    int count = 0;
+    private TeamEditorViewModel mViewModel;
+    int mPlayersRequestCount = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_editor);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_team_editor);
 
         getSupportActionBar().setElevation(0);
 
@@ -56,98 +60,59 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        setViewModel();
+        mBinding.setViewmodel(mViewModel);
+    }
+
+    @Override protected void onPause() {
+        mRequestHandler.removeRequestFinishedListener();
+        super.onPause();
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.btn_select_gk:
                 mInitialiseForPosition = Enums.Position.GK;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_lb:
                 mInitialiseForPosition = Enums.Position.LB;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_lcb:
                 mInitialiseForPosition = Enums.Position.LCB;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_rcb:
                 mInitialiseForPosition = Enums.Position.RCB;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_rb:
                 mInitialiseForPosition = Enums.Position.RB;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_lm:
                 mInitialiseForPosition = Enums.Position.LM;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_lcm:
                 mInitialiseForPosition = Enums.Position.LCM;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_rcm:
                 mInitialiseForPosition = Enums.Position.RCM;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_rm:
                 mInitialiseForPosition = Enums.Position.RM;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_ls:
                 mInitialiseForPosition = Enums.Position.LS;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
             case R.id.btn_select_rs:
                 mInitialiseForPosition = Enums.Position.RS;
-                if (!isInitialised()) {
-                    initialise();
-                } else {
-                    launchSelectPlayerActivity();
-                }
                 break;
         }
+
+        checkShouldInitialise();
+
     }
 
     @Override
@@ -161,20 +126,70 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
                     List<FavouriteTeam> teams = FavouriteTeamMapper.jsonToModels(teamsJson);
                     DbSaveAllAsync<FavouriteTeam> save = new DbSaveAllAsync<>(teams, this, Constants.DB_TEAMS_TAG);
                     save.execute();
-                    getPlayerData();
                     break;
                 }
                 default:
                     AllPlayersJson playersJson = (AllPlayersJson) mRequestHandler.getResultObject();
                     String teamId = Calculators.calculateTeamIdFromTag(request.getTag().toString());
                     mPlayers.addAll(PlayerMapper.jsonToModels(playersJson, teamId));
-                    count++;
-                    if (count == 20) {
-                        mProgressDialog.dismiss();
+                    mPlayersRequestCount++;
+
+                    if (mPlayersRequestCount == 20) {
                         DbSaveAllAsync<Player> save = new DbSaveAllAsync<>(mPlayers, this, Constants.DB_PLAYERS_TAG);
                         save.execute();
                     }
+
+                    break;
             }
+        }
+    }
+
+    @Override
+    public void onDbSaveSuccess(String tag) {
+        switch (tag) {
+            case Constants.DB_PLAYERS_TAG:
+                mProgressDialog.dismiss();
+                launchSelectPlayerActivity();
+                break;
+            case Constants.DB_TEAMS_TAG:
+                getPlayerData();
+                break;
+        }
+    }
+
+    @Override
+    public void onDbSaveFailure(String tag) {
+        mProgressDialog.dismiss();
+        //TODO: handle
+    }
+
+    @Override
+    public void onDbGetSuccess(String tag, List result) {
+        switch (tag) {
+            case Constants.DB_TEAMS_TAG:
+                handlePlayersRequest(result);
+                break;
+        }
+    }
+
+    @Override
+    public void onDbGetFailure(String tag) {
+        mProgressDialog.dismiss();
+        //TODO: handle
+    }
+
+    private boolean isInitialised() {
+        if (Player.count(Player.class) > 0)
+            return true;
+        else
+            return false;
+    }
+
+    private void checkShouldInitialise() {
+        if (!isInitialised()) {
+            initialise();
+        } else {
+            launchSelectPlayerActivity();
         }
     }
 
@@ -191,7 +206,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         } else if (!mRequestHandler.isNetworkConnected() && Player.count(Player.class) == 0) {
             ErrorDialogs.showErrorDialog(this,
                     getString(R.string.dialog_title_noplayers_error),
-                    getString(R.string.dialog_title_noplayers_error));
+                    getString(R.string.dialog_message_noplayers_error));
         }
     }
 
@@ -221,14 +236,7 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setViewModel() {
-
-    }
-
-    private boolean isInitialised() {
-        if (Player.count(Player.class) > 0)
-            return true;
-        else
-            return false;
+        mViewModel = FantasyTeamMapper.modelToTeamEditorViewModel(CurrentUser.getInstance().getFantasyTeam());
     }
 
     private void launchSelectPlayerActivity() {
@@ -258,31 +266,4 @@ public class TeamEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @Override
-    public void onDbSaveSuccess(String tag) {
-        switch (tag) {
-            case Constants.DB_PLAYERS_TAG:
-                launchSelectPlayerActivity();
-                break;
-        }
-    }
-
-    @Override
-    public void onDbSaveFailure(String tag) {
-
-    }
-
-    @Override
-    public void onDbGetSuccess(String tag, List result) {
-        switch (tag) {
-            case Constants.DB_TEAMS_TAG:
-                handlePlayersRequest(result);
-                break;
-        }
-    }
-
-    @Override
-    public void onDbGetFailure(String tag) {
-
-    }
 }

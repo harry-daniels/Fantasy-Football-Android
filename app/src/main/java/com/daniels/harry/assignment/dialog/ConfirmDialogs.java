@@ -16,4 +16,12 @@ public class ConfirmDialogs {
                 .setPositiveButton(android.R.string.yes, listener)
                 .setNegativeButton(android.R.string.no, null).show();
     }
+    
+    public static void showConfirmSignOutDialog(Context c, DialogInterface.OnClickListener listener) {
+        new AlertDialog.Builder(c)
+                .setTitle(c.getString(R.string.dialog_title_confirm))
+                .setMessage(c.getString(R.string.sign_out_message))
+                .setPositiveButton(android.R.string.yes, listener)
+                .setNegativeButton(android.R.string.no, null).show();
+    }
 }

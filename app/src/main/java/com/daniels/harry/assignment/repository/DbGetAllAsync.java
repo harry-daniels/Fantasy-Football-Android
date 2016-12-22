@@ -1,5 +1,8 @@
 package com.daniels.harry.assignment.repository;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.daniels.harry.assignment.listener.OnDbGetAsyncListener;
@@ -24,7 +27,9 @@ public class DbGetAllAsync<T extends SugarRecord> extends AsyncTask<Void, Intege
     protected List<T> doInBackground(Void... params) {
         try {
             List<T> returnObjects = T.listAll(mType);
+
             return returnObjects;
+
         } catch (Exception e) {
             return null;
         }
@@ -32,7 +37,11 @@ public class DbGetAllAsync<T extends SugarRecord> extends AsyncTask<Void, Intege
 
     @Override
     protected void onPostExecute(List<T> result) {
-        mListener.onDbGetSuccess(mTag, result);
-        mListener.onDbGetFailure(mTag);
+
+            if (result != null) {
+                mListener.onDbGetSuccess(mTag, result);
+            } else {
+                mListener.onDbGetFailure(mTag);
+            }
     }
 }
