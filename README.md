@@ -12,7 +12,7 @@ colours, stadium information etc.).
 
 -----------------------------------------------------------------------------------------------
 
-The code structure follows a MVVM architecture, employing Singleton classes, Polymorphic classes, Interfaces and Static methods where necessary.
+The code structure follows an asynchronous MVVM architecture, employing Singleton classes, Polymorphic classes, Interfaces and Static methods where necessary.
 
 Libraries and features used:
 
@@ -21,6 +21,8 @@ Libraries and features used:
 - Volley (HTTP REST API Requests)
 - SugarORM (Object-Relational Mapper library for working with local SQLite database)
 - SQLCipher (Security class to encrypt local databse stored on device)
+- Android Data-Binding
+- Asynchronous database interactions
 - Google Play Location Services
 - Google Federated Sign-In
 - Android AppCompat and other Support libraries for older devices
