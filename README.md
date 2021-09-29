@@ -12,7 +12,7 @@ colours, stadium information etc.).
 
 -----------------------------------------------------------------------------------------------
 
-The code structure follows an asynchronous MVVM architecture, employing Singleton classes, Polymorphic classes, Interfaces and Static methods where necessary.
+The code structure follows an asynchronous MVVM architecture.
 
 Libraries and features used:
 
